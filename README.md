@@ -1,2 +1,3 @@
-# kartjis-mobile-organizer
-Kartjis Mobile for Event Organizer
+# kartjis_mobile_organizer
+
+A new Flutter project.
