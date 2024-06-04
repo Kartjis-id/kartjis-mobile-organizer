@@ -1,5 +1,8 @@
-import 'package:kartjis_mobile_organizer/core/utils/const.dart';
+// Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
+
+// Project imports:
+import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 
 class AuthPreferencesHelper {
   static AuthPreferencesHelper? _instance;

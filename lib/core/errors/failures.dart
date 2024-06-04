@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/errors/exceptions.dart';
+import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 
 /// A base Failure class.
 abstract class Failure extends Equatable {
@@ -34,8 +35,11 @@ class PreferencesFailure extends Failure {
 Failure failure(Object e) {
   if (e is ServerException) {
     switch (e.message) {
-      case '':
-        return const ServerFailure('');
+      case kUnauthorized:
+        return const ServerFailure(
+            'Token atau header otorisasi tidak ditemukan');
+      case kUserNotFound:
+        return const ServerFailure('Akun belum terdaftar');
       default:
         return ServerFailure(e.message);
     }
