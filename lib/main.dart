@@ -12,14 +12,20 @@ import 'package:kartjis_mobile_organizer/core/utils/credential_saver.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Init credential saver
   await CredentialSaver.init();
 
-  // Prevent landscape orientation
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      // systemNavigationBarColor: Palette.scaffoldBackgroundColor,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
 
   runApp(
     const ProviderScope(
