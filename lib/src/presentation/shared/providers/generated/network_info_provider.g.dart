@@ -6,7 +6,7 @@ part of 'network_info_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$networkInfoHash() => r'15db1a41347592ec6a05371d59af9124926ef90e';
+String _$networkInfoHash() => r'6d997b7381c8d295c9acf543db28406f4bb14bd6';
 
 /// See also [networkInfo].
 @ProviderFor(networkInfo)
@@ -19,6 +19,8 @@ final networkInfoProvider = AutoDisposeProvider<NetworkInfo>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef NetworkInfoRef = AutoDisposeProviderRef<NetworkInfo>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

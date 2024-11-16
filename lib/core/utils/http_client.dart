@@ -2,17 +2,13 @@
 import 'package:http/http.dart' as http;
 
 class HttpClient {
-  static HttpClient? _instance;
+  HttpClient._instance();
 
-  HttpClient._internal() {
-    _instance = this;
-  }
+  static final HttpClient _httpClient = HttpClient._instance();
 
-  factory HttpClient() => _instance ?? HttpClient._internal();
+  factory HttpClient() => _httpClient;
 
-  static http.Client? _client;
+  http.Client? _client;
 
-  static http.Client get client {
-    return _client ??= http.Client();
-  }
+  http.Client get client => _client ??= http.Client();
 }

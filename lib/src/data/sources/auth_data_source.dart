@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/configs/api_configs.dart';
+import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
 import 'package:kartjis_mobile_organizer/core/errors/exceptions.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences_helper.dart';
 import 'package:kartjis_mobile_organizer/core/utils/credential_saver.dart';
 
-abstract class AuthDataSource {
+sealed class AuthDataSource {
   /// Sign in
   Future<bool> signIn({
     required String username,
@@ -25,13 +25,13 @@ abstract class AuthDataSource {
   Future<bool> logOut();
 }
 
-class AuthDataSourceImpl implements AuthDataSource {
+final class AuthDataSourceImpl implements AuthDataSource {
   final http.Client client;
-  final AuthPreferencesHelper preferencesHelper;
+  final AuthPreferencesHelper authPreferencesHelper;
 
   AuthDataSourceImpl({
     required this.client,
-    required this.preferencesHelper,
+    required this.authPreferencesHelper,
   });
 
   @override
@@ -41,11 +41,10 @@ class AuthDataSourceImpl implements AuthDataSource {
   }) async {
     try {
       final response = await client.post(
-        Uri.parse('${ApiConfigs.baseUrl}/auth/token'),
+        Uri.parse('${ApiConfig.baseUrl}/auth/token'),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader:
-              'Basic ${base64Encode(utf8.encode('$username:$password'))}',
+          HttpHeaders.authorizationHeader: 'Basic ${base64Encode(utf8.encode('$username:$password'))}',
         },
       );
 
@@ -56,7 +55,7 @@ class AuthDataSourceImpl implements AuthDataSource {
 
         CredentialSaver.accessToken = result['accessToken'];
 
-        return await preferencesHelper.setAccessToken(result['accessToken']);
+        return await authPreferencesHelper.setAccessToken(result['accessToken']);
       } else {
         throw ServerException("${result['message']}");
       }
@@ -68,7 +67,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<bool> logOut() async {
     try {
-      final result = await preferencesHelper.removeAccessToken();
+      final result = await authPreferencesHelper.removeAccessToken();
 
       CredentialSaver.accessToken = null;
 

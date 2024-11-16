@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-extension FilledButtonFullWidth on FilledButton {
-  SizedBox fullWidth() {
+extension FilledButtonExpandedWidth on FilledButton {
+  SizedBox expandedWidth() {
     return SizedBox(
       width: double.infinity,
       child: this,
@@ -10,8 +10,8 @@ extension FilledButtonFullWidth on FilledButton {
   }
 }
 
-extension OutlinedButtonFullWidth on OutlinedButton {
-  SizedBox fullWidth() {
+extension OutlinedButtonExpandedWidth on OutlinedButton {
+  SizedBox expandedWidth() {
     return SizedBox(
       width: double.infinity,
       child: this,
@@ -19,8 +19,8 @@ extension OutlinedButtonFullWidth on OutlinedButton {
   }
 }
 
-extension TextButtonFullWidth on TextButton {
-  SizedBox fullWidth() {
+extension TextButtonExpandedWidth on TextButton {
+  SizedBox expandedWidth() {
     return SizedBox(
       width: double.infinity,
       child: this,

@@ -5,14 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 
 class AuthPreferencesHelper {
-  static AuthPreferencesHelper? _instance;
+  AuthPreferencesHelper._instance();
 
-  AuthPreferencesHelper._internal() {
-    _instance = this;
-  }
+  static final AuthPreferencesHelper _authPreferencesHelper = AuthPreferencesHelper._instance();
 
-  factory AuthPreferencesHelper() =>
-      _instance ?? AuthPreferencesHelper._internal();
+  factory AuthPreferencesHelper() => _authPreferencesHelper;
 
   SharedPreferences? _preferences;
 

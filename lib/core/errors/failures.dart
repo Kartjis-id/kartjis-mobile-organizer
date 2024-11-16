@@ -6,8 +6,7 @@ import 'package:http/http.dart';
 import 'package:kartjis_mobile_organizer/core/errors/exceptions.dart';
 import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 
-/// A base Failure class.
-abstract class Failure extends Equatable {
+sealed class Failure extends Equatable {
   final String message;
 
   const Failure(this.message);
@@ -20,6 +19,10 @@ class ServerFailure extends Failure {
   const ServerFailure(super.message);
 }
 
+class PreferencesFailure extends Failure {
+  const PreferencesFailure(super.message);
+}
+
 class ClientFailure extends Failure {
   const ClientFailure(super.message);
 }
@@ -28,22 +31,19 @@ class ConnectionFailure extends Failure {
   const ConnectionFailure(super.message);
 }
 
-class PreferencesFailure extends Failure {
-  const PreferencesFailure(super.message);
-}
-
-Failure failure(Object e) {
+Failure failure(Exception e) {
   if (e is ServerException) {
     switch (e.message) {
       case kUnauthorized:
-        return const ServerFailure(
-            'Token atau header otorisasi tidak ditemukan');
+        return const ServerFailure('Token atau header otorisasi tidak ditemukan');
       case kUserNotFound:
         return const ServerFailure('Akun belum terdaftar');
       default:
         return ServerFailure(e.message);
     }
+  } else if (e is PreferencesException) {
+    return PreferencesFailure(e.message);
+  } else {
+    return ClientFailure((e as ClientException).message);
   }
-
-  return ClientFailure((e as ClientException).message);
 }

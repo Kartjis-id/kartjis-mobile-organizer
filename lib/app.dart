@@ -16,7 +16,6 @@ class KartjisOrganizerApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
-      navigatorObservers: [routeObserver],
       onGenerateRoute: generateAppRoutes,
       home: const LoginPage(),
     );

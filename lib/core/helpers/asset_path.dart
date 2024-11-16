@@ -1,9 +1,9 @@
 class AssetPath {
-  static String getIcon(String fileName) => 'assets/icons/$fileName';
+  static String getIcon(String filename) => 'assets/icons/$filename';
 
-  static String getImage(String fileName) => 'assets/images/$fileName';
+  static String getImage(String filename) => 'assets/images/$filename';
 
-  static String getRive(String fileName) => 'assets/rive_animations/$fileName';
+  static String getRive(String filename) => 'assets/rive_animations/$filename';
 
-  static String getVector(String fileName) => 'assets/vectors/$fileName';
+  static String getVector(String filename) => 'assets/vectors/$filename';
 }

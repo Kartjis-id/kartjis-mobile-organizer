@@ -6,9 +6,9 @@ import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
 import 'package:kartjis_mobile_organizer/core/errors/exceptions.dart';
 import 'package:kartjis_mobile_organizer/core/errors/failures.dart';
 import 'package:kartjis_mobile_organizer/core/utils/const.dart';
-import 'package:kartjis_mobile_organizer/src/data/datasources/auth_data_sources.dart';
+import 'package:kartjis_mobile_organizer/src/data/sources/auth_data_source.dart';
 
-abstract class AuthRepository {
+sealed class AuthRepository {
   /// Sign in
   Future<Either<Failure, bool>> signIn({
     required String username,
@@ -19,7 +19,7 @@ abstract class AuthRepository {
   Future<Either<Failure, bool>> logOut();
 }
 
-class AuthRepositoryImpl implements AuthRepository {
+final class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource authDataSource;
   final NetworkInfo networkInfo;
 
@@ -41,11 +41,11 @@ class AuthRepositoryImpl implements AuthRepository {
         );
 
         return Right(result);
-      } catch (e) {
+      } on Exception catch (e) {
         return Left(failure(e));
       }
     } else {
-      return const Left(ConnectionFailure(kNoInternetConnection));
+      return Left(ConnectionFailure(kNoInternetConnection));
     }
   }
 

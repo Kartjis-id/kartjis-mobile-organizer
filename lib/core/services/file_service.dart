@@ -19,7 +19,7 @@ class FileService {
   }) async {
     try {
       // Create request
-      final response = await HttpClient.client.get(Uri.parse(url));
+      final response = await HttpClient().client.get(Uri.parse(url));
 
       // Get application directory
       final directory = await getApplicationDocumentsDirectory();
