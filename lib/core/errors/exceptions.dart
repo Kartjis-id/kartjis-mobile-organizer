@@ -7,17 +7,17 @@ class ServerException implements Exception {
   const ServerException(this.message);
 }
 
-class PreferencesException implements Exception {
+class ConnectionException implements Exception {
   final String message;
 
-  const PreferencesException(this.message);
+  const ConnectionException(this.message);
 }
 
 Never exception(Object e) {
   if (e is ServerException) {
     throw ServerException(e.message);
-  } else if (e is PreferencesException) {
-    throw PreferencesException(e.message);
+  } else if (e is ConnectionException) {
+    throw ConnectionException(e.message);
   } else {
     throw ClientException('$e');
   }

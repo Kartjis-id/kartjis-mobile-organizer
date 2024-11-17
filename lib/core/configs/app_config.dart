@@ -2,12 +2,17 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AppConfig {
-  final PackageInfo packageInfo;
+  static String? appName;
+  static String? packageName;
+  static String? version;
+  static String? buildNumber;
 
-  const AppConfig(this.packageInfo);
+  static Future<void> init() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-  String get appName => packageInfo.appName;
-  String get packageName => packageInfo.packageName;
-  String get version => packageInfo.version;
-  String get buildNumber => packageInfo.buildNumber;
+    appName = packageInfo.appName;
+    packageName = packageInfo.packageName;
+    version = packageInfo.version;
+    buildNumber = packageInfo.buildNumber;
+  }
 }

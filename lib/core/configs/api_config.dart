@@ -1,4 +1,3 @@
 class ApiConfig {
-  static const baseUrl = '';
-  static const baseFileUrl = '';
+  static const baseUrl = 'https://dev.dc.kartjis.id/api';
 }

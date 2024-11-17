@@ -1,5 +1,5 @@
 // Package imports:
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' show Client;
 
 class HttpClient {
   HttpClient._instance();
@@ -8,7 +8,7 @@ class HttpClient {
 
   factory HttpClient() => _httpClient;
 
-  http.Client? _client;
+  Client? _client;
 
-  http.Client get client => _client ??= http.Client();
+  Client get client => _client ??= Client();
 }

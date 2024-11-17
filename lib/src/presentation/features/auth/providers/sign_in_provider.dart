@@ -2,7 +2,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/src/presentation/features/auth/providers/repositories_provider/auth_repository_provider.dart';
+import 'package:kartjis_mobile_organizer/src/data/repositories/auth_repository.dart';
 
 part 'sign_in_provider.g.dart';
 

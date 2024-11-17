@@ -6,13 +6,22 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:http/http.dart' as http;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
 import 'package:kartjis_mobile_organizer/core/errors/exceptions.dart';
-import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences_helper.dart';
-import 'package:kartjis_mobile_organizer/core/utils/credential_saver.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/credential_saver.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/http_client.dart' as http_client;
+
+final authDataSourceProvider = Provider<AuthDataSource>(
+  (ref) => AuthDataSourceImpl(
+    client: http_client.HttpClient().client,
+    authPreferences: AuthPreferences(),
+  ),
+);
 
 sealed class AuthDataSource {
   /// Sign in
@@ -26,12 +35,12 @@ sealed class AuthDataSource {
 }
 
 final class AuthDataSourceImpl implements AuthDataSource {
-  final http.Client client;
-  final AuthPreferencesHelper authPreferencesHelper;
+  final Client client;
+  final AuthPreferences authPreferences;
 
   AuthDataSourceImpl({
     required this.client,
-    required this.authPreferencesHelper,
+    required this.authPreferences,
   });
 
   @override
@@ -55,7 +64,7 @@ final class AuthDataSourceImpl implements AuthDataSource {
 
         CredentialSaver.accessToken = result['accessToken'];
 
-        return await authPreferencesHelper.setAccessToken(result['accessToken']);
+        return await authPreferences.setAccessToken(result['accessToken']);
       } else {
         throw ServerException("${result['message']}");
       }
@@ -66,14 +75,10 @@ final class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<bool> logOut() async {
-    try {
-      final result = await authPreferencesHelper.removeAccessToken();
+    final result = await authPreferences.removeAccessToken();
 
-      CredentialSaver.accessToken = null;
+    CredentialSaver.accessToken = null;
 
-      return result;
-    } catch (e) {
-      throw PreferencesException(e.toString());
-    }
+    return result;
   }
 }

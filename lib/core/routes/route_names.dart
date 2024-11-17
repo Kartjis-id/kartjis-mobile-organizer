@@ -1,4 +1,4 @@
-// Some routes name
+// Routes name
 
 // Auth routes
 const wrapperRoute = '/wrapper';

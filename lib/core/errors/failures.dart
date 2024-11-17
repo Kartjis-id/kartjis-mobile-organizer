@@ -1,6 +1,8 @@
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:http/http.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/errors/exceptions.dart';
@@ -19,10 +21,6 @@ class ServerFailure extends Failure {
   const ServerFailure(super.message);
 }
 
-class PreferencesFailure extends Failure {
-  const PreferencesFailure(super.message);
-}
-
 class ClientFailure extends Failure {
   const ClientFailure(super.message);
 }
@@ -35,15 +33,15 @@ Failure failure(Exception e) {
   if (e is ServerException) {
     switch (e.message) {
       case kUnauthorized:
-        return const ServerFailure('Token atau header otorisasi tidak ditemukan');
+        return const ServerFailure('Authorization not found');
       case kUserNotFound:
-        return const ServerFailure('Akun belum terdaftar');
+        return const ServerFailure('Account not registered yet');
       default:
-        return ServerFailure(e.message);
+        return ServerFailure(kDebugMode ? e.message : 'Server error');
     }
-  } else if (e is PreferencesException) {
-    return PreferencesFailure(e.message);
-  } else {
-    return ClientFailure((e as ClientException).message);
   }
+
+  if (e is ConnectionException) return ConnectionFailure(e.message);
+
+  return ClientFailure(kDebugMode ? '$e' : 'Client error');
 }

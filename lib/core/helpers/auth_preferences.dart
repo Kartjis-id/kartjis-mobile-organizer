@@ -4,12 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 
-class AuthPreferencesHelper {
-  AuthPreferencesHelper._instance();
+class AuthPreferences {
+  AuthPreferences._instance();
 
-  static final AuthPreferencesHelper _authPreferencesHelper = AuthPreferencesHelper._instance();
+  static final AuthPreferences _authPreferencesHelper = AuthPreferences._instance();
 
-  factory AuthPreferencesHelper() => _authPreferencesHelper;
+  factory AuthPreferences() => _authPreferencesHelper;
 
   SharedPreferences? _preferences;
 
@@ -40,5 +40,30 @@ class AuthPreferencesHelper {
     final pr = await preferences;
 
     return await pr.remove(accessTokenKey);
+  }
+
+  /// Set [refreshToken] to persistent storage
+  Future<bool> setRefreshToken(String refreshToken) async {
+    final pr = await preferences;
+
+    return await pr.setString(refreshTokenKey, refreshToken);
+  }
+
+  /// Get refresh token from persistent storage
+  Future<String?> getRefreshToken() async {
+    final pr = await preferences;
+
+    if (pr.containsKey(refreshTokenKey)) {
+      return pr.getString(refreshTokenKey);
+    }
+
+    return null;
+  }
+
+  /// Remove refresh token from persistent storage
+  Future<bool> removeRefreshToken() async {
+    final pr = await preferences;
+
+    return await pr.remove(refreshTokenKey);
   }
 }
