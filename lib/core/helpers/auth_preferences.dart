@@ -2,11 +2,16 @@
 import 'dart:convert';
 
 // Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
+
+final authPreferencesProvider = Provider<AuthPreferences>(
+  (ref) => AuthPreferences(),
+);
 
 class AuthPreferences {
   AuthPreferences._instance();

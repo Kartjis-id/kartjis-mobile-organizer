@@ -1,10 +1,10 @@
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 final networkInfoProvider = Provider<NetworkInfo>(
   (ref) => NetworkInfoImpl(
-    connectionChecker: InternetConnectionChecker(),
+    internetConnection: InternetConnection(),
   ),
 );
 
@@ -13,10 +13,10 @@ sealed class NetworkInfo {
 }
 
 final class NetworkInfoImpl implements NetworkInfo {
-  final InternetConnectionChecker connectionChecker;
+  final InternetConnection internetConnection;
 
-  const NetworkInfoImpl({required this.connectionChecker});
+  const NetworkInfoImpl({required this.internetConnection});
 
   @override
-  Future<bool> get isConnected => connectionChecker.hasConnection;
+  Future<bool> get isConnected => internetConnection.hasInternetAccess;
 }

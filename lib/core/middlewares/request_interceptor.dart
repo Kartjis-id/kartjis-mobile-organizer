@@ -32,8 +32,8 @@ class RequestInterceptor implements InterceptorContract {
       } else {
         throw ConnectionException(kNoInternetConnection);
       }
-    } catch (_) {
-      rethrow;
+    } catch (e) {
+      exception(e);
     }
 
     return request;

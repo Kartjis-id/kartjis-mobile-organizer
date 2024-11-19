@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/routes/routes_generator.dart';
 import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
-import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
+import 'package:kartjis_mobile_organizer/features/shared/widgets/internet_connection_wrapper.dart';
 
 class KartjisOrganizerApp extends StatelessWidget {
   const KartjisOrganizerApp({super.key});
@@ -17,7 +17,7 @@ class KartjisOrganizerApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldMessengerKey,
       onGenerateRoute: generateAppRoutes,
-      home: const LoginPage(),
+      home: InternetConnectionWrapper(),
     );
   }
 }

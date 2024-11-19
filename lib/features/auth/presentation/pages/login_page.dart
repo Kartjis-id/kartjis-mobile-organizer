@@ -9,18 +9,13 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/login_provider.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
+class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = GlobalKey<FormBuilderState>();
 
-class _LoginPageState extends ConsumerState<LoginPage> {
-  final formKey = GlobalKey<FormBuilderState>();
-
-  @override
-  Widget build(BuildContext context) {
     ref.listen(loginProvider, (_, state) {
       state.when(
         error: (error, _) {
@@ -63,7 +58,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: login,
+                  onPressed: () => login(ref, formKey),
                   child: const Text('Login'),
                 ),
               ),
@@ -74,7 +69,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 
-  void login() {
+  void login(WidgetRef ref, GlobalKey<FormBuilderState> formKey) {
     FocusManager.instance.primaryFocus?.unfocus();
 
     if (formKey.currentState!.saveAndValidate()) {
