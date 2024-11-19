@@ -2,27 +2,21 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/src/data/repositories/auth_repository.dart';
+import 'package:kartjis_mobile_organizer/features/auth/data/repositories/auth_repository.dart';
 
-part 'sign_in_provider.g.dart';
+part 'logout_provider.g.dart';
 
 @riverpod
-class SignIn extends _$SignIn {
+class Logout extends _$Logout {
   @override
   AsyncValue<bool?> build() {
     return const AsyncValue.data(null);
   }
 
-  Future<void> signIn({
-    required String username,
-    required String password,
-  }) async {
+  Future<void> logout() async {
     state = const AsyncValue.loading();
 
-    final result = await ref.watch(authRepositoryProvider).signIn(
-          username: username,
-          password: password,
-        );
+    final result = await ref.watch(authRepositoryProvider).logout();
 
     result.fold(
       (l) => state = AsyncValue.error(l.message, StackTrace.current),

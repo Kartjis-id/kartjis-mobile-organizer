@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/routes/route_names.dart';
-import 'package:kartjis_mobile_organizer/src/presentation/features/auth/pages/login_page.dart';
-import 'package:kartjis_mobile_organizer/src/presentation/features/common/pages/wrapper.dart';
+import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
+import 'package:kartjis_mobile_organizer/features/shared/common/pages/wrapper.dart';
 
 /// App routes generator
 Route<dynamic>? generateAppRoutes(RouteSettings settings) {

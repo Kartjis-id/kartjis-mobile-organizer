@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/errors/exceptions.dart';
+import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
 import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 
 sealed class Failure extends Equatable {
@@ -32,10 +32,10 @@ class ConnectionFailure extends Failure {
 Failure failure(Exception e) {
   if (e is ServerException) {
     switch (e.message) {
-      case kUnauthorized:
-        return const ServerFailure('Authorization not found');
       case kUserNotFound:
         return const ServerFailure('Account not registered yet');
+      case kInvalidPassword:
+        return const ServerFailure('Invalid password');
       default:
         return ServerFailure(kDebugMode ? e.message : 'Server error');
     }

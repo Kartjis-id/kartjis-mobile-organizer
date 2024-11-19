@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/src/presentation/features/auth/providers/sign_in_provider.dart';
+import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/login_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -21,7 +21,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(signInProvider, (_, state) {
+    ref.listen(loginProvider, (_, state) {
       state.when(
         error: (error, _) {
           debugPrint('$error');
@@ -80,7 +80,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     if (formKey.currentState!.saveAndValidate()) {
       final data = formKey.currentState!.value;
 
-      ref.read(signInProvider.notifier).signIn(
+      ref.read(loginProvider.notifier).login(
             username: data['username'],
             password: data['password'],
           );
