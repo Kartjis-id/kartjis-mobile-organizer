@@ -10,7 +10,7 @@ import 'package:http_interceptor/models/retry_policy.dart';
 import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
 import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
-import 'package:kartjis_mobile_organizer/core/helpers/credential_saver.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
 
 class ExpiredTokenRetryPolicy extends RetryPolicy {
@@ -43,7 +43,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
       final response = await client.post(
         Uri.parse('${ApiConfig.baseUrl}/auth/refresh'),
         body: jsonEncode({
-          'refreshToken': CredentialSaver.token?.refreshToken,
+          'refreshToken': AuthTokenSaver.token?.refreshToken,
         }),
       );
 
@@ -52,7 +52,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
       if (response.statusCode == 200) {
         final token = Token.fromJson(result);
 
-        CredentialSaver.token = token;
+        AuthTokenSaver.token = token;
 
         await authPreferences.setToken(token);
       } else {

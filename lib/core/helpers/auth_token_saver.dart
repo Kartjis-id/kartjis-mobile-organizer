@@ -2,7 +2,7 @@
 import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
 
-class CredentialSaver {
+class AuthTokenSaver {
   static Token? token;
 
   static Future<void> init() async {

@@ -10,7 +10,7 @@ import 'package:http/http.dart';
 import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
 import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
-import 'package:kartjis_mobile_organizer/core/helpers/credential_saver.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/http_client.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
 
@@ -65,7 +65,7 @@ final class AuthDataSourceImpl implements AuthDataSource {
       if (response.statusCode == 200) {
         final token = Token.fromJson(result);
 
-        CredentialSaver.token = token;
+        AuthTokenSaver.token = token;
 
         return await authPreferences.setToken(token);
       } else {
@@ -80,14 +80,14 @@ final class AuthDataSourceImpl implements AuthDataSource {
   Future<bool> isAlreadyLogin() async {
     final token = await authPreferences.getToken();
 
-    return token != null && CredentialSaver.token != null;
+    return token != null && AuthTokenSaver.token != null;
   }
 
   @override
   Future<bool> logout() async {
-    CredentialSaver.token = null;
-
     final result = await authPreferences.removeToken();
+
+    AuthTokenSaver.token = null;
 
     return result;
   }

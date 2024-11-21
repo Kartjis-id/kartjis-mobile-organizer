@@ -8,13 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/app.dart';
 import 'package:kartjis_mobile_organizer/core/configs/app_config.dart';
-import 'package:kartjis_mobile_organizer/core/helpers/credential_saver.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AppConfig.init();
-  await CredentialSaver.init();
+  await AuthTokenSaver.init();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

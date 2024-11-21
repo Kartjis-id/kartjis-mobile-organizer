@@ -1,6 +1,6 @@
 // Routes name
 
 // Auth routes
-const wrapperRoute = '/wrapper';
+const wrapperRoute = '/';
 const loginRoute = '/login';
 const homeRoute = '/home';
