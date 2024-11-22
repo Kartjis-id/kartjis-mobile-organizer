@@ -38,28 +38,31 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
     return const Duration(milliseconds: 250) * math.pow(2, retryAttempt);
   }
 
+  @override
+  int get maxRetryAttempts => 3;
+
   Future<void> _refreshToken() async {
-    try {
-      final response = await client.post(
-        Uri.parse('${ApiConfig.baseUrl}/auth/refresh'),
-        body: jsonEncode({
-          'refreshToken': AuthTokenSaver.token?.refreshToken,
-        }),
-      );
+    final headers = {
+      'content-type': 'application/json',
+      'authorization': 'Bearer ${AuthTokenSaver.token?.accessToken}',
+    };
 
-      final result = jsonDecode(response.body) as Map<String, dynamic>;
+    final body = jsonEncode({
+      'refreshToken': AuthTokenSaver.token?.refreshToken,
+    });
 
-      if (response.statusCode == 200) {
-        final token = Token.fromJson(result);
+    final response = await client.post(
+      ApiConfig.url('/auth/refresh'),
+      headers: headers,
+      body: body,
+    );
 
-        AuthTokenSaver.token = token;
+    final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-        await authPreferences.setToken(token);
-      } else {
-        throw ServerException("${result['message']}");
-      }
-    } catch (e) {
-      exception(e);
+    if (response.statusCode == 200) {
+      await authPreferences.setToken(Token.fromJson(result));
+    } else {
+      throw ServerException("${result['message']}");
     }
   }
 }

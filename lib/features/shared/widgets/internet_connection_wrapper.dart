@@ -9,8 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
+import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
+
+// import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
 
 class InternetConnectionWrapper extends ConsumerStatefulWidget {
   const InternetConnectionWrapper({super.key});
@@ -29,7 +31,7 @@ class _InternetConnectionWrapperState extends ConsumerState<InternetConnectionWr
   void initState() {
     super.initState();
 
-    streamSubscription = InternetConnection().onStatusChange.listen(_toggleMaterialBanner);
+    streamSubscription = ref.read(networkInfoProvider).onConnectionChange.listen(toggleInternetConnectionBanner);
 
     lifecycleListener = AppLifecycleListener(
       onResume: streamSubscription.resume,
@@ -46,18 +48,19 @@ class _InternetConnectionWrapperState extends ConsumerState<InternetConnectionWr
     super.dispose();
   }
 
-  void _toggleMaterialBanner(InternetStatus status) {
+  void toggleInternetConnectionBanner(InternetStatus status) {
     if (hasConnection && status == InternetStatus.disconnected) {
-      scaffoldMessengerKey.currentState
-        ?..hideCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            content: Text('No internet connection!'),
-            duration: Duration(hours: 24),
-          ),
-        );
+      // scaffoldMessengerKey.currentState
+      //   ?..hideCurrentMaterialBanner()
+      //   ..showMaterialBanner(
+      //     // MaterialBanner(content: content, actions: actions),
+      //   );
     } else {
-      scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
+      // scaffoldMessengerKey.currentState
+      //   ?..hideCurrentMaterialBanner()
+      //   ..showMaterialBanner(
+      //     // MaterialBanner(content: content, actions: actions),
+      //   );
     }
 
     hasConnection = true;

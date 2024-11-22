@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:io';
 
 // Package imports:
 import 'package:http_interceptor/http_interceptor.dart';
@@ -18,22 +17,16 @@ class RequestInterceptor implements InterceptorContract {
 
   @override
   FutureOr<BaseRequest> interceptRequest({required BaseRequest request}) async {
-    try {
-      if (await networkInfo.isConnected) {
-        final path = request.url.path;
+    if (await networkInfo.isConnected) {
+      final headers = {'content-type': 'application/json'};
 
-        var headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-
-        if (path != '/api/auth/token') {
-          headers[HttpHeaders.authorizationHeader] = 'Bearer ${AuthTokenSaver.token?.accessToken}';
-        }
-
-        request.headers.addAll(headers);
-      } else {
-        throw ConnectionException(kNoInternetConnection);
+      if (request.url.path != '/api/auth/token') {
+        headers['authorization'] = 'Bearer ${AuthTokenSaver.token?.accessToken}';
       }
-    } catch (e) {
-      exception(e);
+
+      request.headers.addAll(headers);
+    } else {
+      throw ConnectionException(kNoInternetConnection);
     }
 
     return request;

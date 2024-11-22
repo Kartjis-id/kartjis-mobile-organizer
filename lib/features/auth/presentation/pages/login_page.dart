@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/extensions/button_extension.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/login_provider.dart';
 
 class LoginPage extends ConsumerWidget {
@@ -55,13 +56,10 @@ class LoginPage extends ConsumerWidget {
                 ),
                 validator: FormBuilderValidators.required(),
               ),
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: () => login(ref, formKey),
-                  child: const Text('Login'),
-                ),
-              ),
+              FilledButton(
+                onPressed: () => login(ref, formKey),
+                child: const Text('Login'),
+              ).expandedWidth(),
             ],
           ),
         ),

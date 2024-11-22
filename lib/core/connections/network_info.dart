@@ -10,6 +10,8 @@ final networkInfoProvider = Provider<NetworkInfo>(
 
 sealed class NetworkInfo {
   Future<bool> get isConnected;
+
+  Stream<InternetStatus> get onConnectionChange;
 }
 
 final class NetworkInfoImpl implements NetworkInfo {
@@ -19,4 +21,7 @@ final class NetworkInfoImpl implements NetworkInfo {
 
   @override
   Future<bool> get isConnected => internetConnection.hasInternetAccess;
+
+  @override
+  Stream<InternetStatus> get onConnectionChange => internetConnection.onStatusChange;
 }

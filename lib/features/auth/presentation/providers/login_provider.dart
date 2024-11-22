@@ -9,9 +9,7 @@ part 'login_provider.g.dart';
 @riverpod
 class Login extends _$Login {
   @override
-  AsyncValue<bool?> build() {
-    return const AsyncValue.data(null);
-  }
+  FutureOr<bool?> build() => null;
 
   Future<void> login({
     required String username,
@@ -19,7 +17,7 @@ class Login extends _$Login {
   }) async {
     state = const AsyncValue.loading();
 
-    final result = await ref.watch(authRepositoryProvider).login(
+    final result = await ref.read(authRepositoryProvider).login(
           username: username,
           password: password,
         );

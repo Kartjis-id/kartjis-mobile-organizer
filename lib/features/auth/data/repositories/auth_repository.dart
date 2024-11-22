@@ -4,9 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/errors/failure.dart';
+import 'package:kartjis_mobile_organizer/features/auth/data/models/user.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/sources/auth_data_source.dart';
 
-final authRepositoryProvider = Provider<AuthRepository>(
+final authRepositoryProvider = Provider.autoDispose<AuthRepository>(
   (ref) => AuthRepositoryImpl(
     authDataSource: ref.watch(authDataSourceProvider),
   ),
@@ -19,14 +20,14 @@ sealed class AuthRepository {
     required String password,
   });
 
+  /// Get user info
+  Future<Either<Failure, User>> getUserInfo();
+
   /// Is already login
   Future<Either<Failure, bool>> isAlreadyLogin();
 
   /// Logout
   Future<Either<Failure, bool>> logout();
-
-  /// Get user credential
-  // Future<Profile> getCredential();
 }
 
 final class AuthRepositoryImpl implements AuthRepository {
@@ -44,6 +45,17 @@ final class AuthRepositoryImpl implements AuthRepository {
         username: username,
         password: password,
       );
+
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(failure(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> getUserInfo() async {
+    try {
+      final result = await authDataSource.getUserInfo();
 
       return Right(result);
     } on Exception catch (e) {

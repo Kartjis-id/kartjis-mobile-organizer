@@ -15,6 +15,7 @@ final httpClientProvider = Provider<HttpClient>(
 
 final interceptedClientProvider = Provider<Client>(
   (ref) => InterceptedClient.build(
+    client: ref.watch(httpClientProvider).client,
     interceptors: [
       RequestInterceptor(
         networkInfo: ref.watch(networkInfoProvider),
@@ -24,7 +25,6 @@ final interceptedClientProvider = Provider<Client>(
       client: ref.watch(httpClientProvider).client,
       authPreferences: ref.watch(authPreferencesProvider),
     ),
-    client: ref.watch(httpClientProvider).client,
   ),
 );
 

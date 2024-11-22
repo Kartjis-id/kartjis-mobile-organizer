@@ -39,9 +39,9 @@ Failure failure(Exception e) {
       default:
         return ServerFailure(kDebugMode ? e.message : 'Server error');
     }
+  } else if (e is ConnectionException) {
+    return ConnectionFailure(e.message);
+  } else {
+    return ClientFailure(kDebugMode ? '$e' : 'Client error');
   }
-
-  if (e is ConnectionException) return ConnectionFailure(e.message);
-
-  return ClientFailure(kDebugMode ? '$e' : 'Client error');
 }

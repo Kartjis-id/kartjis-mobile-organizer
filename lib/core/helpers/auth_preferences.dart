@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
 import 'package:kartjis_mobile_organizer/core/utils/const.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
 
@@ -28,6 +29,8 @@ class AuthPreferences {
 
   /// Set [Token] to persistent storage
   Future<bool> setToken(Token token) async {
+    AuthTokenSaver.token = token;
+
     final pr = await preferences;
 
     return await pr.setString(tokenKey, jsonEncode(token.toJson()));
@@ -50,6 +53,8 @@ class AuthPreferences {
 
   /// Remove [Token] from persistent storage
   Future<bool> removeToken() async {
+    AuthTokenSaver.token = null;
+
     final pr = await preferences;
 
     return await pr.remove(tokenKey);

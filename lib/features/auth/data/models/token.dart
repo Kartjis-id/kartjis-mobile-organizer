@@ -10,10 +10,10 @@ part 'token.g.dart';
 @freezed
 class Token with _$Token {
   const factory Token({
-    required String accessToken,
-    required String tokenType,
-    required int expiresIn,
-    required int refreshToken,
+    String? accessToken,
+    String? tokenType,
+    int? expiresIn,
+    int? refreshToken,
   }) = _Token;
 
   factory Token.fromJson(Map<String, Object?> json) => _$TokenFromJson(json);

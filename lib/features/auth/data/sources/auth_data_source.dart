@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:convert';
-import 'dart:io';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,11 +9,11 @@ import 'package:http/http.dart';
 import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
 import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
-import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/http_client.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
+import 'package:kartjis_mobile_organizer/features/auth/data/models/user.dart';
 
-final authDataSourceProvider = Provider<AuthDataSource>(
+final authDataSourceProvider = Provider.autoDispose<AuthDataSource>(
   (ref) => AuthDataSourceImpl(
     client: ref.watch(interceptedClientProvider),
     authPreferences: ref.watch(authPreferencesProvider),
@@ -28,14 +27,14 @@ sealed class AuthDataSource {
     required String password,
   });
 
+  /// Get user info
+  Future<User> getUserInfo();
+
   /// Is already login
   Future<bool> isAlreadyLogin();
 
   /// Logout
   Future<bool> logout();
-
-  /// Get user credential
-  // Future<Profile> getCredential();
 }
 
 final class AuthDataSourceImpl implements AuthDataSource {
@@ -53,21 +52,34 @@ final class AuthDataSourceImpl implements AuthDataSource {
     required String password,
   }) async {
     try {
+      final headers = {'authorization': 'Basic ${base64Encode(utf8.encode('$username:$password'))}'};
+
       final response = await client.post(
-        Uri.parse('${ApiConfig.baseUrl}/auth/token'),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Basic ${base64Encode(utf8.encode('$username:$password'))}',
-        },
+        ApiConfig.url('/auth/token'),
+        headers: headers,
       );
 
       final result = jsonDecode(response.body) as Map<String, dynamic>;
 
       if (response.statusCode == 200) {
-        final token = Token.fromJson(result);
+        return await authPreferences.setToken(Token.fromJson(result));
+      } else {
+        throw ServerException("${result['message']}");
+      }
+    } catch (e) {
+      exception(e);
+    }
+  }
 
-        AuthTokenSaver.token = token;
+  @override
+  Future<User> getUserInfo() async {
+    try {
+      final response = await client.post(ApiConfig.url('/auth/userinfo'));
 
-        return await authPreferences.setToken(token);
+      final result = jsonDecode(response.body) as Map<String, dynamic>;
+
+      if (response.statusCode == 200) {
+        return User.fromJson(result);
       } else {
         throw ServerException("${result['message']}");
       }
@@ -80,14 +92,12 @@ final class AuthDataSourceImpl implements AuthDataSource {
   Future<bool> isAlreadyLogin() async {
     final token = await authPreferences.getToken();
 
-    return token != null && AuthTokenSaver.token != null;
+    return token != null;
   }
 
   @override
   Future<bool> logout() async {
     final result = await authPreferences.removeToken();
-
-    AuthTokenSaver.token = null;
 
     return result;
   }
