@@ -19,18 +19,17 @@ final colorScheme = ColorScheme.fromSeed(
 
 // Color palette
 class Palette {
-  static Color primary = const Color(0xFF2C1F63);
-  static Color secondary = const Color(0xFFDF135C);
-  static Color tertiary = const Color(0xFFFFC351);
-  static Color background = const Color(0xFFF6F7F9);
-  static Color scaffoldBackground = const Color(0xFFFFFFFF);
-  static Color primaryText = const Color(0xFF1E293B);
-  static Color secondaryText = const Color(0xFFBBBEC1);
-  static Color divider = const Color(0xFFE4E4E4);
-  static Color error = const Color(0xFFD90429);
-  static Color success = const Color(0xFF3E9D9D);
-  static Color onDisable = const Color(0xFFC9C9C9);
-
-  static Color purple2 = const Color(0xFF9F77E2);
-  static Color green2 = const Color(0xFF28DCA6);
+  static const primary = Color(0xFF2C1F63);
+  static const secondary = Color(0xFFDF135C);
+  static const tertiary = Color(0xFFFFC351);
+  static const background = Color(0xFFF6F7F9);
+  static const scaffoldBackground = Color(0xFFFFFFFF);
+  static const primaryText = Color(0xFF1E293B);
+  static const secondaryText = Color(0xFFBBBEC1);
+  static const divider = Color(0xFFE4E4E4);
+  static const error = Color(0xFFD90429);
+  static const success = Color(0xFF3E9D9D);
+  static const disabled = Color(0xFFC9C9C9);
+  static const purple = Color(0xFF9F77E2);
+  static const green = Color(0xFF28DCA6);
 }

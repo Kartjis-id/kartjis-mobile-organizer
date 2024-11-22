@@ -7,7 +7,6 @@ import 'package:http/http.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
-import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/http_client.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
@@ -61,30 +60,22 @@ final class AuthDataSourceImpl implements AuthDataSource {
 
       final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      if (response.statusCode == 200) {
-        return await authPreferences.setToken(Token.fromJson(result));
-      } else {
-        throw ServerException("${result['message']}");
-      }
-    } catch (e) {
-      exception(e);
+      return await authPreferences.setToken(Token.fromJson(result));
+    } catch (_) {
+      rethrow;
     }
   }
 
   @override
   Future<User> getUserInfo() async {
     try {
-      final response = await client.post(ApiConfig.url('/auth/userinfo'));
+      final response = await client.get(ApiConfig.url('/auth/userinfo'));
 
       final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      if (response.statusCode == 200) {
-        return User.fromJson(result);
-      } else {
-        throw ServerException("${result['message']}");
-      }
-    } catch (e) {
-      exception(e);
+      return User.fromJson(result);
+    } catch (_) {
+      rethrow;
     }
   }
 

@@ -11,6 +11,8 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
+import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
+import 'package:kartjis_mobile_organizer/features/home/presentation/pages/home_page.dart';
 
 // import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
 
@@ -68,6 +70,11 @@ class _InternetConnectionWrapperState extends ConsumerState<InternetConnectionWr
 
   @override
   Widget build(BuildContext context) {
-    return LoginPage();
+    final authStatus = ref.watch(authStatusProvider);
+
+    return authStatus.maybeWhen(
+      data: (isAlreadyLogin) => isAlreadyLogin! ? HomePage() : LoginPage(),
+      orElse: () => const CircularProgressIndicator(),
+    );
   }
 }

@@ -11,8 +11,8 @@ ThemeData get appTheme {
     colorScheme: colorScheme,
     textTheme: textTheme,
   ).copyWith(
-    dividerColor: Palette.divider,
     cardColor: Palette.background,
+    dividerColor: Palette.divider,
     scaffoldBackgroundColor: Palette.scaffoldBackground,
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {

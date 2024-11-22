@@ -17,20 +17,6 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormBuilderState>();
 
-    ref.listen(loginProvider, (_, state) {
-      state.when(
-        error: (error, _) {
-          debugPrint('$error');
-        },
-        loading: () {
-          // show loading indicator
-        },
-        data: (data) {
-          if (data != null) debugPrint('login success: $data');
-        },
-      );
-    });
-
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

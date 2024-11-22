@@ -39,7 +39,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
   }
 
   @override
-  int get maxRetryAttempts => 3;
+  int get maxRetryAttempts => 1;
 
   Future<void> _refreshToken() async {
     final headers = {

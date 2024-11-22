@@ -6,8 +6,8 @@ import 'package:http_interceptor/http/intercepted_client.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
+import 'package:kartjis_mobile_organizer/core/middlewares/client_interceptor.dart';
 import 'package:kartjis_mobile_organizer/core/middlewares/expired_token_policy.dart';
-import 'package:kartjis_mobile_organizer/core/middlewares/request_interceptor.dart';
 
 final httpClientProvider = Provider<HttpClient>(
   (ref) => HttpClient(),
@@ -17,7 +17,7 @@ final interceptedClientProvider = Provider<Client>(
   (ref) => InterceptedClient.build(
     client: ref.watch(httpClientProvider).client,
     interceptors: [
-      RequestInterceptor(
+      ClientInterceptor(
         networkInfo: ref.watch(networkInfoProvider),
       ),
     ],

@@ -6,11 +6,11 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 final textTheme = const TextTheme(
   displayLarge: TextStyle(
-    fontSize: 56,
+    fontSize: 64,
     fontWeight: FontWeight.w600,
   ),
   displayMedium: TextStyle(
-    fontSize: 48,
+    fontSize: 44,
     fontWeight: FontWeight.w600,
   ),
   displaySmall: TextStyle(
@@ -30,15 +30,15 @@ final textTheme = const TextTheme(
     fontWeight: FontWeight.w700,
   ),
   titleLarge: TextStyle(
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: FontWeight.w700,
   ),
   titleMedium: TextStyle(
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: FontWeight.w700,
   ),
   titleSmall: TextStyle(
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: FontWeight.w700,
   ),
   bodyLarge: TextStyle(
@@ -63,7 +63,7 @@ final textTheme = const TextTheme(
   ),
   labelSmall: TextStyle(
     fontSize: 10,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
   ),
 ).apply(
   fontFamily: 'Montserrat',

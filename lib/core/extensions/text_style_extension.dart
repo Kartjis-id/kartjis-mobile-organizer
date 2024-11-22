@@ -25,5 +25,5 @@ extension TextStyleExtension on TextStyle {
   TextStyle get divider => copyWith(color: Palette.divider);
   TextStyle get error => copyWith(color: Palette.error);
   TextStyle get success => copyWith(color: Palette.success);
-  TextStyle get onDisable => copyWith(color: Palette.onDisable);
+  TextStyle get disabled => copyWith(color: Palette.disabled);
 }
