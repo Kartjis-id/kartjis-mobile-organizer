@@ -1,8 +1,6 @@
-// Flutter imports:
-import 'package:flutter/foundation.dart';
-
 // Package imports:
 import 'package:equatable/equatable.dart';
+import 'package:http/http.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
@@ -17,10 +15,6 @@ sealed class Failure extends Equatable {
   List<Object> get props => [message];
 }
 
-class ServerFailure extends Failure {
-  const ServerFailure(super.message);
-}
-
 class ConnectionFailure extends Failure {
   const ConnectionFailure(super.message);
 }
@@ -29,7 +23,23 @@ class ClientFailure extends Failure {
   const ClientFailure(super.message);
 }
 
-Failure failure(Exception e) {
+class ServerFailure extends Failure {
+  const ServerFailure(super.message);
+}
+
+class UnknownFailure extends Failure {
+  const UnknownFailure(super.message);
+}
+
+Failure failure(Object e) {
+  if (e is ConnectionException) {
+    return ConnectionFailure(e.message);
+  }
+
+  if (e is ClientException) {
+    return ClientFailure(e.message);
+  }
+
   if (e is ServerException) {
     switch (e.message) {
       case kUserNotFound:
@@ -37,13 +47,9 @@ Failure failure(Exception e) {
       case kInvalidPassword:
         return const ServerFailure('Invalid password');
       default:
-        return ServerFailure(kDebugMode ? e.message : 'Server error');
+        return ServerFailure(e.message);
     }
   }
 
-  if (e is ConnectionException) {
-    return ConnectionFailure(e.message);
-  }
-
-  return ClientFailure(kDebugMode ? '$e' : 'Client error');
+  return UnknownFailure('$e');
 }

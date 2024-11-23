@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:kartjis_mobile_organizer/core/routes/route_names.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
 import 'package:kartjis_mobile_organizer/features/home/presentation/pages/home_page.dart';
-import 'package:kartjis_mobile_organizer/features/shared/widgets/internet_connection_wrapper.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/wrapper.dart';
 
 /// App routes generator
 Route<dynamic>? generateAppRoutes(RouteSettings settings) {
   switch (settings.name) {
     case wrapperRoute:
       return MaterialPageRoute(
-        builder: (_) => const InternetConnectionWrapper(),
+        builder: (_) => const Wrapper(),
       );
     case loginRoute:
       return MaterialPageRoute(

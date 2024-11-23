@@ -47,7 +47,7 @@ final class AuthRepositoryImpl implements AuthRepository {
       );
 
       return Right(result);
-    } on Exception catch (e) {
+    } catch (e) {
       return Left(failure(e));
     }
   }
@@ -58,7 +58,7 @@ final class AuthRepositoryImpl implements AuthRepository {
       final result = await authDataSource.getUserInfo();
 
       return Right(result);
-    } on Exception catch (e) {
+    } catch (e) {
       return Left(failure(e));
     }
   }
@@ -69,7 +69,7 @@ final class AuthRepositoryImpl implements AuthRepository {
       final result = await authDataSource.isAlreadyLogin();
 
       return Right(result);
-    } on Exception catch (e) {
+    } catch (e) {
       return Left(failure(e));
     }
   }
@@ -80,7 +80,7 @@ final class AuthRepositoryImpl implements AuthRepository {
       final result = await authDataSource.logout();
 
       return Right(result);
-    } on Exception catch (e) {
+    } catch (e) {
       return Left(failure(e));
     }
   }

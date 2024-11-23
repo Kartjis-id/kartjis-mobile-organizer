@@ -9,10 +9,17 @@
   "home": "Home",
   "justAdded": "Just Added",
   "kartjis": "KARTJIS",
-  "logIn": "Log In",
+  "login": "Login",
   "loginDesc": "Login to start your event journey!",
   "me": "Me",
   "nearest": "Nearest",
   "tickets": "Tickets",
-  "trendingNearYou": "Trending Near You"
+  "trendingNearYou": "Trending Near You",
+  "networkConnected": "Connected to the internet",
+  "networkDisconnected": "No internet connection",
+  "usernameFieldLabel": "Username",
+  "passwordFieldLabel": "Password",
+  "usernameFieldHint": "Enter your username",
+  "passwordFieldHint": "Enter your password",
+  "requiredFieldValidator": "This field is required"
 }

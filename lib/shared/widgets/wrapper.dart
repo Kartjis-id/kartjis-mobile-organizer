@@ -10,20 +10,19 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
+import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
 import 'package:kartjis_mobile_organizer/features/home/presentation/pages/home_page.dart';
 
-// import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
-
-class InternetConnectionWrapper extends ConsumerStatefulWidget {
-  const InternetConnectionWrapper({super.key});
+class Wrapper extends ConsumerStatefulWidget {
+  const Wrapper({super.key});
 
   @override
-  ConsumerState<InternetConnectionWrapper> createState() => _InternetConnectionWrapperState();
+  ConsumerState<Wrapper> createState() => _WrapperState();
 }
 
-class _InternetConnectionWrapperState extends ConsumerState<InternetConnectionWrapper> {
+class _WrapperState extends ConsumerState<Wrapper> {
   late final StreamSubscription<InternetStatus> streamSubscription;
   late final AppLifecycleListener lifecycleListener;
 
@@ -33,7 +32,7 @@ class _InternetConnectionWrapperState extends ConsumerState<InternetConnectionWr
   void initState() {
     super.initState();
 
-    streamSubscription = ref.read(networkInfoProvider).onConnectionChange.listen(toggleInternetConnectionBanner);
+    streamSubscription = ref.read(networkInfoProvider).onConnectionChange.listen(showInternetConnectionSnackBar);
 
     lifecycleListener = AppLifecycleListener(
       onResume: streamSubscription.resume,
@@ -50,20 +49,8 @@ class _InternetConnectionWrapperState extends ConsumerState<InternetConnectionWr
     super.dispose();
   }
 
-  void toggleInternetConnectionBanner(InternetStatus status) {
-    if (hasConnection && status == InternetStatus.disconnected) {
-      // scaffoldMessengerKey.currentState
-      //   ?..hideCurrentMaterialBanner()
-      //   ..showMaterialBanner(
-      //     // MaterialBanner(content: content, actions: actions),
-      //   );
-    } else {
-      // scaffoldMessengerKey.currentState
-      //   ?..hideCurrentMaterialBanner()
-      //   ..showMaterialBanner(
-      //     // MaterialBanner(content: content, actions: actions),
-      //   );
-    }
+  void showInternetConnectionSnackBar(InternetStatus status) {
+    if (hasConnection) context.showInternetConnectionSnackBar(status);
 
     hasConnection = true;
   }
@@ -72,9 +59,16 @@ class _InternetConnectionWrapperState extends ConsumerState<InternetConnectionWr
   Widget build(BuildContext context) {
     final authStatus = ref.watch(authStatusProvider);
 
-    return authStatus.maybeWhen(
-      data: (isAlreadyLogin) => isAlreadyLogin! ? HomePage() : LoginPage(),
-      orElse: () => const CircularProgressIndicator(),
+    return authStatus.when(
+      loading: () => const Scaffold(),
+      error: (_, __) => const Scaffold(),
+      data: (isAlreadyLogin) {
+        if (isAlreadyLogin != null && isAlreadyLogin) {
+          return HomePage();
+        }
+
+        return LoginPage();
+      },
     );
   }
 }

@@ -19,6 +19,6 @@ class AuthStatus extends _$AuthStatus {
       (r) => state = AsyncValue.data(r),
     );
 
-    return null;
+    return state.valueOrNull;
   }
 }

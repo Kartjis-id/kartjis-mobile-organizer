@@ -9,10 +9,17 @@
   "home": "Home",
   "justAdded": "Baru Ditambahkan",
   "kartjis": "KARTJIS",
-  "logIn": "Masuk",
-  "loginDesc": "Masuk untuk mulai menjelajah!",
+  "login": "Masuk",
+  "loginDesc": "Masuk untuk mulai menjelajahi event!",
   "me": "Me",
   "nearest": "Terdekat",
   "tickets": "Tickets",
-  "trendingNearYou": "Trending Didekatmu"
+  "trendingNearYou": "Trending Didekatmu",
+  "networkConnected": "Tersambung ke internet",
+  "networkDisconnected": "Tidak ada koneksi internet",
+  "usernameFieldLabel": "Username",
+  "passwordFieldLabel": "Password",
+  "usernameFieldHint": "Masukkan username Anda",
+  "passwordFieldHint": "Masukkan password Anda",
+  "requiredFieldValidator": "Bagian ini harus diisi"
 }

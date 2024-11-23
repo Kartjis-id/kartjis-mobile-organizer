@@ -20,6 +20,6 @@ class UserInfo extends _$UserInfo {
       (r) => state = AsyncValue.data(r),
     );
 
-    return null;
+    return state.valueOrNull;
   }
 }

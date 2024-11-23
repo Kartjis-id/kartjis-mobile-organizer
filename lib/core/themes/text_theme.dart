@@ -63,7 +63,7 @@ final textTheme = const TextTheme(
   ),
   labelSmall: TextStyle(
     fontSize: 10,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w400,
   ),
 ).apply(
   fontFamily: 'Montserrat',

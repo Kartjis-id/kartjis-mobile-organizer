@@ -36,10 +36,13 @@ class ClientInterceptor implements InterceptorContract {
   @override
   FutureOr<BaseResponse> interceptResponse({required BaseResponse response}) {
     if (response is Response) {
-      if (response.statusCode != 200 || response.statusCode != 201) {
-        final result = jsonDecode(response.body) as Map<String, dynamic>;
+      final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-        throw ServerException("${result['message']}");
+      switch (response.statusCode) {
+        case >= 400 && <= 499:
+          throw ClientException("${result['message']}");
+        case >= 500 && <= 599:
+          throw ServerException("${result['message']}");
       }
     }
 

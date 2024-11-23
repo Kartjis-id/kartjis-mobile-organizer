@@ -50,33 +50,27 @@ final class AuthDataSourceImpl implements AuthDataSource {
     required String username,
     required String password,
   }) async {
-    try {
-      final headers = {'authorization': 'Basic ${base64Encode(utf8.encode('$username:$password'))}'};
+    final headers = {'authorization': 'Basic ${base64Encode(utf8.encode('$username:$password'))}'};
 
-      final response = await client.post(
-        ApiConfig.url('/auth/token'),
-        headers: headers,
-      );
+    final response = await client.post(
+      ApiConfig.url('/auth/token'),
+      headers: headers,
+    );
 
-      final result = jsonDecode(response.body) as Map<String, dynamic>;
+    final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      return await authPreferences.setToken(Token.fromJson(result));
-    } catch (_) {
-      rethrow;
-    }
+    final token = Token.fromJson(result);
+
+    return await authPreferences.setToken(token);
   }
 
   @override
   Future<User> getUserInfo() async {
-    try {
-      final response = await client.get(ApiConfig.url('/auth/userinfo'));
+    final response = await client.get(ApiConfig.url('/auth/userinfo'));
 
-      final result = jsonDecode(response.body) as Map<String, dynamic>;
+    final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      return User.fromJson(result);
-    } catch (_) {
-      rethrow;
-    }
+    return User.fromJson(result);
   }
 
   @override
