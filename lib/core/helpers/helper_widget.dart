@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gap/gap.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
@@ -35,10 +35,8 @@ class WidgetHelper {
             ),
             Gap(6),
             Text(
-              isConnected
-                  ? AppLocalizations.of(context)!.networkConnected
-                  : AppLocalizations.of(context)!.networkDisconnected,
-              style: textTheme.bodySmall?.scaffoldBackground,
+              isConnected ? context.localization.networkConnected : context.localization.networkDisconnected,
+              style: textTheme.bodySmall!.scaffoldBackground,
             ),
           ],
         ),

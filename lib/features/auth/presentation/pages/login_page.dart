@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
@@ -16,7 +16,8 @@ import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/login_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalism_button.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/custom_clip_path.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/custom_field.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/custom_field.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/password_field.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class LoginPage extends ConsumerWidget {
@@ -24,6 +25,13 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(loginProvider, (_, state) {
+      state.whenOrNull(
+        data: (data) => print(data),
+        error: (error, stackTrace) => print(error),
+      );
+    });
+
     final formKey = GlobalKey<FormBuilderState>();
 
     return Scaffold(
@@ -40,34 +48,33 @@ class LoginPage extends ConsumerWidget {
                   children: [
                     CustomField(
                       name: 'username',
-                      label: 'Username',
-                      hintText: AppLocalizations.of(context)!.usernameFieldHint,
+                      label: context.localization.usernameFieldLabel,
+                      hintText: context.localization.usernameFieldHint,
                       prefixIcon: Icons.person_rounded,
-                      hasSuffixIcon: false,
                       textInputType: TextInputType.visiblePassword,
+                      textCapitalization: TextCapitalization.none,
                       validators: [
                         FormBuilderValidators.required(
-                          errorText: AppLocalizations.of(context)!.requiredFieldValidator,
+                          errorText: context.localization.requiredFieldValidator,
                         ),
                       ],
                     ),
                     Gap(16),
-                    CustomField(
+                    PasswordField(
                       name: 'password',
-                      label: 'Password',
-                      hintText: AppLocalizations.of(context)!.usernameFieldHint,
-                      prefixIcon: Icons.person_rounded,
-                      hasSuffixIcon: false,
-                      textInputType: TextInputType.visiblePassword,
+                      label: context.localization.passwordFieldLabel,
+                      hintText: context.localization.passwordFieldHint,
+                      prefixIcon: Icons.lock_rounded,
+                      textInputAction: TextInputAction.done,
                       validators: [
                         FormBuilderValidators.required(
-                          errorText: AppLocalizations.of(context)!.requiredFieldValidator,
+                          errorText: context.localization.requiredFieldValidator,
                         ),
                       ],
                     ),
-                    Gap(16),
+                    Gap(20),
                     BrutalismButton(
-                      title: AppLocalizations.of(context)!.login,
+                      title: context.localization.login,
                       primaryColor: Palette.primary,
                       borderColor: Palette.primary,
                       layerColor: Palette.scaffoldBackground,
@@ -85,8 +92,6 @@ class LoginPage extends ConsumerWidget {
   }
 
   void login(WidgetRef ref, GlobalKey<FormBuilderState> formKey) {
-    FocusManager.instance.primaryFocus?.unfocus();
-
     if (formKey.currentState!.saveAndValidate()) {
       final data = formKey.currentState!.value;
 
@@ -155,8 +160,8 @@ class _Header extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '\t${AppLocalizations.of(context)!.loginDesc}',
-                  style: textTheme.bodyLarge?.primary,
+                  '\t${context.localization.loginDesc}',
+                  style: textTheme.bodyLarge!.primary,
                 ),
               ],
             ),

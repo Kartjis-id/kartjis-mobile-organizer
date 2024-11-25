@@ -4,6 +4,12 @@ class ConnectionException implements Exception {
   const ConnectionException(this.message);
 }
 
+class ClientException implements Exception {
+  final String message;
+
+  const ClientException(this.message);
+}
+
 class ServerException implements Exception {
   final String message;
 

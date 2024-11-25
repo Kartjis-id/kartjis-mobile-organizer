@@ -23,7 +23,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
 
   @override
   Future<bool> shouldAttemptRetryOnResponse(BaseResponse response) async {
-    if (response.statusCode == 401) {
+    if (response.statusCode == 401 && response.request?.url.path != '/api/auth/token') {
       await _refreshToken();
 
       return true;

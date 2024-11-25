@@ -1,6 +1,5 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:http/http.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
@@ -36,18 +35,18 @@ Failure failure(Object e) {
     return ConnectionFailure(e.message);
   }
 
-  if (e is ClientException) {
-    return ClientFailure(e.message);
+  if (e is ServerException) {
+    return ServerFailure(e.message);
   }
 
-  if (e is ServerException) {
+  if (e is ClientException) {
     switch (e.message) {
       case kUserNotFound:
-        return const ServerFailure('Account not registered yet');
+        return const ClientFailure('Account not registered yet');
       case kInvalidPassword:
-        return const ServerFailure('Invalid password');
+        return const ClientFailure('Invalid password');
       default:
-        return ServerFailure(e.message);
+        return ClientFailure(e.message);
     }
   }
 

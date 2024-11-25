@@ -8,8 +8,8 @@ import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 
 final inputDecorationTheme = InputDecorationTheme(
   floatingLabelBehavior: FloatingLabelBehavior.never,
-  hintStyle: textTheme.bodyMedium?.disabled,
-  errorStyle: textTheme.bodySmall?.error,
+  hintStyle: textTheme.bodyMedium!.disabled,
+  errorStyle: textTheme.bodySmall!.error,
   errorBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(8),
     borderSide: BorderSide(

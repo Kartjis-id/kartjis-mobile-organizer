@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Package imports:
-import 'package:http_interceptor/http_interceptor.dart';
+import 'package:http_interceptor/http_interceptor.dart' hide ClientException;
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';

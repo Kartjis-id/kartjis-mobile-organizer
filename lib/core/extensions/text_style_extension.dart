@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 extension TextStyleExtension on TextStyle {
-  // Weight
+  // Text weight
   TextStyle get thin => copyWith(fontWeight: FontWeight.w100);
   TextStyle get extraLight => copyWith(fontWeight: FontWeight.w200);
   TextStyle get light => copyWith(fontWeight: FontWeight.w300);
@@ -14,7 +14,7 @@ extension TextStyleExtension on TextStyle {
   TextStyle get semiBold => copyWith(fontWeight: FontWeight.w600);
   TextStyle get bold => copyWith(fontWeight: FontWeight.w700);
 
-  // Color
+  // Text color
   TextStyle get primary => copyWith(color: Palette.primary);
   TextStyle get secondary => copyWith(color: Palette.secondary);
   TextStyle get tertiary => copyWith(color: Palette.tertiary);
