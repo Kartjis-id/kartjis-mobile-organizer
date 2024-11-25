@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
+import 'package:sizer/sizer.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
@@ -64,7 +65,7 @@ class _PasswordFieldState extends State<PasswordField> {
           widget.label,
           style: textTheme.labelMedium!.primary.bold,
         ),
-        Gap(6),
+        Gap(6.dp),
         if (widget.prefixIcon != null)
           Focus(
             onFocusChange: (value) => isFocus.value = value,
@@ -105,7 +106,7 @@ class _PasswordFieldState extends State<PasswordField> {
                           child: Icon(
                             widget.prefixIcon,
                             color: isFocus ? Palette.background : Palette.disabled,
-                            size: 22,
+                            size: 22.dp,
                           ),
                         );
                       },
@@ -116,7 +117,7 @@ class _PasswordFieldState extends State<PasswordField> {
               onTap: () => this.isVisible.value = !isVisible,
               child: Icon(
                 isVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                size: 22,
+                size: 22.dp,
               ),
             ),
           ),

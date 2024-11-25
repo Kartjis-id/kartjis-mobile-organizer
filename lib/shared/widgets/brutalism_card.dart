@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:sizer/sizer.dart';
+
 class BrutalismCard extends StatefulWidget {
   const BrutalismCard(
       {super.key,
@@ -70,7 +73,7 @@ class _BrutalismCardState extends State<BrutalismCard> {
                 Positioned.fill(
                   child: Container(
                     width: double.infinity,
-                    height: 45,
+                    height: 44.dp,
                     margin: EdgeInsets.only(
                       left: widget.layerSpace,
                       top: widget.layerSpace,

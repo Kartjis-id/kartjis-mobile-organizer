@@ -1,68 +1,71 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:sizer/sizer.dart';
+
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
-final textTheme = const TextTheme(
+final textTheme = TextTheme(
   displayLarge: TextStyle(
-    fontSize: 64,
+    fontSize: 64.sp,
     fontWeight: FontWeight.w600,
   ),
   displayMedium: TextStyle(
-    fontSize: 44,
+    fontSize: 44.sp,
     fontWeight: FontWeight.w600,
   ),
   displaySmall: TextStyle(
-    fontSize: 36,
+    fontSize: 36.sp,
     fontWeight: FontWeight.w600,
   ),
   headlineLarge: TextStyle(
-    fontSize: 32,
+    fontSize: 32.sp,
     fontWeight: FontWeight.w700,
   ),
   headlineMedium: TextStyle(
-    fontSize: 28,
+    fontSize: 28.sp,
     fontWeight: FontWeight.w700,
   ),
   headlineSmall: TextStyle(
-    fontSize: 24,
+    fontSize: 24.sp,
     fontWeight: FontWeight.w700,
   ),
   titleLarge: TextStyle(
-    fontSize: 22,
+    fontSize: 22.sp,
     fontWeight: FontWeight.w700,
   ),
   titleMedium: TextStyle(
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w700,
   ),
   titleSmall: TextStyle(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w700,
   ),
   bodyLarge: TextStyle(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w400,
   ),
   bodyMedium: TextStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w400,
   ),
   bodySmall: TextStyle(
-    fontSize: 12,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
   ),
   labelLarge: TextStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w500,
   ),
   labelMedium: TextStyle(
-    fontSize: 12,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w500,
   ),
   labelSmall: TextStyle(
-    fontSize: 10,
+    fontSize: 10.sp,
     fontWeight: FontWeight.w400,
   ),
 ).apply(

@@ -6,8 +6,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
+import 'package:sizer/sizer.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/enums/snack_bar_type.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
@@ -27,8 +29,12 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(loginProvider, (_, state) {
       state.whenOrNull(
+        // loading: ,
         data: (data) => print(data),
-        error: (error, stackTrace) => print(error),
+        error: (error, stackTrace) => context.showSnackBar(
+          '$error',
+          type: SnackBarType.error,
+        ),
       );
     });
 
@@ -59,7 +65,7 @@ class LoginPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    Gap(16),
+                    Gap(16.dp),
                     PasswordField(
                       name: 'password',
                       label: context.localization.passwordFieldLabel,
@@ -72,7 +78,7 @@ class LoginPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    Gap(20),
+                    Gap(20.dp),
                     BrutalismButton(
                       title: context.localization.login,
                       primaryColor: Palette.primary,
@@ -114,7 +120,7 @@ class _Header extends StatelessWidget {
         ClipPath(
           clipper: CustomClipPath(),
           child: Container(
-            height: 255,
+            height: 255.dp,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
@@ -128,7 +134,7 @@ class _Header extends StatelessWidget {
         ClipPath(
           clipper: CustomClipPath(),
           child: Container(
-            height: 255,
+            height: 255.dp,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -148,13 +154,13 @@ class _Header extends StatelessWidget {
                 SvgAsset(
                   AssetPath.getIcon('kartjis_filled.svg'),
                 ),
-                Gap(24),
+                Gap(24.dp),
                 Text(
                   'KARTJIS',
                   style: TextStyle(
                     fontFamily: 'Titillium Web',
                     fontWeight: FontWeight.bold,
-                    fontSize: 48,
+                    fontSize: 48.sp,
                     height: 1,
                     color: Palette.primary,
                   ),
