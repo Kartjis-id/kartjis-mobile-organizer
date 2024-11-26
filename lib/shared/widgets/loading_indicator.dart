@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sizer/sizer.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
@@ -30,14 +29,14 @@ class LoadingIndicator extends StatelessWidget {
   Center _buildLoadingIndicator() {
     return Center(
       child: SpinKitFoldingCube(
-        size: size.dp,
-        duration: const Duration(milliseconds: 2000),
+        size: size,
+        duration: const Duration(milliseconds: 1500),
         itemBuilder: (context, index) {
           final colors = [
-            Palette.primary,
-            Palette.primary.withOpacity(.9),
+            Palette.secondary.withOpacity(.8),
+            Palette.tertiary.withOpacity(.8),
+            Palette.purple300.withOpacity(.8),
             Palette.primary.withOpacity(.8),
-            Palette.primary.withOpacity(.7),
           ];
 
           return DecoratedBox(

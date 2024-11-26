@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sizer/sizer.dart';
 
 class SvgAsset extends StatelessWidget {
   final String assetName;
@@ -25,8 +24,8 @@ class SvgAsset extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       assetName,
-      width: width?.dp,
-      height: height?.dp,
+      width: width,
+      height: height,
       fit: fit,
       colorFilter: color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
     );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sizer/sizer.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/routes/route_names.dart';
@@ -16,20 +15,16 @@ class KartjisOrganizerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(
-      builder: (context, orientation, screenType) {
-        return MaterialApp(
-          title: 'Kartjis Mobile Organizer',
-          debugShowCheckedModeBanner: false,
-          theme: appTheme,
-          navigatorKey: navigatorKey,
-          scaffoldMessengerKey: scaffoldMessengerKey,
-          initialRoute: wrapperRoute,
-          onGenerateRoute: generateAppRoutes,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-        );
-      },
+    return MaterialApp(
+      title: 'Kartjis Mobile Organizer',
+      debugShowCheckedModeBanner: false,
+      theme: appTheme,
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: scaffoldMessengerKey,
+      initialRoute: wrapperRoute,
+      onGenerateRoute: generateAppRoutes,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

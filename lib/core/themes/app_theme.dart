@@ -8,7 +8,7 @@ import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 
 ThemeData get appTheme {
   return ThemeData.from(
-    useMaterial3: false,
+    useMaterial3: true,
     colorScheme: colorScheme,
     textTheme: textTheme,
   ).copyWith(

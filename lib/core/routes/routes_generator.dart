@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/routes/route_names.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
-import 'package:kartjis_mobile_organizer/features/home/presentation/pages/home_page.dart';
+import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/wrapper.dart';
 
 /// App routes generator
@@ -18,9 +18,9 @@ Route<dynamic>? generateAppRoutes(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (_) => const LoginPage(),
       );
-    case homeRoute:
+    case dashboardRoute:
       return MaterialPageRoute(
-        builder: (_) => const HomePage(),
+        builder: (_) => const DashboardPage(),
       );
     default:
       return null;

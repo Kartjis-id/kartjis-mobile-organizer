@@ -1,9 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:sizer/sizer.dart';
-
 class BrutalismButton extends StatefulWidget {
   final String title;
   final Color primaryColor;
@@ -65,7 +62,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
             children: [
               Container(
                 width: double.infinity,
-                height: 44.dp,
+                height: 44,
                 margin: EdgeInsets.only(
                   left: widget.layerSpace,
                   top: widget.layerSpace,
@@ -82,7 +79,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
               ),
               AnimatedContainer(
                 width: double.infinity,
-                height: 44.dp,
+                height: 44,
                 duration: const Duration(milliseconds: 150),
                 curve: Curves.easeInOut,
                 margin: onHover || !widget.isEnabled
@@ -107,7 +104,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   children: [
                     if (widget.leading != null) ...[
                       widget.leading!,
-                      SizedBox(width: 4.dp),
+                      SizedBox(width: 4),
                     ],
                     Center(
                       child: Text(

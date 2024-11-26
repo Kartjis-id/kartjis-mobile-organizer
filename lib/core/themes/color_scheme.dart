@@ -30,6 +30,9 @@ class Palette {
   static const error = Color(0xFFD90429);
   static const success = Color(0xFF3E9D9D);
   static const disabled = Color(0xFFC9C9C9);
-  static const purple = Color(0xFF9F77E2);
-  static const green = Color(0xFF28DCA6);
+
+  static const purple300 = Color(0xFF9F77E2);
+  static const purple700 = Color(0xFF490B99);
+
+  static const green400 = Color(0xFF28DCA6);
 }

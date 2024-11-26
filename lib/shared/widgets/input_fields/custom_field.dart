@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
-import 'package:sizer/sizer.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
@@ -74,9 +73,9 @@ class _CustomFieldState extends State<CustomField> {
       children: [
         Text(
           widget.label,
-          style: textTheme.labelMedium!.primary.bold,
+          style: textTheme.labelMedium!.bold.primaryColor,
         ),
-        Gap(6.dp),
+        Gap(6),
         if (widget.prefixIcon != null)
           Focus(
             onFocusChange: (value) => isFocus.value = value,
@@ -117,7 +116,7 @@ class _CustomFieldState extends State<CustomField> {
                       child: Icon(
                         widget.prefixIcon,
                         color: isFocus ? Palette.background : Palette.disabled,
-                        size: 22.dp,
+                        size: 22,
                       ),
                     );
                   },
@@ -129,7 +128,7 @@ class _CustomFieldState extends State<CustomField> {
                 onTap: widget.onSuffixIconTap,
                 child: Icon(
                   widget.suffixIcon,
-                  size: 22.dp,
+                  size: 22,
                 ),
               )
             : null,

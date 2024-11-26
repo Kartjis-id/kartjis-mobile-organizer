@@ -15,15 +15,15 @@ extension TextStyleExtension on TextStyle {
   TextStyle get bold => copyWith(fontWeight: FontWeight.w700);
 
   // Text color
-  TextStyle get primary => copyWith(color: Palette.primary);
-  TextStyle get secondary => copyWith(color: Palette.secondary);
-  TextStyle get tertiary => copyWith(color: Palette.tertiary);
-  TextStyle get background => copyWith(color: Palette.background);
-  TextStyle get scaffoldBackground => copyWith(color: Palette.scaffoldBackground);
-  TextStyle get primaryText => copyWith(color: Palette.primaryText);
-  TextStyle get secondaryText => copyWith(color: Palette.secondaryText);
-  TextStyle get divider => copyWith(color: Palette.divider);
-  TextStyle get error => copyWith(color: Palette.error);
-  TextStyle get success => copyWith(color: Palette.success);
-  TextStyle get disabled => copyWith(color: Palette.disabled);
+  TextStyle get primaryColor => copyWith(color: Palette.primary);
+  TextStyle get secondaryColor => copyWith(color: Palette.secondary);
+  TextStyle get tertiaryColor => copyWith(color: Palette.tertiary);
+  TextStyle get backgroundColor => copyWith(color: Palette.background);
+  TextStyle get scaffoldBackgroundColor => copyWith(color: Palette.scaffoldBackground);
+  TextStyle get primaryTextColor => copyWith(color: Palette.primaryText);
+  TextStyle get secondaryTextColor => copyWith(color: Palette.secondaryText);
+  TextStyle get dividerColor => copyWith(color: Palette.divider);
+  TextStyle get errorColor => copyWith(color: Palette.error);
+  TextStyle get successColor => copyWith(color: Palette.success);
+  TextStyle get disabledColor => copyWith(color: Palette.disabled);
 }
