@@ -13,7 +13,7 @@ class Token with _$Token {
     String? accessToken,
     String? tokenType,
     int? expiresIn,
-    int? refreshToken,
+    String? refreshToken,
   }) = _Token;
 
   factory Token.fromJson(Map<String, Object?> json) => _$TokenFromJson(json);

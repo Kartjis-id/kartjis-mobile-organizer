@@ -13,7 +13,7 @@ import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
-import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/screens/main_screen.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/loading_indicator.dart';
 
 class Wrapper extends ConsumerStatefulWidget {
@@ -60,16 +60,15 @@ class _WrapperState extends ConsumerState<Wrapper> {
   Widget build(BuildContext context) {
     final authStatus = ref.watch(authStatusProvider);
 
-    return authStatus.when(
-      loading: () => const LoadingIndicator(withScaffold: true),
-      error: (_, __) => const LoadingIndicator(withScaffold: true),
+    return authStatus.maybeWhen(
       data: (isAlreadyLogin) {
         if (isAlreadyLogin != null && isAlreadyLogin) {
-          return DashboardPage();
+          return MainScreen();
         }
 
         return LoginPage();
       },
+      orElse: () => const LoadingIndicator(withScaffold: true),
     );
   }
 }

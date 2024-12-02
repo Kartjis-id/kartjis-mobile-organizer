@@ -68,15 +68,15 @@ class _PasswordFieldState extends State<PasswordField> {
         if (widget.prefixIcon != null)
           Focus(
             onFocusChange: (value) => isFocus.value = value,
-            child: _buildPasswordField(),
+            child: buildPasswordField(),
           )
         else
-          _buildPasswordField()
+          buildPasswordField()
       ],
     );
   }
 
-  ValueListenableBuilder _buildPasswordField() {
+  ValueListenableBuilder buildPasswordField() {
     final hasPrefixIcon = widget.prefixIcon != null;
 
     return ValueListenableBuilder(

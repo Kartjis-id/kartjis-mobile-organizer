@@ -3,4 +3,4 @@
 // Auth routes
 const wrapperRoute = '/';
 const loginRoute = '/login';
-const dashboardRoute = '/dashboard';
+const mainRoute = '/main';

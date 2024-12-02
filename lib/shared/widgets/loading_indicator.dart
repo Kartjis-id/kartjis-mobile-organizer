@@ -21,12 +21,12 @@ class LoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return withScaffold
         ? Scaffold(
-            body: _buildLoadingIndicator(),
+            body: buildLoadingIndicator(),
           )
-        : _buildLoadingIndicator();
+        : buildLoadingIndicator();
   }
 
-  Center _buildLoadingIndicator() {
+  Center buildLoadingIndicator() {
     return Center(
       child: SpinKitFoldingCube(
         size: size,

@@ -10,16 +10,16 @@ import 'package:gap/gap.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
-import 'package:kartjis_mobile_organizer/core/routes/route_names.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
+import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/login_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalism_button.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/custom_field.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/password_field.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
@@ -29,10 +29,10 @@ class LoginPage extends ConsumerWidget {
     ref.listen(loginProvider, (_, state) {
       state.when(
         loading: () => context.showLoadingDialog(),
-        error: (error, stackTrace) => context.showErrorSnackBar('$error'),
+        error: (error, __) => context.showErrorSnackBar('$error'),
         data: (isLogin) {
           if (isLogin != null && isLogin) {
-            navigatorKey.currentState?.pushReplacementNamed(dashboardRoute);
+            ref.invalidate(authStatusProvider);
           }
         },
       );
@@ -56,6 +56,8 @@ class LoginPage extends ConsumerWidget {
 }
 
 class _Header extends StatelessWidget {
+  const _Header();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -95,23 +97,14 @@ class _Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SvgAsset(
-                  AssetPath.getIcon('kartjis_filled.svg'),
+                KartjisIconText(
+                  textColor: Palette.primary,
+                  textSize: 44,
                 ),
-                Gap(24),
-                Text(
-                  'KARTJIS',
-                  style: TextStyle(
-                    fontFamily: 'Titillium Web',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 48,
-                    height: 1,
-                    color: Palette.primary,
-                  ),
-                ),
+                Gap(2),
                 Text(
                   '\t${context.localization.loginDesc}',
-                  style: textTheme.bodyMedium!.primaryColor,
+                  style: textTheme.labelLarge!.primaryTextColor,
                 ),
               ],
             ),
@@ -123,10 +116,12 @@ class _Header extends StatelessWidget {
 }
 
 class _Form extends ConsumerWidget {
+  const _Form();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 48),
       child: FormBuilder(
         key: formKey,
         child: Column(
@@ -173,16 +168,14 @@ class _Form extends ConsumerWidget {
   }
 
   void login(WidgetRef ref) {
-    // if (formKey.currentState!.saveAndValidate()) {
-    //   final data = formKey.currentState!.value;
+    if (formKey.currentState!.saveAndValidate()) {
+      final data = formKey.currentState!.value;
 
-    //   ref.read(loginProvider.notifier).login(
-    //         username: data['username'],
-    //         password: data['password'],
-    //       );
-    // }
-
-    navigatorKey.currentState?.pushReplacementNamed(dashboardRoute);
+      ref.read(loginProvider.notifier).login(
+            username: data['username'],
+            password: data['password'],
+          );
+    }
   }
 }
 

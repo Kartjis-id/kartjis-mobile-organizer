@@ -18,7 +18,7 @@ extension TextStyleExtension on TextStyle {
   TextStyle get primaryColor => copyWith(color: Palette.primary);
   TextStyle get secondaryColor => copyWith(color: Palette.secondary);
   TextStyle get tertiaryColor => copyWith(color: Palette.tertiary);
-  TextStyle get backgroundColor => copyWith(color: Palette.background);
+  TextStyle get primaryBackgroundColor => copyWith(color: Palette.background);
   TextStyle get scaffoldBackgroundColor => copyWith(color: Palette.scaffoldBackground);
   TextStyle get primaryTextColor => copyWith(color: Palette.primaryText);
   TextStyle get secondaryTextColor => copyWith(color: Palette.secondaryText);

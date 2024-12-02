@@ -79,15 +79,15 @@ class _CustomFieldState extends State<CustomField> {
         if (widget.prefixIcon != null)
           Focus(
             onFocusChange: (value) => isFocus.value = value,
-            child: _buildCustomField(),
+            child: buildCustomField(),
           )
         else
-          _buildCustomField()
+          buildCustomField()
       ],
     );
   }
 
-  FormBuilderTextField _buildCustomField() {
+  FormBuilderTextField buildCustomField() {
     final hasPrefixIcon = widget.prefixIcon != null;
     final hasSuffixIcon = widget.suffixIcon != null;
 
