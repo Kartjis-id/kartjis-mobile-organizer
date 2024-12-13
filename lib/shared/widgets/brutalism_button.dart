@@ -11,6 +11,7 @@ class BrutalismButton extends StatefulWidget {
   final VoidCallback onTap;
   final bool isEnabled;
   final Widget? leading;
+  final double radius;
 
   const BrutalismButton({
     super.key,
@@ -23,6 +24,7 @@ class BrutalismButton extends StatefulWidget {
     required this.onTap,
     this.isEnabled = true,
     this.leading,
+    this.radius = 8.0,
   });
 
   @override
@@ -39,7 +41,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
     super.dispose();
   }
 
-  void onTap() {
+  void onTapUp() {
     FocusManager.instance.primaryFocus?.unfocus();
 
     Future.delayed(const Duration(milliseconds: 150), () {
@@ -49,15 +51,21 @@ class _BrutalismButtonState extends State<BrutalismButton> {
     });
   }
 
+  void onTapCancel() {
+    Future.delayed(const Duration(milliseconds: 150), () {
+      onHoverNotifier.value = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: onHoverNotifier,
-      builder: (context, onHover, _) {
+      builder: (context, onHover, ___) {
         return GestureDetector(
           onTapDown: widget.isEnabled ? (details) => onHoverNotifier.value = true : null,
-          onTapUp: widget.isEnabled ? (details) => onTap() : null,
-          onTapCancel: widget.isEnabled ? () => onTap() : null,
+          onTapUp: widget.isEnabled ? (details) => onTapUp() : null,
+          onTapCancel: widget.isEnabled ? onTapCancel : null,
           child: Stack(
             children: [
               Container(
@@ -68,7 +76,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   top: widget.layerSpace,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(widget.radius),
                   color: widget.layerColor,
                   border: Border.all(
                     color: widget.borderColor ?? Colors.black,
@@ -92,7 +100,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                         bottom: widget.layerSpace,
                       ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(widget.radius),
                   color: widget.isEnabled ? widget.primaryColor : Colors.white,
                   border: Border.all(
                     color: widget.isEnabled ? widget.borderColor ?? Colors.black : Colors.grey,

@@ -9,7 +9,6 @@ import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
-import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
@@ -104,7 +103,7 @@ class _Header extends StatelessWidget {
                 Gap(2),
                 Text(
                   '\t${context.localization.loginDesc}',
-                  style: textTheme.labelLarge!.primaryTextColor,
+                  style: textTheme.bodyMedium,
                 ),
               ],
             ),

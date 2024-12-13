@@ -14,18 +14,18 @@ import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/d
 import 'package:kartjis_mobile_organizer/features/event/presentation/pages/event_page.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_page.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/drawer_menu_item_provider.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/custom_drawer.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/loading_indicator.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: CustomDrawer(),
+      drawer: MainDrawer(),
       drawerScrimColor: Colors.black45,
       drawerEdgeDragWidth: context.screenWidth * 0.5,
       body: Stack(
