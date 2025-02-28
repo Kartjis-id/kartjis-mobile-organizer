@@ -24,10 +24,9 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: 290,
       backgroundColor: Palette.purple700,
       shape: const RoundedRectangleBorder(),
-      child: SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +46,7 @@ class MainDrawer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Characella Organizer',
+                            'Event Organizer',
                             style: textTheme.bodyMedium!.semiBold.scaffoldBackgroundColor,
                             maxLines: 2,
                             overflow: TextOverflow.fade,
@@ -65,15 +64,15 @@ class MainDrawer extends StatelessWidget {
               ),
             ),
             const _DrawerDivider(
-              top: 20,
+              top: 24,
               bottom: 10,
             ),
             ...DrawerMenuItem.values.map(
               (item) => _DrawerMenu(item: item),
             ),
+            const Spacer(),
             const _DrawerDivider(
-              top: 10,
-              bottom: 16,
+              bottom: 20,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -84,10 +83,10 @@ class MainDrawer extends StatelessWidget {
                     axis: KartjisIconTextAxis.horizontal,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     textColor: Palette.scaffoldBackground,
-                    textSize: 24,
-                    iconSize: 16,
+                    textSize: 22,
+                    iconSize: 18,
                   ),
-                  const Gap(6),
+                  const Gap(8),
                   Text(
                     'Version ${AppConfig.version}',
                     style: textTheme.labelSmall!.secondaryTextColor,
@@ -141,9 +140,8 @@ class _DrawerMenu extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
-        enabled: true,
-        minTileHeight: 50,
-        horizontalTitleGap: 12,
+        selected: selected,
+        selectedTileColor: Palette.scaffoldBackground,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -158,8 +156,6 @@ class _DrawerMenu extends ConsumerWidget {
             color: selected ? Palette.secondary : Palette.scaffoldBackground,
           ),
         ),
-        selected: selected,
-        selectedTileColor: Palette.scaffoldBackground,
         onTap: () {
           ref.read(drawerMenuItemProvider.notifier).state = item;
           scaffoldKey.currentState?.closeDrawer();

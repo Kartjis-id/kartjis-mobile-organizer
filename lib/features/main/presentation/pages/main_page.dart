@@ -12,7 +12,6 @@ import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:kartjis_mobile_organizer/features/event/presentation/pages/event_page.dart';
-import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_page.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/drawer_menu_item_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/loading_indicator.dart';
@@ -27,7 +26,7 @@ class MainPage extends StatelessWidget {
       key: scaffoldKey,
       drawer: const MainDrawer(),
       drawerScrimColor: Colors.black45,
-      drawerEdgeDragWidth: context.screenWidth * 0.5,
+      drawerEdgeDragWidth: context.screenWidth * 0.4,
       body: Stack(
         children: [
           ConstrainedBox(
@@ -40,8 +39,6 @@ class MainPage extends StatelessWidget {
                 final selectedMenu = ref.watch(drawerMenuItemProvider);
 
                 switch (selectedMenu) {
-                  case DrawerMenuItem.liveReport:
-                    return const LiveReportPage();
                   case DrawerMenuItem.dashboard:
                     return const DashboardPage();
                   case DrawerMenuItem.event:
@@ -55,18 +52,22 @@ class MainPage extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(12),
-              child: IconButton.filledTonal(
-                onPressed: () => scaffoldKey.currentState?.openDrawer(),
-                icon: SvgAsset(
-                  AssetPath.getIcon('list_outlined.svg'),
-                  color: Palette.primaryText,
-                ),
-                style: IconButton.styleFrom(
-                  elevation: 3,
-                  shadowColor: Palette.divider.withValues(alpha: .5),
-                  backgroundColor: Palette.background,
-                ),
-                tooltip: 'Menu',
+              child: Row(
+                children: [
+                  IconButton.filledTonal(
+                    onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                    icon: SvgAsset(
+                      AssetPath.getIcon('list_outlined.svg'),
+                      color: Palette.primaryText,
+                    ),
+                    style: IconButton.styleFrom(
+                      elevation: 4,
+                      shadowColor: Palette.divider.withValues(alpha: .3),
+                      backgroundColor: Palette.background,
+                    ),
+                    tooltip: 'Menu',
+                  ),
+                ],
               ),
             ),
           ),

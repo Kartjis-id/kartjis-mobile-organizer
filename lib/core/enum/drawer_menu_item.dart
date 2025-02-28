@@ -1,5 +1,4 @@
 enum DrawerMenuItem {
-  liveReport('Live Report', 'radio_outlined.svg'),
   dashboard('Dashboard', 'grid_outlined.svg'),
   event('Event', 'calendar_outlined.svg'),
   withdrawal('Withdrawal', 'credit_card_outlined.svg'),

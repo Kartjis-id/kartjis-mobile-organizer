@@ -8,7 +8,10 @@ import 'package:gap/gap.dart';
 import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
-enum KartjisIconTextAxis { vertical, horizontal }
+enum KartjisIconTextAxis {
+  vertical,
+  horizontal,
+}
 
 class KartjisIconText extends StatelessWidget {
   final KartjisIconTextAxis axis;
