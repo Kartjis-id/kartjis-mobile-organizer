@@ -1,5 +1,5 @@
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
+import 'package:kartjis_mobile_organizer/core/helper/auth_preferences.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
 
 class AuthTokenSaver {

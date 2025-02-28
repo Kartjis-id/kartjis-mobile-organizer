@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/routes/route_names.dart';
 import 'package:kartjis_mobile_organizer/core/routes/routes_generator.dart';
-import 'package:kartjis_mobile_organizer/core/themes/app_theme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/app_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
 
 class KartjisOrganizerApp extends StatelessWidget {

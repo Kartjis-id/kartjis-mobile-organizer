@@ -6,11 +6,11 @@ import 'package:gap/gap.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/enums/snack_bar_type.dart';
-import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
-import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/enum/snack_bar_type.dart';
+import 'package:kartjis_mobile_organizer/core/extension/context_extension.dart';
+import 'package:kartjis_mobile_organizer/core/extension/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
 
 /// A collection of helper widgets that are reusable for this app
 class WidgetHelper {
@@ -37,7 +37,7 @@ class WidgetHelper {
             color: Palette.scaffoldBackground,
             size: 20,
           ),
-          Gap(8),
+          const Gap(8),
           Flexible(
             child: Text(
               message,
@@ -56,7 +56,7 @@ class WidgetHelper {
     final isConnected = status == InternetStatus.connected;
 
     return SnackBar(
-      duration: isConnected ? Duration(milliseconds: 1500) : Duration(days: 1),
+      duration: isConnected ? const Duration(milliseconds: 1500) : const Duration(days: 1),
       backgroundColor: isConnected ? Palette.success : Palette.error,
       padding: EdgeInsets.zero,
       content: SizedBox(
@@ -69,7 +69,7 @@ class WidgetHelper {
               color: Palette.scaffoldBackground,
               size: 16,
             ),
-            Gap(6),
+            const Gap(6),
             Flexible(
               child: Text(
                 isConnected ? context.localization.networkConnected : context.localization.networkDisconnected,

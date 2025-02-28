@@ -112,7 +112,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   children: [
                     if (widget.leading != null) ...[
                       widget.leading!,
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                     ],
                     Center(
                       child: Text(

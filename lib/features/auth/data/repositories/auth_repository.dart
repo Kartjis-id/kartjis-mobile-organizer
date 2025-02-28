@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/errors/failure.dart';
+import 'package:kartjis_mobile_organizer/core/error/failure.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/user.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/sources/auth_data_source.dart';
 

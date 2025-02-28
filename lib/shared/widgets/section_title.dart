@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
@@ -19,7 +19,7 @@ class SectionTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          Column(
+          const Column(
             children: [
               SizedBox.square(
                 dimension: 8,
@@ -41,7 +41,7 @@ class SectionTitle extends StatelessWidget {
               ),
             ],
           ),
-          Gap(10),
+          const Gap(10),
           Expanded(
             child: Text(
               title,

@@ -7,9 +7,9 @@ import 'package:http/http.dart';
 import 'package:http_interceptor/models/retry_policy.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
-import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
-import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
+import 'package:kartjis_mobile_organizer/core/config/api_config.dart';
+import 'package:kartjis_mobile_organizer/core/helper/auth_preferences.dart';
+import 'package:kartjis_mobile_organizer/core/helper/auth_token_saver.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
 
 class ExpiredTokenRetryPolicy extends RetryPolicy {
@@ -38,7 +38,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
   }
 
   @override
-  int get maxRetryAttempts => 1;
+  int get maxRetryAttempts => 2;
 
   Future<void> _refreshToken() async {
     final headers = {
@@ -47,6 +47,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
     };
 
     final body = jsonEncode({
+      'accessToken': AuthTokenSaver.token?.accessToken,
       'refreshToken': AuthTokenSaver.token?.refreshToken,
     });
 

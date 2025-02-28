@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/enums/drawer_menu_item.dart';
-import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/enum/drawer_menu_item.dart';
+import 'package:kartjis_mobile_organizer/core/extension/context_extension.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
@@ -25,7 +25,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       drawerScrimColor: Colors.black45,
       drawerEdgeDragWidth: context.screenWidth * 0.5,
       body: Stack(
@@ -41,13 +41,13 @@ class MainPage extends StatelessWidget {
 
                 switch (selectedMenu) {
                   case DrawerMenuItem.liveReport:
-                    return LiveReportPage();
+                    return const LiveReportPage();
                   case DrawerMenuItem.dashboard:
-                    return DashboardPage();
+                    return const DashboardPage();
                   case DrawerMenuItem.event:
-                    return EventPage();
+                    return const EventPage();
                   default:
-                    return LoadingIndicator();
+                    return const LoadingIndicator();
                 }
               },
             ),
@@ -63,7 +63,7 @@ class MainPage extends StatelessWidget {
                 ),
                 style: IconButton.styleFrom(
                   elevation: 3,
-                  shadowColor: Palette.divider.withOpacity(.5),
+                  shadowColor: Palette.divider.withValues(alpha: .5),
                   backgroundColor: Palette.background,
                 ),
                 tooltip: 'Menu',

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/extension/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalism_card.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/custom_circle_icon.dart';
@@ -30,7 +30,7 @@ class DashboardEventTimerCard extends StatelessWidget {
         radius: 16,
         child: Stack(
           children: [
-            SizedBox(
+            const SizedBox(
               width: double.infinity,
               height: 160,
             ),
@@ -42,7 +42,7 @@ class DashboardEventTimerCard extends StatelessWidget {
                 height: 190,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black.withOpacity(.1),
+                  color: Colors.black.withValues(alpha: .1),
                 ),
               ),
             ),
@@ -54,7 +54,7 @@ class DashboardEventTimerCard extends StatelessWidget {
                 height: 170,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black.withOpacity(.1),
+                  color: Colors.black.withValues(alpha: .1),
                 ),
               ),
             ),
@@ -73,7 +73,7 @@ class DashboardEventTimerCard extends StatelessWidget {
                           width: 18,
                         ),
                       ),
-                      Gap(10),
+                      const Gap(10),
                       Flexible(
                         child: Text(
                           'Event will start on',
@@ -82,8 +82,8 @@ class DashboardEventTimerCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Gap(10),
-                  Row(
+                  const Gap(10),
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -134,7 +134,7 @@ class _DurationText extends StatelessWidget {
           Text(
             text,
             style: textTheme.labelMedium!.semiBold.copyWith(
-              color: Palette.scaffoldBackground.withOpacity(.5),
+              color: Palette.scaffoldBackground.withValues(alpha: .5),
             ),
           ),
         ],

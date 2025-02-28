@@ -7,9 +7,9 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/extension/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
 
 class CustomField extends StatefulWidget {
   final bool enabled;
@@ -75,7 +75,7 @@ class _CustomFieldState extends State<CustomField> {
           widget.label,
           style: textTheme.labelMedium!.bold.primaryColor,
         ),
-        Gap(6),
+        const Gap(6),
         if (widget.prefixIcon != null)
           Focus(
             onFocusChange: (value) => isFocus.value = value,

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
 
 class SectionDivider extends StatelessWidget {
   const SectionDivider({super.key});
@@ -14,7 +14,7 @@ class SectionDivider extends StatelessWidget {
       child: Divider(
         height: 8,
         thickness: 8,
-        color: Palette.divider.withOpacity(.75),
+        color: Palette.divider.withValues(alpha: .75),
       ),
     );
   }

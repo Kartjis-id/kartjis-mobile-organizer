@@ -8,9 +8,9 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/extension/context_extension.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
@@ -45,120 +45,102 @@ class LoginPage extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _Header(),
-            _Form(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        ClipPath(
-          clipper: _CustomClipPath(),
-          child: Container(
-            height: 255,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  AssetPath.getImage('login_bg.png'),
-                ),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-        ),
-        ClipPath(
-          clipper: _CustomClipPath(),
-          child: Container(
-            height: 255,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Palette.primary.withOpacity(.5),
-                  Palette.primary.withOpacity(.8),
-                ],
-              ),
-            ),
-          ),
-        ),
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 48, 20, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Stack(
+              clipBehavior: Clip.none,
               children: [
-                KartjisIconText(
-                  textColor: Palette.primary,
-                  textSize: 44,
+                ClipPath(
+                  clipper: _CustomClipPath(),
+                  child: Container(
+                    height: 255,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          AssetPath.getImage('login_bg.png'),
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
                 ),
-                Gap(2),
-                Text(
-                  '\t${context.localization.loginDesc}',
-                  style: textTheme.bodyMedium,
+                ClipPath(
+                  clipper: _CustomClipPath(),
+                  child: Container(
+                    height: 255,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Palette.primary.withValues(alpha: .5),
+                          Palette.primary.withValues(alpha: .8),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _Form extends ConsumerWidget {
-  const _Form();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 24, 20, 48),
-      child: FormBuilder(
-        key: formKey,
-        child: Column(
-          children: [
-            CustomField(
-              name: 'username',
-              label: context.localization.usernameFieldLabel,
-              hintText: context.localization.usernameFieldHint,
-              prefixIcon: Icons.person_rounded,
-              textInputType: TextInputType.visiblePassword,
-              textCapitalization: TextCapitalization.none,
-              validators: [
-                FormBuilderValidators.required(
-                  errorText: context.localization.requiredFieldValidator,
-                ),
-              ],
-            ),
-            Gap(16),
-            PasswordField(
-              name: 'password',
-              label: context.localization.passwordFieldLabel,
-              hintText: context.localization.passwordFieldHint,
-              prefixIcon: Icons.lock_rounded,
-              textInputAction: TextInputAction.done,
-              validators: [
-                FormBuilderValidators.required(
-                  errorText: context.localization.requiredFieldValidator,
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 48, 20, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const KartjisIconText(
+                          textColor: Palette.primary,
+                          textSize: 44,
+                        ),
+                        const Gap(2),
+                        Text(
+                          '\t${context.localization.loginDesc}',
+                          style: textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
-            Gap(20),
-            BrutalismButton(
-              title: context.localization.login,
-              primaryColor: Palette.primary,
-              borderColor: Palette.primary,
-              layerColor: Palette.scaffoldBackground,
-              layerSpace: 3,
-              onTap: () => login(ref),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 48),
+              child: FormBuilder(
+                key: formKey,
+                child: Column(
+                  children: [
+                    CustomField(
+                      name: 'username',
+                      label: context.localization.usernameFieldLabel,
+                      hintText: context.localization.usernameFieldHint,
+                      prefixIcon: Icons.person_rounded,
+                      textInputType: TextInputType.visiblePassword,
+                      textCapitalization: TextCapitalization.none,
+                      validators: [
+                        FormBuilderValidators.required(
+                          errorText: context.localization.requiredFieldValidator,
+                        ),
+                      ],
+                    ),
+                    const Gap(16),
+                    PasswordField(
+                      name: 'password',
+                      label: context.localization.passwordFieldLabel,
+                      hintText: context.localization.passwordFieldHint,
+                      prefixIcon: Icons.lock_rounded,
+                      textInputAction: TextInputAction.done,
+                      validators: [
+                        FormBuilderValidators.required(
+                          errorText: context.localization.requiredFieldValidator,
+                        ),
+                      ],
+                    ),
+                    const Gap(20),
+                    BrutalismButton(
+                      title: context.localization.login,
+                      primaryColor: Palette.primary,
+                      borderColor: Palette.primary,
+                      layerColor: Palette.scaffoldBackground,
+                      layerSpace: 3,
+                      onTap: () => login(ref),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

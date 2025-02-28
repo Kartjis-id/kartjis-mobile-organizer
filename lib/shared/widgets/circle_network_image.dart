@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
@@ -33,7 +33,7 @@ class CircleNetworkImage extends StatelessWidget {
     if (imageUrl != null) {
       return CachedNetworkImage(
         imageUrl: imageUrl!,
-        fadeInDuration: const Duration(milliseconds: 200),
+        fadeInDuration: const  Duration(milliseconds: 200),
         fadeOutDuration: const Duration(milliseconds: 200),
         imageBuilder: (context, imageProvider) => buildImage(
           imageProvider: imageProvider,

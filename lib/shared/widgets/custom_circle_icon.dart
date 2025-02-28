@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
 
 class CustomCircleIcon extends StatelessWidget {
   final Widget icon;
@@ -34,7 +34,7 @@ class CustomCircleIcon extends StatelessWidget {
             : null,
       ),
       child: Padding(
-        padding: padding ?? EdgeInsets.all(6),
+        padding: padding ?? const EdgeInsets.all(6),
         child: icon,
       ),
     );

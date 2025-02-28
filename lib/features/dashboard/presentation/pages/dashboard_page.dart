@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/dashboard_event_timer_card.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/section_divider.dart';
@@ -16,8 +16,8 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+    return const SingleChildScrollView(
+      padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
           SafeArea(

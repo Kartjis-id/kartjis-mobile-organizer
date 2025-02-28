@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
 
 class LoadingIndicator extends StatelessWidget {
   final double size;
@@ -33,10 +33,10 @@ class LoadingIndicator extends StatelessWidget {
         duration: const Duration(milliseconds: 1500),
         itemBuilder: (context, index) {
           final colors = [
-            Palette.secondary.withOpacity(.8),
-            Palette.tertiary.withOpacity(.8),
-            Palette.purple300.withOpacity(.8),
-            Palette.primary.withOpacity(.8),
+            Palette.secondary.withValues(alpha: .8),
+            Palette.tertiary.withValues(alpha: .8),
+            Palette.purple300.withValues(alpha: .8),
+            Palette.primary.withValues(alpha: .8),
           ];
 
           return DecoratedBox(
