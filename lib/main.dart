@@ -7,9 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/app.dart';
-import 'package:kartjis_mobile_organizer/core/config/app_config.dart';
-import 'package:kartjis_mobile_organizer/core/helper/auth_token_saver.dart';
-import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/configs/app_config.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

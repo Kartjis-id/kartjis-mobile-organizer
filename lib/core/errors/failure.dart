@@ -2,8 +2,8 @@
 import 'package:equatable/equatable.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/error/exception.dart';
-import 'package:kartjis_mobile_organizer/core/utils/const.dart';
+import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/const.dart';
 
 sealed class Failure extends Equatable {
   final String message;

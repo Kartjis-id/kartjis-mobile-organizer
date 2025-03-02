@@ -7,9 +7,9 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/extension/text_style_extension.dart';
-import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 
 class PasswordField extends StatefulWidget {
   final String name;
@@ -105,7 +105,7 @@ class _PasswordFieldState extends State<PasswordField> {
                           child: Icon(
                             widget.prefixIcon,
                             color: isFocus ? Palette.background : Palette.disabled,
-                            size: 22,
+                            size: 20,
                           ),
                         );
                       },
@@ -116,7 +116,7 @@ class _PasswordFieldState extends State<PasswordField> {
               onTap: () => this.isVisible.value = !isVisible,
               child: Icon(
                 isVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                size: 22,
+                size: 20,
               ),
             ),
           ),

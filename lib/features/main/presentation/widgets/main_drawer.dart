@@ -6,13 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/config/app_config.dart';
-import 'package:kartjis_mobile_organizer/core/enum/drawer_menu_item.dart';
-import 'package:kartjis_mobile_organizer/core/extension/text_style_extension.dart';
-import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
-import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
-import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
+import 'package:kartjis_mobile_organizer/core/configs/app_config.dart';
+import 'package:kartjis_mobile_organizer/core/enums/drawer_menu_item.dart';
+import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/drawer_menu_item_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_network_image.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
@@ -26,7 +26,7 @@ class MainDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: Palette.purple700,
       shape: const RoundedRectangleBorder(),
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,9 +38,9 @@ class MainDrawer extends StatelessWidget {
                   children: [
                     const CircleNetworkImage(
                       imageUrl: null,
-                      size: 46,
+                      size: 48,
                     ),
-                    const Gap(12),
+                    const Gap(16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,14 +64,48 @@ class MainDrawer extends StatelessWidget {
               ),
             ),
             const _DrawerDivider(
-              top: 24,
+              top: 20,
               bottom: 10,
             ),
-            ...DrawerMenuItem.values.map(
-              (item) => _DrawerMenu(item: item),
+            const _DrawerMenu(
+              item: DrawerMenuItem.dashboard,
             ),
-            const Spacer(),
             const _DrawerDivider(
+              top: 10,
+              bottom: 12,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Event',
+                    style: textTheme.bodySmall!.semiBold.secondaryTextColor,
+                  ),
+                ),
+                const Gap(6),
+                for (var i = 1; i <= 8; i++)
+                  _DrawerMenu(
+                    item: DrawerMenuItem.values[i],
+                  ),
+                const Gap(16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Others',
+                    style: textTheme.bodySmall!.semiBold.secondaryTextColor,
+                  ),
+                ),
+                const Gap(6),
+                for (var i = 9; i <= 12; i++)
+                  _DrawerMenu(
+                    item: DrawerMenuItem.values[i],
+                  ),
+              ],
+            ),
+            const _DrawerDivider(
+              top: 10,
               bottom: 20,
             ),
             Padding(
@@ -88,7 +122,7 @@ class MainDrawer extends StatelessWidget {
                   ),
                   const Gap(8),
                   Text(
-                    'Version ${AppConfig.version}',
+                    'App version ${AppConfig.version}',
                     style: textTheme.labelSmall!.secondaryTextColor,
                   ),
                 ],
@@ -118,8 +152,6 @@ class _DrawerDivider extends StatelessWidget {
         bottom: bottom,
       ),
       child: Divider(
-        indent: 20,
-        endIndent: 20,
         height: 1,
         thickness: 1,
         color: Palette.divider.withValues(alpha: .25),
@@ -140,6 +172,7 @@ class _DrawerMenu extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
+        minTileHeight: 48,
         selected: selected,
         selectedTileColor: Palette.scaffoldBackground,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12),
@@ -148,11 +181,12 @@ class _DrawerMenu extends ConsumerWidget {
         ),
         leading: SvgAsset(
           AssetPath.getIcon(item.leadingIcon),
+          width: 20,
           color: selected ? Palette.secondary : Palette.scaffoldBackground,
         ),
         title: Text(
           item.title,
-          style: textTheme.bodyMedium!.semiBold.copyWith(
+          style: textTheme.labelLarge!.copyWith(
             color: selected ? Palette.secondary : Palette.scaffoldBackground,
           ),
         ),

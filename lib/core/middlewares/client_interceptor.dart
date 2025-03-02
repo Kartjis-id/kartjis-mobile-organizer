@@ -6,10 +6,10 @@ import 'dart:convert';
 import 'package:http_interceptor/http_interceptor.dart' hide ClientException;
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/connection/network_info.dart';
-import 'package:kartjis_mobile_organizer/core/error/exception.dart';
-import 'package:kartjis_mobile_organizer/core/helper/auth_token_saver.dart';
-import 'package:kartjis_mobile_organizer/core/utils/const.dart';
+import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
+import 'package:kartjis_mobile_organizer/core/errors/exception.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/auth_token_saver.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/const.dart';
 
 class ClientInterceptor implements InterceptorContract {
   final NetworkInfo networkInfo;

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 enum KartjisIconTextAxis {
@@ -37,7 +37,7 @@ class KartjisIconText extends StatelessWidget {
   Widget build(BuildContext context) {
     final kartjisWidgets = [
       SvgAsset(
-        AssetPath.getIcon('kartjis_filled.svg'),
+        AssetPath.getIcon('kartjis.svg'),
         width: iconSize,
       ),
       Gap(gap),

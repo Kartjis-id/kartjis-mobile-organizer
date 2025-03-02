@@ -6,9 +6,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/enum/snack_bar_type.dart';
-import 'package:kartjis_mobile_organizer/core/helper/helper_widget.dart';
-import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
+import 'package:kartjis_mobile_organizer/core/enums/snack_bar_type.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/helper_widget.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/loading_indicator.dart';
 
 extension SnackBarExtension on BuildContext {

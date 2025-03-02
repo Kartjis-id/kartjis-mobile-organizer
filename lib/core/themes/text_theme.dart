@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 final textTheme = const TextTheme(
   displayLarge: TextStyle(

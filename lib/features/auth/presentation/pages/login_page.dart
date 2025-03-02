@@ -8,11 +8,12 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/extension/context_extension.dart';
-import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/theme/text_theme.dart';
-import 'package:kartjis_mobile_organizer/core/utils/asset_path.dart';
-import 'package:kartjis_mobile_organizer/core/utils/keys.dart';
+import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
+import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/login_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalism_button.dart';
@@ -78,17 +79,18 @@ class LoginPage extends ConsumerWidget {
                 ),
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 48, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 56, 20, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const KartjisIconText(
                           textColor: Palette.primary,
-                          textSize: 44,
+                          textSize: 40,
+                          gap: 10,
                         ),
-                        const Gap(2),
+                        const Gap(4),
                         Text(
-                          '\t${context.localization.loginDesc}',
+                          context.localization.loginDesc,
                           style: textTheme.bodyMedium,
                         ),
                       ],
@@ -98,10 +100,11 @@ class LoginPage extends ConsumerWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 24, 20, 48),
+              padding: const EdgeInsets.fromLTRB(20, 32, 20, 48),
               child: FormBuilder(
                 key: formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     CustomField(
                       name: 'username',
@@ -129,7 +132,15 @@ class LoginPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const Gap(20),
+                    const Gap(8),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'Lupa Password?',
+                        style: textTheme.labelMedium!.bold.primaryColor,
+                      ),
+                    ),
+                    const Gap(24),
                     BrutalismButton(
                       title: context.localization.login,
                       primaryColor: Palette.primary,

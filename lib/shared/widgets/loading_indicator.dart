@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/theme/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 class LoadingIndicator extends StatelessWidget {
   final double size;

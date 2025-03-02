@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/config/api_config.dart';
-import 'package:kartjis_mobile_organizer/core/helper/auth_preferences.dart';
-import 'package:kartjis_mobile_organizer/core/helper/http_client.dart';
+import 'package:kartjis_mobile_organizer/core/configs/api_config.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
+import 'package:kartjis_mobile_organizer/core/helpers/http_client.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/token.dart';
 import 'package:kartjis_mobile_organizer/features/auth/data/models/user.dart';
 
