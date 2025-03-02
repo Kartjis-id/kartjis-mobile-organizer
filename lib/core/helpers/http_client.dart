@@ -9,33 +9,21 @@ import 'package:kartjis_mobile_organizer/core/helpers/auth_preferences.dart';
 import 'package:kartjis_mobile_organizer/core/middlewares/client_interceptor.dart';
 import 'package:kartjis_mobile_organizer/core/middlewares/expired_token_policy.dart';
 
-final httpClientProvider = Provider<HttpClient>(
-  (ref) => HttpClient(),
+final clientProvider = Provider<Client>(
+  (ref) => Client(),
 );
 
 final interceptedClientProvider = Provider<Client>(
   (ref) => InterceptedClient.build(
-    client: ref.watch(httpClientProvider).client,
+    client: ref.watch(clientProvider),
     interceptors: [
       ClientInterceptor(
         networkInfo: ref.watch(networkInfoProvider),
       ),
     ],
     retryPolicy: ExpiredTokenRetryPolicy(
-      client: ref.watch(httpClientProvider).client,
+      client: ref.watch(clientProvider),
       authPreferences: ref.watch(authPreferencesProvider),
     ),
   ),
 );
-
-class HttpClient {
-  HttpClient._instance();
-
-  static final HttpClient _httpClient = HttpClient._instance();
-
-  factory HttpClient() => _httpClient;
-
-  Client? _client;
-
-  Client get client => _client ??= Client();
-}

@@ -56,6 +56,15 @@ extension SnackBarExtension on BuildContext {
 }
 
 extension DialogExtension on BuildContext {
+  Future<Object?> showCustomDialog(Widget dialog) {
+    return showDialog(
+      context: this,
+      barrierDismissible: false,
+      barrierColor: Colors.black45,
+      builder: (_) => dialog,
+    );
+  }
+
   Future<Object?> showLoadingDialog() {
     return showDialog(
       context: this,

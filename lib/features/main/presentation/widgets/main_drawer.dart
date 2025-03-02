@@ -8,12 +8,14 @@ import 'package:gap/gap.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/configs/app_config.dart';
 import 'package:kartjis_mobile_organizer/core/enums/drawer_menu_item.dart';
+import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/providers/drawer_menu_item_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_menu_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/select_event_dialog.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_network_image.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
@@ -47,7 +49,7 @@ class MainDrawer extends StatelessWidget {
                         children: [
                           Text(
                             'Event Organizer',
-                            style: textTheme.bodyMedium!.semiBold.scaffoldBackgroundColor,
+                            style: textTheme.bodyMedium!.bold.scaffoldBackgroundColor,
                             maxLines: 2,
                             overflow: TextOverflow.fade,
                           ),
@@ -63,8 +65,35 @@ class MainDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            const Gap(16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListTile(
+                minTileHeight: 48,
+                tileColor: Palette.scaffoldBackground.withValues(alpha: .6),
+                contentPadding: const EdgeInsets.only(
+                  left: 16,
+                  right: 12,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                title: Text(
+                  'The Eras Tour',
+                  style: textTheme.bodyMedium!.bold.primaryColor,
+                ),
+                trailing: const Icon(
+                  Icons.chevron_right_rounded,
+                  color: Palette.primary,
+                ),
+                onTap: () {
+                  context.showCustomDialog(const SelectEventDialog());
+                  scaffoldKey.currentState?.closeDrawer();
+                },
+              ),
+            ),
             const _DrawerDivider(
-              top: 20,
+              top: 16,
               bottom: 10,
             ),
             const _DrawerMenu(
@@ -72,38 +101,33 @@ class MainDrawer extends StatelessWidget {
             ),
             const _DrawerDivider(
               top: 10,
-              bottom: 12,
+              bottom: 16,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'Event',
-                    style: textTheme.bodySmall!.semiBold.secondaryTextColor,
-                  ),
-                ),
-                const Gap(6),
-                for (var i = 1; i <= 8; i++)
-                  _DrawerMenu(
-                    item: DrawerMenuItem.values[i],
-                  ),
-                const Gap(16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'Others',
-                    style: textTheme.bodySmall!.semiBold.secondaryTextColor,
-                  ),
-                ),
-                const Gap(6),
-                for (var i = 9; i <= 12; i++)
-                  _DrawerMenu(
-                    item: DrawerMenuItem.values[i],
-                  ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Event',
+                style: textTheme.labelMedium!.bold.secondaryTextColor,
+              ),
             ),
+            const Gap(6),
+            for (var i = 1; i <= 8; i++)
+              _DrawerMenu(
+                item: DrawerMenuItem.values[i],
+              ),
+            const Gap(16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Others',
+                style: textTheme.labelMedium!.bold.secondaryTextColor,
+              ),
+            ),
+            const Gap(6),
+            for (var i = 9; i <= 12; i++)
+              _DrawerMenu(
+                item: DrawerMenuItem.values[i],
+              ),
             const _DrawerDivider(
               top: 10,
               bottom: 20,
@@ -167,15 +191,14 @@ class _DrawerMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selected = item == ref.watch(drawerMenuItemProvider);
+    final selected = item == ref.watch(selectedMenuProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
-        minTileHeight: 48,
         selected: selected,
         selectedTileColor: Palette.scaffoldBackground,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+        minTileHeight: 48,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -191,7 +214,7 @@ class _DrawerMenu extends ConsumerWidget {
           ),
         ),
         onTap: () {
-          ref.read(drawerMenuItemProvider.notifier).state = item;
+          ref.read(selectedMenuProvider.notifier).state = item;
           scaffoldKey.currentState?.closeDrawer();
         },
       ),

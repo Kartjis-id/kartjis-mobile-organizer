@@ -61,12 +61,11 @@ flutter:
     - family: Titillium Web
       fonts:
         - asset: fonts/TitilliumWeb-Bold.ttf
-    - family: Montserrat
+    - family: GTWalsheimPro
       fonts:
-        - asset: fonts/Montserrat-Bold.ttf
-        - asset: fonts/Montserrat-SemiBold.ttf
-        - asset: fonts/Montserrat-Medium.ttf
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Light.ttf
-        - asset: fonts/Montserrat-ExtraLight.ttf
-        - asset: fonts/Montserrat-Thin.ttf
+        - asset: fonts/GTWalsheimPro-Black.ttf
+        - asset: fonts/GTWalsheimPro-Bold.ttf
+        - asset: fonts/GTWalsheimPro-Light.ttf
+        - asset: fonts/GTWalsheimPro-Medium.ttf
+        - asset: fonts/GTWalsheimPro-Regular.ttf
+        - asset: fonts/GTWalsheimPro-Thin.ttf

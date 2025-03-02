@@ -2,29 +2,29 @@
 import 'package:flutter/material.dart';
 
 class BrutalismButton extends StatefulWidget {
-  final String title;
+  final bool enabled;
+  final String text;
+  final Color? textColor;
   final Color primaryColor;
   final Color layerColor;
-  final Color? borderColor;
-  final Color? textColor;
   final double layerSpace;
-  final VoidCallback onTap;
-  final bool isEnabled;
+  final Color? borderColor;
   final Widget? leading;
   final double radius;
+  final VoidCallback? onTap;
 
   const BrutalismButton({
     super.key,
-    required this.title,
+    this.enabled = true,
+    required this.text,
+    this.textColor,
     required this.primaryColor,
     required this.layerColor,
-    this.borderColor,
-    this.textColor,
     required this.layerSpace,
-    required this.onTap,
-    this.isEnabled = true,
+    this.borderColor,
     this.leading,
     this.radius = 8.0,
+    this.onTap,
   });
 
   @override
@@ -47,7 +47,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
     Future.delayed(const Duration(milliseconds: 150), () {
       onHoverNotifier.value = false;
 
-      widget.onTap.call();
+      widget.onTap?.call();
     });
   }
 
@@ -63,9 +63,9 @@ class _BrutalismButtonState extends State<BrutalismButton> {
       valueListenable: onHoverNotifier,
       builder: (context, onHover, ___) {
         return GestureDetector(
-          onTapDown: widget.isEnabled ? (details) => onHoverNotifier.value = true : null,
-          onTapUp: widget.isEnabled ? (details) => onTapUp() : null,
-          onTapCancel: widget.isEnabled ? onTapCancel : null,
+          onTapDown: widget.enabled ? (details) => onHoverNotifier.value = true : null,
+          onTapUp: widget.enabled ? (details) => onTapUp() : null,
+          onTapCancel: widget.enabled ? onTapCancel : null,
           child: Stack(
             children: [
               Container(
@@ -76,11 +76,11 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   top: widget.layerSpace,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(widget.radius),
                   color: widget.layerColor,
                   border: Border.all(
                     color: widget.borderColor ?? Colors.black,
                   ),
+                  borderRadius: BorderRadius.circular(widget.radius),
                 ),
                 padding: const EdgeInsets.all(12),
                 child: const SizedBox(),
@@ -90,7 +90,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                 height: 44,
                 duration: const Duration(milliseconds: 150),
                 curve: Curves.easeInOut,
-                margin: onHover || !widget.isEnabled
+                margin: onHover || !widget.enabled
                     ? EdgeInsets.only(
                         left: widget.layerSpace,
                         top: widget.layerSpace,
@@ -100,11 +100,11 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                         bottom: widget.layerSpace,
                       ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(widget.radius),
-                  color: widget.isEnabled ? widget.primaryColor : Colors.white,
+                  color: widget.enabled ? widget.primaryColor : Colors.white,
                   border: Border.all(
-                    color: widget.isEnabled ? widget.borderColor ?? Colors.black : Colors.grey,
+                    color: widget.enabled ? widget.borderColor ?? Colors.black : Colors.grey,
                   ),
+                  borderRadius: BorderRadius.circular(widget.radius),
                 ),
                 padding: const EdgeInsets.all(12),
                 child: Row(
@@ -116,9 +116,9 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                     ],
                     Center(
                       child: Text(
-                        widget.title,
+                        widget.text,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: widget.isEnabled ? widget.textColor ?? Colors.white : Colors.grey,
+                              color: widget.enabled ? widget.textColor ?? Colors.white : Colors.grey,
                               fontWeight: FontWeight.w500,
                             ),
                       ),

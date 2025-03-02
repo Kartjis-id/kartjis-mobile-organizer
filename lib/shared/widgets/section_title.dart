@@ -27,7 +27,7 @@ class SectionTitle extends StatelessWidget {
           const Column(
             children: [
               SizedBox.square(
-                dimension: 8,
+                dimension: 6,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Palette.primary,
@@ -36,8 +36,8 @@ class SectionTitle extends StatelessWidget {
               ),
               Gap(4),
               SizedBox(
-                width: 8,
-                height: 20,
+                width: 6,
+                height: 18,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Palette.tertiary,
@@ -46,7 +46,7 @@ class SectionTitle extends StatelessWidget {
               ),
             ],
           ),
-          const Gap(12),
+          const Gap(10),
           Expanded(
             child: Text(
               title,

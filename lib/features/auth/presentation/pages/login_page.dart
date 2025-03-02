@@ -79,7 +79,7 @@ class LoginPage extends ConsumerWidget {
                 ),
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 56, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 64, 20, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -142,11 +142,11 @@ class LoginPage extends ConsumerWidget {
                     ),
                     const Gap(24),
                     BrutalismButton(
-                      title: context.localization.login,
+                      text: context.localization.login,
                       primaryColor: Palette.primary,
                       borderColor: Palette.primary,
                       layerColor: Palette.scaffoldBackground,
-                      layerSpace: 3,
+                      layerSpace: 3.5,
                       onTap: () => login(ref),
                     ),
                   ],

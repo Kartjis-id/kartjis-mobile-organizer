@@ -7,15 +7,15 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 final textTheme = const TextTheme(
   displayLarge: TextStyle(
     fontSize: 64,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
   ),
   displayMedium: TextStyle(
     fontSize: 44,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
   ),
   displaySmall: TextStyle(
     fontSize: 36,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
   ),
   headlineLarge: TextStyle(
     fontSize: 32,
@@ -66,7 +66,7 @@ final textTheme = const TextTheme(
     fontWeight: FontWeight.w400,
   ),
 ).apply(
-  fontFamily: 'Montserrat',
+  fontFamily: 'GTWalsheimPro',
   bodyColor: Palette.primaryText,
   displayColor: Palette.primaryText,
 );

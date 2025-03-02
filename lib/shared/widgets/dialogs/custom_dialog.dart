@@ -1,0 +1,84 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/brutalism_button.dart';
+
+class CustomDialog extends StatelessWidget {
+  final String title;
+  final Widget child;
+  final EdgeInsetsGeometry childPadding;
+  final bool showPrimaryButton;
+  final String? primaryButtonText;
+  final VoidCallback? onPressedPrimaryButton;
+
+  const CustomDialog({
+    super.key,
+    required this.title,
+    required this.child,
+    this.childPadding = const EdgeInsets.fromLTRB(20, 12, 20, 16),
+    this.showPrimaryButton = true,
+    this.primaryButtonText,
+    this.onPressedPrimaryButton,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: Text(
+                title,
+                style: textTheme.titleLarge!.primaryColor,
+              ),
+            ),
+            Padding(
+              padding: childPadding,
+              child: child,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: BrutalismButton(
+                      text: 'Back',
+                      textColor: Palette.primary,
+                      primaryColor: Palette.scaffoldBackground,
+                      borderColor: Palette.primary,
+                      layerColor: Palette.primary,
+                      layerSpace: 3.5,
+                      onTap: () => navigatorKey.currentState!.pop(),
+                    ),
+                  ),
+                  if (showPrimaryButton) ...[
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: BrutalismButton(
+                        text: primaryButtonText ?? 'Select',
+                        primaryColor: Palette.primary,
+                        borderColor: Palette.primary,
+                        layerColor: Palette.scaffoldBackground,
+                        layerSpace: 3.5,
+                        onTap: onPressedPrimaryButton,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

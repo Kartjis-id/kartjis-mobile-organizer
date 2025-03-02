@@ -12,7 +12,7 @@ import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:kartjis_mobile_organizer/features/event/presentation/pages/event_description_page.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/providers/drawer_menu_item_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/loading_indicator.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
@@ -36,7 +36,7 @@ class MainPage extends StatelessWidget {
             ),
             child: Consumer(
               builder: (context, ref, child) {
-                final selectedMenu = ref.watch(drawerMenuItemProvider);
+                final selectedMenu = ref.watch(selectedMenuProvider);
 
                 switch (selectedMenu) {
                   case DrawerMenuItem.dashboard:

@@ -2,30 +2,28 @@
 import 'package:flutter/material.dart';
 
 class BrutalismCard extends StatefulWidget {
-  final bool isEnabled;
+  final bool enabled;
   final Color primaryColor;
   final Color layerColor;
-  final Color? borderColor;
-  final double? borderWidth;
   final double layerSpace;
-  final Color? textColor;
-  final VoidCallback? onTap;
+  final double? borderWidth;
+  final Color? borderColor;
   final EdgeInsetsGeometry? padding;
   final double radius;
+  final VoidCallback? onTap;
   final Widget child;
 
   const BrutalismCard({
     super.key,
-    this.isEnabled = true,
+    this.enabled = true,
     required this.primaryColor,
     required this.layerColor,
-    this.borderColor,
-    this.borderWidth,
     required this.layerSpace,
-    this.textColor,
-    this.onTap,
+    this.borderWidth,
+    this.borderColor,
     this.padding = const EdgeInsets.all(12.0),
     this.radius = 8.0,
+    this.onTap,
     required this.child,
   });
 
@@ -61,11 +59,11 @@ class _BrutalismCardState extends State<BrutalismCard> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: onHoverNotifier,
-      builder: (context, onHover, ___) {
+      builder: (context, onHover, child) {
         return GestureDetector(
-          onTapDown: widget.isEnabled && widget.onTap != null ? (details) => onHoverNotifier.value = true : null,
-          onTapUp: widget.isEnabled && widget.onTap != null ? (details) => onTapUp() : null,
-          onTapCancel: widget.isEnabled && widget.onTap != null ? onTapCancel : null,
+          onTapDown: widget.enabled && widget.onTap != null ? (details) => onHoverNotifier.value = true : null,
+          onTapUp: widget.enabled && widget.onTap != null ? (details) => onTapUp() : null,
+          onTapCancel: widget.enabled && widget.onTap != null ? onTapCancel : null,
           child: Stack(
             children: [
               Positioned.fill(
@@ -91,7 +89,7 @@ class _BrutalismCardState extends State<BrutalismCard> {
                 width: double.infinity,
                 duration: const Duration(milliseconds: 150),
                 curve: Curves.easeInOut,
-                margin: onHover || !widget.isEnabled
+                margin: onHover || !widget.enabled
                     ? EdgeInsets.only(
                         left: widget.layerSpace,
                         top: widget.layerSpace,
@@ -102,10 +100,10 @@ class _BrutalismCardState extends State<BrutalismCard> {
                       ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(widget.radius),
-                  color: widget.isEnabled ? widget.primaryColor : Colors.white,
+                  color: widget.enabled ? widget.primaryColor : Colors.white,
                   border: Border.all(
                     width: widget.borderWidth ?? 1,
-                    color: widget.isEnabled ? widget.borderColor ?? Colors.black : Colors.grey,
+                    color: widget.enabled ? widget.borderColor ?? Colors.black : Colors.grey,
                   ),
                 ),
                 child: ClipRRect(
