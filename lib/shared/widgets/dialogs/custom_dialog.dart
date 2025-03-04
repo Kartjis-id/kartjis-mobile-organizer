@@ -6,7 +6,7 @@ import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.da
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/brutalism_button.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_button.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
@@ -57,7 +57,7 @@ class CustomDialog extends StatelessWidget {
                       borderColor: Palette.primary,
                       layerColor: Palette.primary,
                       layerSpace: 3.5,
-                      onTap: () => navigatorKey.currentState!.pop(),
+                      onTap: () => navigatorKey.currentState?.pop(),
                     ),
                   ),
                   if (showPrimaryButton) ...[

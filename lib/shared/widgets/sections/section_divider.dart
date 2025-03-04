@@ -5,12 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 class SectionDivider extends StatelessWidget {
-  const SectionDivider({super.key});
+  final double topPadding;
+  final double bottomPadding;
+
+  const SectionDivider({
+    super.key,
+    this.topPadding = 24.0,
+    this.bottomPadding = 24.0,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24),
+      padding: EdgeInsets.only(
+        top: topPadding,
+        bottom: bottomPadding,
+      ),
       child: Divider(
         height: 8,
         thickness: 8,

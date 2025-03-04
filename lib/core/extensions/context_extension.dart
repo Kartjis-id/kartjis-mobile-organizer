@@ -60,7 +60,6 @@ extension DialogExtension on BuildContext {
     return showDialog(
       context: this,
       barrierDismissible: false,
-      barrierColor: Colors.black45,
       builder: (_) => dialog,
     );
   }
@@ -69,7 +68,6 @@ extension DialogExtension on BuildContext {
     return showDialog(
       context: this,
       barrierDismissible: false,
-      barrierColor: Colors.black45,
       builder: (_) => const LoadingIndicator(),
     );
   }

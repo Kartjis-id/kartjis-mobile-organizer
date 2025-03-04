@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 final dialogTheme = DialogTheme(
-  elevation: 0,
   backgroundColor: Palette.scaffoldBackground,
   surfaceTintColor: Palette.scaffoldBackground,
   shape: RoundedRectangleBorder(

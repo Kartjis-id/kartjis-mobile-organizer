@@ -16,7 +16,8 @@ import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/login_provider.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/brutalism_button.dart';
+import 'package:kartjis_mobile_organizer/features/auth/presentation/widgets/custom_clip_path.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_button.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/custom_field.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/password_field.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
@@ -50,7 +51,7 @@ class LoginPage extends ConsumerWidget {
               clipBehavior: Clip.none,
               children: [
                 ClipPath(
-                  clipper: _CustomClipPath(),
+                  clipper: CustomClipPath(),
                   child: Container(
                     height: 255,
                     decoration: BoxDecoration(
@@ -64,7 +65,7 @@ class LoginPage extends ConsumerWidget {
                   ),
                 ),
                 ClipPath(
-                  clipper: _CustomClipPath(),
+                  clipper: CustomClipPath(),
                   child: Container(
                     height: 255,
                     decoration: BoxDecoration(
@@ -169,25 +170,4 @@ class LoginPage extends ConsumerWidget {
           );
     }
   }
-}
-
-class _CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    double w = size.width;
-    double h = size.height;
-
-    Path path = Path();
-
-    path.moveTo(0, 0);
-    path.lineTo(0, h * 0.4);
-    path.lineTo(w, h);
-    path.lineTo(w, 0);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

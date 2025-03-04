@@ -11,10 +11,8 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
-import 'package:kartjis_mobile_organizer/features/event/presentation/pages/event_description_page.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/loading_indicator.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class MainPage extends StatelessWidget {
@@ -25,8 +23,7 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       drawer: const MainDrawer(),
-      drawerScrimColor: Colors.black45,
-      drawerEdgeDragWidth: context.screenWidth * 0.4,
+      drawerEdgeDragWidth: context.screenWidth * 0.1,
       body: Stack(
         children: [
           ConstrainedBox(
@@ -41,10 +38,8 @@ class MainPage extends StatelessWidget {
                 switch (selectedMenu) {
                   case DrawerMenuItem.dashboard:
                     return const DashboardPage();
-                  case DrawerMenuItem.eventDescription:
-                    return const EventDescriptionPage();
                   default:
-                    return const LoadingIndicator();
+                    return const SizedBox.expand();
                 }
               },
             ),

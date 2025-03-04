@@ -51,9 +51,9 @@ class CircleNetworkImage extends StatelessWidget {
         errorWidget: (context, url, error) => buildCircleContainer(
           child: SvgAsset(
             AssetPath.getIcon('no-image.svg'),
+            color: Palette.disabled,
             width: loadingIndicatorSize ?? size / 2.5,
             height: loadingIndicatorSize ?? size / 2.5,
-            color: Palette.disabled,
           ),
         ),
       );

@@ -14,6 +14,7 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_event_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/select_event_dialog.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_network_image.dart';
@@ -78,9 +79,13 @@ class MainDrawer extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                title: Text(
-                  'The Eras Tour',
-                  style: textTheme.bodyMedium!.bold.primaryColor,
+                title: Consumer(
+                  builder: (context, ref, child) {
+                    return Text(
+                      ref.watch(selectedEventProvider).name,
+                      style: textTheme.bodyMedium!.bold.primaryColor,
+                    );
+                  },
                 ),
                 trailing: const Icon(
                   Icons.chevron_right_rounded,
@@ -105,13 +110,17 @@ class MainDrawer extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Event',
-                style: textTheme.labelMedium!.bold.secondaryTextColor,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  return Text(
+                    'Event - ${ref.watch(selectedEventProvider).name}',
+                    style: textTheme.labelMedium!.bold.secondaryTextColor,
+                  );
+                },
               ),
             ),
             const Gap(6),
-            for (var i = 1; i <= 8; i++)
+            for (var i = 1; i <= 9; i++)
               _DrawerMenu(
                 item: DrawerMenuItem.values[i],
               ),
@@ -119,12 +128,12 @@ class MainDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Others',
+                'General',
                 style: textTheme.labelMedium!.bold.secondaryTextColor,
               ),
             ),
             const Gap(6),
-            for (var i = 9; i <= 12; i++)
+            for (var i = 10; i <= 13; i++)
               _DrawerMenu(
                 item: DrawerMenuItem.values[i],
               ),
@@ -204,8 +213,8 @@ class _DrawerMenu extends ConsumerWidget {
         ),
         leading: SvgAsset(
           AssetPath.getIcon(item.leadingIcon),
-          width: 20,
           color: selected ? Palette.secondary : Palette.scaffoldBackground,
+          width: 20,
         ),
         title: Text(
           item.title,

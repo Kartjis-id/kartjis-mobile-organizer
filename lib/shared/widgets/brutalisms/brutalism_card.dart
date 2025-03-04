@@ -45,7 +45,7 @@ class _BrutalismCardState extends State<BrutalismCard> {
     Future.delayed(const Duration(milliseconds: 150), () {
       onHoverNotifier.value = false;
 
-      widget.onTap!.call();
+      widget.onTap?.call();
     });
   }
 

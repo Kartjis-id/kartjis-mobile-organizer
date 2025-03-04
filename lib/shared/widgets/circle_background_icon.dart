@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
-class CustomCircleIcon extends StatelessWidget {
+class CircleBackgroundIcon extends StatelessWidget {
   final Widget icon;
   final EdgeInsets? padding;
   final double? borderWidth;
   final Color? borderColor;
   final Color? backgroundColor;
 
-  const CustomCircleIcon({
+  const CircleBackgroundIcon({
     super.key,
     required this.icon,
     this.padding,
@@ -34,7 +34,7 @@ class CustomCircleIcon extends StatelessWidget {
             : null,
       ),
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(6),
+        padding: padding ?? const EdgeInsets.all(4),
         child: icon,
       ),
     );

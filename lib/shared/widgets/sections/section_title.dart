@@ -26,18 +26,19 @@ class SectionTitle extends StatelessWidget {
         children: [
           const Column(
             children: [
-              SizedBox.square(
-                dimension: 6,
+              SizedBox(
+                width: 6,
+                height: 8,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Palette.primary,
                   ),
                 ),
               ),
-              Gap(4),
+              Gap(2),
               SizedBox(
                 width: 6,
-                height: 18,
+                height: 16,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Palette.tertiary,
