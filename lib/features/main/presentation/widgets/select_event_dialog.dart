@@ -25,13 +25,13 @@ class SelectEventDialog extends ConsumerWidget {
       child: ListView.separated(
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
-        itemBuilder: (context, index) => _EventItem(
+        itemBuilder: (context, index) => _EventListTile(
           event: events[index],
         ),
         separatorBuilder: (context, index) => Divider(
           height: 1,
           thickness: 1,
-          color: Palette.divider.withValues(alpha: .75),
+          color: Palette.divider.withValues(alpha: .7),
         ),
         itemCount: events.length,
       ),
@@ -43,10 +43,10 @@ class SelectEventDialog extends ConsumerWidget {
   }
 }
 
-class _EventItem extends ConsumerWidget {
+class _EventListTile extends ConsumerWidget {
   final Event event;
 
-  const _EventItem({required this.event});
+  const _EventListTile({required this.event});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

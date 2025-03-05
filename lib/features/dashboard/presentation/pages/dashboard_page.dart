@@ -6,7 +6,9 @@ import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/event_count_down_card.dart';
+import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/overview_chart.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/sections/section_divider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/sections/section_title.dart';
@@ -30,14 +32,54 @@ class DashboardPage extends StatelessWidget {
             ),
           ),
           const Gap(24),
-          EventCountDownCard(
-            DateTime.now().add(const Duration(days: 1)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: EventCountDownCard(
+              heldDate: DateTime.now().add(const Duration(days: 7)),
+            ),
           ),
+          const Gap(24),
           const SectionDivider(),
+          const Gap(24),
           const SectionTitle(
             'Overview',
-            padding: EdgeInsets.fromLTRB(20, 0, 16, 20),
+            horizontalPadding: 20,
           ),
+          const Gap(16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(
+                  child: OverviewChart(
+                    title: 'Total Sales',
+                    value: '3.285',
+                    description: 'Kartjis',
+                    iconPath: AssetPath.getIcon('receipt.svg'),
+                    vectorPath: AssetPath.getVector('area_chart.svg'),
+                  ),
+                ),
+                const Gap(12),
+                Expanded(
+                  child: OverviewChart(
+                    title: 'Total Income',
+                    value: '120M+',
+                    description: 'IDR 120.000.000',
+                    iconPath: AssetPath.getIcon('wallet.svg'),
+                    vectorPath: AssetPath.getVector('bar_chart.svg'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Gap(24),
+          const SectionDivider(),
+          const Gap(24),
+          const SectionTitle(
+            'Your Events',
+            horizontalPadding: 20,
+          ),
+          const Gap(16),
         ],
       ),
     );

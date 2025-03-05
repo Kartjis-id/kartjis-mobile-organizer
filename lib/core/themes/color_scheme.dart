@@ -25,7 +25,7 @@ class Palette {
   static const background = Color(0xFFF6F7F9);
   static const scaffoldBackground = Color(0xFFFFFFFF);
   static const primaryText = Color(0xFF1E293B);
-  static const secondaryText = Color(0xFFBBBEC1);
+  static const secondaryText = Color(0xFFAEB4B9);
   static const divider = Color(0xFFE4E4E4);
   static const error = Color(0xFFD90429);
   static const success = Color(0xFF3E9D9D);

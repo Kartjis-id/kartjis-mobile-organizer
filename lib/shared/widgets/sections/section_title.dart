@@ -10,18 +10,18 @@ import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
-  final EdgeInsets padding;
+  final double horizontalPadding;
 
   const SectionTitle(
     this.title, {
     super.key,
-    this.padding = EdgeInsets.zero,
+    this.horizontalPadding = 0.0,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding,
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Row(
         children: [
           const Column(
@@ -48,7 +48,7 @@ class SectionTitle extends StatelessWidget {
             ],
           ),
           const Gap(10),
-          Expanded(
+          Flexible(
             child: Text(
               title,
               style: textTheme.titleMedium,

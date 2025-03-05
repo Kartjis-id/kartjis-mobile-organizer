@@ -8,7 +8,7 @@ class BrutalismCard extends StatefulWidget {
   final double layerSpace;
   final double? borderWidth;
   final Color? borderColor;
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsets? padding;
   final double radius;
   final VoidCallback? onTap;
   final Widget child;

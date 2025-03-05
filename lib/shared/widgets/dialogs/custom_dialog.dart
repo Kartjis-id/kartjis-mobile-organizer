@@ -11,7 +11,7 @@ import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_but
 class CustomDialog extends StatelessWidget {
   final String title;
   final Widget child;
-  final EdgeInsetsGeometry childPadding;
+  final EdgeInsets childPadding;
   final bool showPrimaryButton;
   final String? primaryButtonText;
   final VoidCallback? onPressedPrimaryButton;

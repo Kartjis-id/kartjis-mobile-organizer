@@ -7,7 +7,7 @@ import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/configs/app_config.dart';
-import 'package:kartjis_mobile_organizer/core/enums/drawer_menu_item.dart';
+import 'package:kartjis_mobile_organizer/core/enums/drawer_menu.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
@@ -97,50 +97,35 @@ class MainDrawer extends StatelessWidget {
                 },
               ),
             ),
-            const _DrawerDivider(
-              top: 16,
-              bottom: 10,
+            const Gap(16),
+            const _DrawerDivider(),
+            const Gap(10),
+            const _DrawerMenuListTile(
+              menu: DrawerMenu.dashboard,
             ),
-            const _DrawerMenu(
-              item: DrawerMenuItem.dashboard,
-            ),
-            const _DrawerDivider(
-              top: 10,
-              bottom: 16,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Consumer(
-                builder: (context, ref, child) {
-                  return Text(
-                    'Event - ${ref.watch(selectedEventProvider).name}',
-                    style: textTheme.labelMedium!.bold.secondaryTextColor,
-                  );
-                },
-              ),
+            const Gap(10),
+            const _DrawerDivider(),
+            const Gap(16),
+            Consumer(
+              builder: (context, ref, child) {
+                return _DrawerSectionTitle('Event - ${ref.watch(selectedEventProvider).name}');
+              },
             ),
             const Gap(6),
             for (var i = 1; i <= 9; i++)
-              _DrawerMenu(
-                item: DrawerMenuItem.values[i],
+              _DrawerMenuListTile(
+                menu: DrawerMenu.values[i],
               ),
             const Gap(16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'General',
-                style: textTheme.labelMedium!.bold.secondaryTextColor,
-              ),
-            ),
+            const _DrawerSectionTitle('General'),
             const Gap(6),
             for (var i = 10; i <= 13; i++)
-              _DrawerMenu(
-                item: DrawerMenuItem.values[i],
+              _DrawerMenuListTile(
+                menu: DrawerMenu.values[i],
               ),
-            const _DrawerDivider(
-              top: 10,
-              bottom: 20,
-            ),
+            const Gap(10),
+            const _DrawerDivider(),
+            const Gap(20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -169,38 +154,43 @@ class MainDrawer extends StatelessWidget {
 }
 
 class _DrawerDivider extends StatelessWidget {
-  final double top;
-  final double bottom;
+  const _DrawerDivider();
 
-  const _DrawerDivider({
-    this.top = 0.0,
-    this.bottom = 0.0,
-  });
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      height: 1,
+      thickness: 1,
+      color: Palette.divider.withValues(alpha: .3),
+    );
+  }
+}
+
+class _DrawerSectionTitle extends StatelessWidget {
+  final String title;
+
+  const _DrawerSectionTitle(this.title);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        top: top,
-        bottom: bottom,
-      ),
-      child: Divider(
-        height: 1,
-        thickness: 1,
-        color: Palette.divider.withValues(alpha: .25),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(
+        title,
+        style: textTheme.labelMedium!.bold.secondaryTextColor,
       ),
     );
   }
 }
 
-class _DrawerMenu extends ConsumerWidget {
-  final DrawerMenuItem item;
+class _DrawerMenuListTile extends ConsumerWidget {
+  final DrawerMenu menu;
 
-  const _DrawerMenu({required this.item});
+  const _DrawerMenuListTile({required this.menu});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selected = item == ref.watch(selectedMenuProvider);
+    final selected = menu == ref.watch(selectedMenuProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -212,18 +202,18 @@ class _DrawerMenu extends ConsumerWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         leading: SvgAsset(
-          AssetPath.getIcon(item.leadingIcon),
+          AssetPath.getIcon(menu.leadingIcon),
           color: selected ? Palette.secondary : Palette.scaffoldBackground,
           width: 20,
         ),
         title: Text(
-          item.title,
+          menu.title,
           style: textTheme.labelLarge!.copyWith(
             color: selected ? Palette.secondary : Palette.scaffoldBackground,
           ),
         ),
         onTap: () {
-          ref.read(selectedMenuProvider.notifier).state = item;
+          ref.read(selectedMenuProvider.notifier).state = menu;
           scaffoldKey.currentState?.closeDrawer();
         },
       ),

@@ -12,6 +12,7 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/event_count_down_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_event_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_card.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_background_icon.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
@@ -19,109 +20,108 @@ import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 class EventCountDownCard extends StatelessWidget {
   final DateTime heldDate;
 
-  const EventCountDownCard(this.heldDate, {super.key});
+  const EventCountDownCard({super.key, required this.heldDate});
 
   @override
   Widget build(BuildContext context) {
     final durationInSeconds = heldDate.difference(DateTime.now()).inSeconds;
     final eventCountDownProvider = EventCountDownProvider(durationInSeconds);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: BrutalismCard(
-        radius: 16,
-        padding: EdgeInsets.zero,
-        primaryColor: Palette.purple700,
-        borderWidth: 2,
-        borderColor: Palette.primaryText,
-        layerSpace: 6,
-        layerColor: Palette.tertiary,
-        child: Stack(
-          children: [
-            const SizedBox(
-              width: double.infinity,
-              height: 160,
-            ),
-            Positioned(
-              left: -40,
-              bottom: -50,
-              child: Container(
-                width: 180,
-                height: 180,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black.withValues(alpha: .15),
-                ),
+    return BrutalismCard(
+      radius: 12,
+      padding: EdgeInsets.zero,
+      primaryColor: Palette.purple700,
+      borderWidth: 2,
+      borderColor: Palette.primaryText,
+      layerSpace: 6,
+      layerColor: Palette.tertiary,
+      child: Stack(
+        children: [
+          Positioned(
+            left: -40,
+            bottom: -50,
+            child: Container(
+              width: 180,
+              height: 180,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black.withValues(alpha: .15),
               ),
             ),
-            Positioned(
-              right: -40,
-              top: -50,
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black.withValues(alpha: .15),
-                ),
+          ),
+          Positioned(
+            right: -40,
+            top: -50,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black.withValues(alpha: .15),
               ),
             ),
-            Positioned.fill(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleBackgroundIcon(
-                        icon: SvgAsset(
-                          AssetPath.getIcon('hourglass.svg'),
-                          color: Palette.purple700,
-                          width: 16,
-                        ),
+          ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleBackgroundIcon(
+                      icon: SvgAsset(
+                        AssetPath.getIcon('hourglass.svg'),
+                        color: Palette.purple700,
+                        width: 16,
                       ),
-                      const Gap(10),
-                      Flexible(
-                        child: Text(
-                          'Event will start on',
-                          style: textTheme.labelLarge!.primaryBackgroundColor,
-                        ),
+                    ),
+                    const Gap(10),
+                    Flexible(
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          return Text(
+                            ref.watch(selectedEventProvider).name,
+                            style: textTheme.labelLarge!.primaryBackgroundColor,
+                          );
+                        },
                       ),
-                    ],
-                  ),
-                  const Gap(8),
-                  Consumer(
-                    builder: (context, ref, child) {
-                      final seconds = ref.watch(eventCountDownProvider).whenOrNull(data: (data) => data);
-                      final duration = FunctionHelper.formattedDurationMap(seconds ?? durationInSeconds);
+                    ),
+                  ],
+                ),
+                const Gap(12),
+                Consumer(
+                  builder: (context, ref, child) {
+                    final seconds = ref.watch(eventCountDownProvider).whenOrNull(data: (data) => data);
+                    final duration = FunctionHelper.formattedDurationMap(seconds ?? durationInSeconds);
 
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _DurationText(
-                            duration: duration['day']!,
-                            text: 'DAYS',
-                          ),
-                          const _DurationSeparator(),
-                          _DurationText(
-                            duration: duration['hour']!,
-                            text: 'HOURS',
-                          ),
-                          const _DurationSeparator(),
-                          _DurationText(
-                            duration: duration['min']!,
-                            text: 'MINUTES',
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _DurationText(
+                          duration: duration['day']!,
+                          text: 'DAYS',
+                        ),
+                        const _DurationSeparator(),
+                        _DurationText(
+                          duration: duration['hour']!,
+                          text: 'HOURS',
+                        ),
+                        const _DurationSeparator(),
+                        _DurationText(
+                          duration: duration['min']!,
+                          text: 'MINUTES',
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -143,8 +143,11 @@ class _DurationText extends StatelessWidget {
         children: [
           Text(
             duration,
-            style: textTheme.displayMedium!.scaffoldBackgroundColor,
+            style: textTheme.displayMedium!.scaffoldBackgroundColor.copyWith(
+              height: 1,
+            ),
           ),
+          const Gap(6),
           Text(
             text,
             style: textTheme.labelLarge!.copyWith(
@@ -167,7 +170,7 @@ class _DurationSeparator extends StatelessWidget {
       child: Text(
         ':',
         style: textTheme.displayMedium!.scaffoldBackgroundColor.copyWith(
-          height: 1.25,
+          height: 0.9,
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/enums/drawer_menu_item.dart';
+import 'package:kartjis_mobile_organizer/core/enums/drawer_menu.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
@@ -36,7 +36,7 @@ class MainPage extends StatelessWidget {
                 final selectedMenu = ref.watch(selectedMenuProvider);
 
                 switch (selectedMenu) {
-                  case DrawerMenuItem.dashboard:
+                  case DrawerMenu.dashboard:
                     return const DashboardPage();
                   default:
                     return const SizedBox.expand();
@@ -56,9 +56,7 @@ class MainPage extends StatelessWidget {
                       color: Palette.primaryText,
                     ),
                     style: IconButton.styleFrom(
-                      elevation: 4,
-                      shadowColor: Palette.divider.withValues(alpha: .3),
-                      backgroundColor: Palette.background,
+                      backgroundColor: Palette.divider.withValues(alpha: .7),
                     ),
                     tooltip: 'Menu',
                   ),

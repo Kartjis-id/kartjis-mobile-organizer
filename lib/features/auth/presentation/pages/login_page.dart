@@ -101,7 +101,7 @@ class LoginPage extends ConsumerWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 32, 20, 48),
+              padding: const EdgeInsets.fromLTRB(20, 32, 20, 40),
               child: FormBuilder(
                 key: formKey,
                 child: Column(
