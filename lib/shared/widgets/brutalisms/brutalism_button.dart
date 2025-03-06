@@ -44,7 +44,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
   void onTapUp() {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    Future.delayed(const Duration(milliseconds: 150), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       onHoverNotifier.value = false;
 
       widget.onTap?.call();
@@ -52,7 +52,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
   }
 
   void onTapCancel() {
-    Future.delayed(const Duration(milliseconds: 150), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       onHoverNotifier.value = false;
     });
   }
@@ -67,8 +67,10 @@ class _BrutalismButtonState extends State<BrutalismButton> {
           onTapUp: widget.enabled ? (details) => onTapUp() : null,
           onTapCancel: widget.enabled ? onTapCancel : null,
           child: Stack(
+            clipBehavior: Clip.antiAlias,
             children: [
               Container(
+                clipBehavior: Clip.antiAlias,
                 width: double.infinity,
                 height: 44,
                 margin: EdgeInsets.only(
@@ -86,9 +88,10 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                 child: const SizedBox(),
               ),
               AnimatedContainer(
+                clipBehavior: Clip.antiAlias,
                 width: double.infinity,
                 height: 44,
-                duration: const Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
                 margin: onHover || !widget.enabled
                     ? EdgeInsets.only(

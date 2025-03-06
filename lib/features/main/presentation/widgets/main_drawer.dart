@@ -141,7 +141,7 @@ class MainDrawer extends StatelessWidget {
                   const Gap(8),
                   Text(
                     'App version ${AppConfig.version}',
-                    style: textTheme.labelSmall!.secondaryTextColor,
+                    style: textTheme.bodySmall!.secondaryTextColor,
                   ),
                 ],
               ),

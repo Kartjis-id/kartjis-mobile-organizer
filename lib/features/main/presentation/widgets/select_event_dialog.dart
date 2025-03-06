@@ -25,14 +25,18 @@ class SelectEventDialog extends ConsumerWidget {
       child: ListView.separated(
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
-        itemBuilder: (context, index) => _EventListTile(
-          event: events[index],
-        ),
-        separatorBuilder: (context, index) => Divider(
-          height: 1,
-          thickness: 1,
-          color: Palette.divider.withValues(alpha: .7),
-        ),
+        itemBuilder: (context, index) {
+          return _EventListTile(
+            event: events[index],
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: 1,
+            thickness: 1,
+            color: Palette.divider.withValues(alpha: .7),
+          );
+        },
         itemCount: events.length,
       ),
       onPressedPrimaryButton: () {

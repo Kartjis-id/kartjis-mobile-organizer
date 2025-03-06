@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_card.dart';
@@ -75,7 +74,9 @@ class OverviewChart extends StatelessWidget {
                 const Gap(2),
                 Text(
                   description,
-                  style: textTheme.bodyMedium!.secondaryTextColor,
+                  style: textTheme.bodyMedium!.copyWith(
+                    color: Palette.primaryText.withValues(alpha: .4),
+                  ),
                 ),
               ],
             ),

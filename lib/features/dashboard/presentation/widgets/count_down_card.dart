@@ -11,21 +11,21 @@ import 'package:kartjis_mobile_organizer/core/helpers/helper_function.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
-import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/event_count_down_provider.dart';
+import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/count_down_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_event_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_card.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_background_icon.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
-class EventCountDownCard extends StatelessWidget {
+class CountDownCard extends StatelessWidget {
   final DateTime heldDate;
 
-  const EventCountDownCard({super.key, required this.heldDate});
+  const CountDownCard({super.key, required this.heldDate});
 
   @override
   Widget build(BuildContext context) {
     final durationInSeconds = heldDate.difference(DateTime.now()).inSeconds;
-    final eventCountDownProvider = EventCountDownProvider(durationInSeconds);
+    final countDownProvider = CountDownProvider(durationInSeconds);
 
     return BrutalismCard(
       radius: 12,
@@ -93,7 +93,7 @@ class EventCountDownCard extends StatelessWidget {
                 const Gap(12),
                 Consumer(
                   builder: (context, ref, child) {
-                    final seconds = ref.watch(eventCountDownProvider).whenOrNull(data: (data) => data);
+                    final seconds = ref.watch(countDownProvider).whenOrNull(data: (data) => data);
                     final duration = FunctionHelper.formattedDurationMap(seconds ?? durationInSeconds);
 
                     return Row(

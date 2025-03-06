@@ -42,7 +42,7 @@ class _BrutalismCardState extends State<BrutalismCard> {
   }
 
   void onTapUp() {
-    Future.delayed(const Duration(milliseconds: 150), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       onHoverNotifier.value = false;
 
       widget.onTap?.call();
@@ -50,7 +50,7 @@ class _BrutalismCardState extends State<BrutalismCard> {
   }
 
   void onTapCancel() {
-    Future.delayed(const Duration(milliseconds: 150), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       onHoverNotifier.value = false;
     });
   }
@@ -65,29 +65,32 @@ class _BrutalismCardState extends State<BrutalismCard> {
           onTapUp: widget.enabled && widget.onTap != null ? (details) => onTapUp() : null,
           onTapCancel: widget.enabled && widget.onTap != null ? onTapCancel : null,
           child: Stack(
+            clipBehavior: Clip.antiAlias,
             children: [
               Positioned.fill(
                 child: Container(
+                  clipBehavior: Clip.antiAlias,
                   width: double.infinity,
                   margin: EdgeInsets.only(
                     left: widget.layerSpace,
                     top: widget.layerSpace,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(widget.radius),
                     color: widget.layerColor,
                     border: Border.all(
                       width: widget.borderWidth ?? 1,
                       color: widget.borderColor ?? Colors.black,
                     ),
+                    borderRadius: BorderRadius.circular(widget.radius),
                   ),
                   padding: widget.padding,
                   child: const SizedBox(),
                 ),
               ),
               AnimatedContainer(
+                clipBehavior: Clip.antiAlias,
                 width: double.infinity,
-                duration: const Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
                 margin: onHover || !widget.enabled
                     ? EdgeInsets.only(
@@ -99,12 +102,12 @@ class _BrutalismCardState extends State<BrutalismCard> {
                         bottom: widget.layerSpace,
                       ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(widget.radius),
                   color: widget.enabled ? widget.primaryColor : Colors.white,
                   border: Border.all(
                     width: widget.borderWidth ?? 1,
                     color: widget.enabled ? widget.borderColor ?? Colors.black : Colors.grey,
                   ),
+                  borderRadius: BorderRadius.circular(widget.radius),
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(widget.radius - (widget.layerSpace / 2)),
