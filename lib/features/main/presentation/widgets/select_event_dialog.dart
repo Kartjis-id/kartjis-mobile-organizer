@@ -11,7 +11,7 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/event.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_event_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_event_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/dialogs/custom_dialog.dart';
 
 class SelectEventDialog extends ConsumerWidget {

@@ -12,7 +12,7 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:kartjis_mobile_organizer/core/connections/network_info.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/features/auth/presentation/pages/login_page.dart';
-import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/auth_status_provider.dart';
+import 'package:kartjis_mobile_organizer/features/auth/presentation/providers/generated_providers/auth_status_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/pages/main_page.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/loading_indicator.dart';
 

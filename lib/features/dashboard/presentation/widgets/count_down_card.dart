@@ -11,8 +11,8 @@ import 'package:kartjis_mobile_organizer/core/helpers/helper_function.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
-import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/count_down_provider.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_event_provider.dart';
+import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/generated_providers/count_down_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_event_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_card.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_background_icon.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
@@ -150,9 +150,7 @@ class _DurationText extends StatelessWidget {
           const Gap(6),
           Text(
             text,
-            style: textTheme.labelLarge!.copyWith(
-              color: Palette.scaffoldBackground.withValues(alpha: .5),
-            ),
+            style: textTheme.labelMedium!.scaffoldBackgroundColor,
           ),
         ],
       ),

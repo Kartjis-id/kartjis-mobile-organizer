@@ -14,8 +14,8 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_event_provider.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/providers/selected_menu_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_event_provider.dart';
+import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/select_event_dialog.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_network_image.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
@@ -57,7 +57,7 @@ class MainDrawer extends StatelessWidget {
                           const Gap(2),
                           Text(
                             'Organizer',
-                            style: textTheme.bodySmall!.secondaryTextColor,
+                            style: textTheme.bodySmall!.disabledColor,
                           ),
                         ],
                       ),
@@ -141,7 +141,7 @@ class MainDrawer extends StatelessWidget {
                   const Gap(8),
                   Text(
                     'App version ${AppConfig.version}',
-                    style: textTheme.bodySmall!.secondaryTextColor,
+                    style: textTheme.bodySmall!.disabledColor,
                   ),
                 ],
               ),
@@ -177,7 +177,7 @@ class _DrawerSectionTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Text(
         title,
-        style: textTheme.labelMedium!.bold.secondaryTextColor,
+        style: textTheme.labelMedium!.bold.disabledColor,
       ),
     );
   }

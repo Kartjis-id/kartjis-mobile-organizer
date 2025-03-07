@@ -10,7 +10,7 @@ import 'package:gap/gap.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/event.dart';
-import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/focused_event_provider.dart';
+import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/manual_providers/focused_event_provider.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/carousel_card.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/count_down_card.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/overview_chart.dart';
@@ -103,6 +103,7 @@ class DashboardPage extends StatelessWidget {
                   autoPlay: true,
                   autoPlayInterval: const Duration(seconds: 10),
                   autoPlayAnimationDuration: const Duration(seconds: 1),
+                  autoPlayCurve: Curves.easeInOut,
                   enlargeCenterPage: true,
                   enlargeFactor: 0.2,
                   onPageChanged: (index, reason) => ref.read(focusedEventProvider.notifier).state = events[index],
