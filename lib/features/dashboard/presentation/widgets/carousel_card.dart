@@ -109,9 +109,9 @@ class CarouselCard extends StatelessWidget {
                           children: [
                             Text(
                               event.name,
-                              style: textTheme.titleMedium,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
+                              style: textTheme.titleMedium,
                             ),
                             Text(
                               event.type,

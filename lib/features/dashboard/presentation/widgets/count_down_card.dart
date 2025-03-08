@@ -63,7 +63,7 @@ class CountDownCard extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -83,6 +83,7 @@ class CountDownCard extends StatelessWidget {
                         builder: (context, ref, child) {
                           return Text(
                             ref.watch(selectedEventProvider).name,
+                            textAlign: TextAlign.center,
                             style: textTheme.labelLarge!.primaryBackgroundColor,
                           );
                         },

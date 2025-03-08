@@ -63,9 +63,9 @@ class _EventListTile extends ConsumerWidget {
             Expanded(
               child: Text(
                 event.name,
-                style: textTheme.labelLarge!.primaryTextColor,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                style: textTheme.labelLarge!.primaryTextColor,
               ),
             ),
             const Gap(12),

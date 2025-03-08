@@ -11,6 +11,7 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_page.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
@@ -38,6 +39,8 @@ class MainPage extends StatelessWidget {
                 switch (selectedMenu) {
                   case DrawerMenu.dashboard:
                     return const DashboardPage();
+                  case DrawerMenu.eventLiveReport:
+                    return const LiveReportPage();
                   default:
                     return const SizedBox.expand();
                 }

@@ -50,9 +50,9 @@ class MainDrawer extends StatelessWidget {
                         children: [
                           Text(
                             'Event Organizer',
-                            style: textTheme.bodyMedium!.bold.scaffoldBackgroundColor,
                             maxLines: 2,
                             overflow: TextOverflow.fade,
+                            style: textTheme.bodyMedium!.bold.scaffoldBackgroundColor,
                           ),
                           const Gap(2),
                           Text(
@@ -83,6 +83,8 @@ class MainDrawer extends StatelessWidget {
                   builder: (context, ref, child) {
                     return Text(
                       ref.watch(selectedEventProvider).name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyMedium!.bold.primaryColor,
                     );
                   },
