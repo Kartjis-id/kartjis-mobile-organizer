@@ -130,6 +130,7 @@ class CarouselCard extends StatelessWidget {
                               children: [
                                 SvgAsset(
                                   AssetPath.getIcon('calendar_check.svg'),
+                                  color: Palette.primaryText,
                                   width: 16,
                                 ),
                                 const Gap(6),
@@ -153,6 +154,7 @@ class CarouselCard extends StatelessWidget {
                               children: [
                                 SvgAsset(
                                   AssetPath.getIcon('map_pin.svg'),
+                                  color: Palette.primaryText,
                                   width: 16,
                                 ),
                                 const Gap(6),

@@ -14,6 +14,7 @@ import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/d
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_page.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
+import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/is_searching_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class MainPage extends StatelessWidget {
@@ -50,20 +51,48 @@ class MainPage extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(12),
-              child: Row(
-                children: [
-                  IconButton.filledTonal(
-                    onPressed: () => scaffoldKey.currentState?.openDrawer(),
-                    icon: SvgAsset(
-                      AssetPath.getIcon('list.svg'),
-                      color: Palette.primaryText,
-                    ),
-                    style: IconButton.styleFrom(
-                      backgroundColor: Palette.divider.withValues(alpha: .7),
-                    ),
-                    tooltip: 'Menu',
-                  ),
-                ],
+              child: Consumer(
+                builder: (context, ref, child) {
+                  return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    switchInCurve: Curves.easeIn,
+                    switchOutCurve: Curves.easeOut,
+                    transitionBuilder: (child, animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: ScaleTransition(
+                          scale: animation,
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: ref.watch(isSearchingProvider)
+                        ? IconButton.filledTonal(
+                            key: const ValueKey(1),
+                            onPressed: () => ref.read(isSearchingProvider.notifier).update((state) => !state),
+                            tooltip: 'Back',
+                            icon: SvgAsset(
+                              AssetPath.getIcon('arrow_left.svg'),
+                              color: Palette.primaryText,
+                            ),
+                            style: IconButton.styleFrom(
+                              backgroundColor: Palette.divider.withValues(alpha: .7),
+                            ),
+                          )
+                        : IconButton.filledTonal(
+                            key: const ValueKey(2),
+                            onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                            tooltip: 'Menu',
+                            icon: SvgAsset(
+                              AssetPath.getIcon('list.svg'),
+                              color: Palette.primaryText,
+                            ),
+                            style: IconButton.styleFrom(
+                              backgroundColor: Palette.divider.withValues(alpha: .7),
+                            ),
+                          ),
+                  );
+                },
               ),
             ),
           ),

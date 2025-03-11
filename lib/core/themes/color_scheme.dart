@@ -22,7 +22,7 @@ class Palette {
   static const primary = Color(0xFF2C1F63);
   static const secondary = Color(0xFFDF135C);
   static const tertiary = Color(0xFFFFC351);
-  static const background = Color(0xFFF6F7F9);
+  static const background = Color(0xFFF4F5F7);
   static const scaffoldBackground = Color(0xFFFFFFFF);
   static const primaryText = Color(0xFF1E293B);
   static const secondaryText = Color(0xFF8F9296);

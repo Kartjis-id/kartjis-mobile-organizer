@@ -1,0 +1,4 @@
+enum VerificationStatus {
+  unverified,
+  verified,
+}

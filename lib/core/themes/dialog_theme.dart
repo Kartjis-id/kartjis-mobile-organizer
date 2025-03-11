@@ -12,6 +12,6 @@ final dialogTheme = DialogTheme(
   ),
   insetPadding: const EdgeInsets.symmetric(
     vertical: 24,
-    horizontal: 32,
+    horizontal: 36,
   ),
 );

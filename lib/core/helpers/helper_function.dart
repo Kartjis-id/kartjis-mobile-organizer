@@ -1,3 +1,7 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
 /// A collection of helper functions that are reusable for this app
 class FunctionHelper {
   static Map<String, String> formattedDurationMap([int seconds = 0]) {
@@ -12,5 +16,33 @@ class FunctionHelper {
       'min': min,
       'sec': sec,
     };
+  }
+
+  static bool handleFabVisibilityOnScroll(
+    AnimationController controller,
+    UserScrollNotification notification,
+  ) {
+    if (notification.depth != 0) return false;
+
+    switch (notification.direction) {
+      case ScrollDirection.forward:
+        if (notification.metrics.maxScrollExtent != notification.metrics.minScrollExtent) {
+          if (notification.metrics.pixels != 0) {
+            controller.forward();
+          }
+        }
+
+        break;
+      case ScrollDirection.reverse:
+        if (notification.metrics.maxScrollExtent != notification.metrics.minScrollExtent) {
+          controller.reverse();
+        }
+
+        break;
+      case ScrollDirection.idle:
+        break;
+    }
+
+    return false;
   }
 }
