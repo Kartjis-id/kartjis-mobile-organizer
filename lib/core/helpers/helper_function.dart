@@ -6,8 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/is_searching_provider.dart';
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_text_provider.dart';
+import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_provider.dart';
 
 /// A collection of helper functions that are reusable for this app
 class FunctionHelper {
@@ -63,8 +62,7 @@ class FunctionHelper {
     if (didPop) return;
 
     if (isSearching) {
-      ref.invalidate(isSearchingProvider);
-      ref.invalidate(searchTextProvider);
+      ref.read(searchProvider.notifier).reset();
 
       if (provider != null) ref.invalidate(provider);
     } else {

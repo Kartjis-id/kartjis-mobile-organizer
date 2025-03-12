@@ -24,7 +24,7 @@ const events = [
     name: 'Seniority Fest',
     image: 'event_banner.png',
     type: 'Music',
-    date: '22 Februari 2025',
+    date: '31 September 2025',
     time: '16.00 WITA',
     location: 'Parking Lot Phinisi Point: Makassar',
   ),

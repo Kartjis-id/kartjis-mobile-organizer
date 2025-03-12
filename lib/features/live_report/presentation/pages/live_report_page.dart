@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/enums/drawer_menu.dart';
@@ -10,10 +11,11 @@ import 'package:kartjis_mobile_organizer/core/enums/verification_status.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/helper_function.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
+import 'package:kartjis_mobile_organizer/data_dummies/ticket.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/selected_verification_status_provider.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/widgets/ticket_card.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/is_searching_provider.dart';
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_text_provider.dart';
+import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/animated_fab.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/search_field.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
@@ -26,25 +28,27 @@ class LiveReportPage extends StatefulWidget {
 }
 
 class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProviderStateMixin {
-  late final AnimationController fabAnimationController;
+  late final AnimationController animationController;
   late final ScrollController scrollController;
+  late final PageController pageController;
 
   @override
   void initState() {
-    fabAnimationController = AnimationController(
+    animationController = AnimationController(
       vsync: this,
       duration: kThemeAnimationDuration,
     )..forward();
-
     scrollController = ScrollController();
+    pageController = PageController();
 
     super.initState();
   }
 
   @override
   void dispose() {
-    fabAnimationController.dispose();
+    animationController.dispose();
     scrollController.dispose();
+    pageController.dispose();
 
     super.dispose();
   }
@@ -53,19 +57,22 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final isSearching = ref.watch(searchProvider).isSearching;
+        final searchText = ref.watch(searchProvider).searchText;
+
         return PopScope(
           canPop: false,
           onPopInvokedWithResult: (didPop, result) => FunctionHelper.handleSearchingOnPop(
             ref,
             didPop,
-            ref.watch(isSearchingProvider),
+            isSearching,
             postHandleCallback: () => ref.read(selectedMenuProvider.notifier).state = DrawerMenu.dashboard,
           ),
           child: Scaffold(
             backgroundColor: Palette.background,
             body: NotificationListener<UserScrollNotification>(
               onNotification: (notification) => FunctionHelper.handleFabVisibilityOnScroll(
-                fabAnimationController,
+                animationController,
                 notification,
               ),
               child: CustomScrollView(
@@ -83,75 +90,69 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
                       ),
                       child: Column(
                         children: [
-                          Consumer(
-                            builder: (context, ref, child) {
-                              return SafeArea(
-                                child: AnimatedSwitcher(
-                                  duration: const Duration(milliseconds: 200),
-                                  switchInCurve: Curves.easeIn,
-                                  switchOutCurve: Curves.easeOut,
-                                  child: ref.watch(isSearchingProvider)
-                                      ? Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            AppBar(
-                                              toolbarHeight: 72,
-                                              backgroundColor: Palette.scaffoldBackground,
-                                              surfaceTintColor: Palette.scaffoldBackground,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 12,
-                                                right: 20,
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Opacity(
-                                                    opacity: 0,
-                                                    child: IconButton(
-                                                      onPressed: () {},
-                                                      icon: const Icon(Icons.arrow_back),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: SearchField(
-                                                      text: ref.watch(searchTextProvider),
-                                                      autoFocus: true,
-                                                      hintText: 'Search ticket owner',
-                                                      onChanged: (text) {
-                                                        ref.read(searchTextProvider.notifier).state = text;
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : AppBar(
+                          SafeArea(
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 200),
+                              switchInCurve: Curves.easeIn,
+                              switchOutCurve: Curves.easeOut,
+                              child: isSearching
+                                  ? Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        AppBar(
                                           toolbarHeight: 72,
-                                          centerTitle: true,
                                           backgroundColor: Palette.scaffoldBackground,
                                           surfaceTintColor: Palette.scaffoldBackground,
-                                          title: SvgAsset(
-                                            AssetPath.getVector('live_report.svg'),
-                                          ),
-                                          actions: [
-                                            IconButton(
-                                              onPressed: () {
-                                                ref.read(isSearchingProvider.notifier).update((state) => !state);
-                                              },
-                                              tooltip: 'Search',
-                                              icon: SvgAsset(
-                                                AssetPath.getIcon('search.svg'),
-                                                color: Palette.primaryText,
-                                              ),
-                                            ),
-                                          ],
                                         ),
-                                ),
-                              );
-                            },
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 12,
+                                            right: 20,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Opacity(
+                                                opacity: 0,
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(Icons.arrow_back),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: SearchField(
+                                                  text: searchText,
+                                                  autoFocus: true,
+                                                  hintText: 'Search ticket owner',
+                                                  onChanged: (text) {
+                                                    ref.read(searchProvider.notifier).searchText = text;
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : AppBar(
+                                      toolbarHeight: 72,
+                                      backgroundColor: Palette.scaffoldBackground,
+                                      surfaceTintColor: Palette.scaffoldBackground,
+                                      centerTitle: true,
+                                      title: SvgAsset(
+                                        AssetPath.getVector('live_report.svg'),
+                                      ),
+                                      actions: [
+                                        IconButton(
+                                          onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
+                                          tooltip: 'Search',
+                                          icon: SvgAsset(
+                                            AssetPath.getIcon('search.svg'),
+                                            color: Palette.primaryText,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ),
                           ),
                           Consumer(
                             builder: (context, ref, child) {
@@ -181,11 +182,25 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
                       ),
                     ),
                   ),
+                  SliverPadding(
+                    padding: const EdgeInsets.all(20),
+                    sliver: SliverList.separated(
+                      itemBuilder: (context, index) {
+                        return TicketCard(
+                          ticket: unverifiedTickets[index],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Gap(12);
+                      },
+                      itemCount: unverifiedTickets.length,
+                    ),
+                  ),
                 ],
               ),
             ),
             floatingActionButton: AnimatedFloatingActionButton(
-              animationController: fabAnimationController,
+              animationController: animationController,
               onPressed: () {},
               tooltip: 'Scanner',
               child: SvgAsset(

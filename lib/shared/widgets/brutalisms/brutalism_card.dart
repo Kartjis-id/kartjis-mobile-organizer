@@ -8,7 +8,7 @@ class BrutalismCard extends StatefulWidget {
   final double layerSpace;
   final double? borderWidth;
   final Color? borderColor;
-  final EdgeInsets? padding;
+  final EdgeInsets padding;
   final double radius;
   final VoidCallback? onTap;
   final Widget child;
@@ -112,7 +112,7 @@ class _BrutalismCardState extends State<BrutalismCard> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(widget.radius - (widget.layerSpace / 2)),
                   child: Padding(
-                    padding: widget.padding ?? EdgeInsets.zero,
+                    padding: widget.padding,
                     child: widget.child,
                   ),
                 ),

@@ -22,21 +22,19 @@ class CircleBackgroundIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
+    return Container(
+      padding: padding ?? const EdgeInsets.all(4),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: backgroundColor ?? Palette.scaffoldBackground,
         border: borderWidth != null
             ? Border.all(
                 width: borderWidth!,
-                color: borderColor ?? Palette.primary,
+                color: borderColor ?? Palette.primaryText,
               )
             : null,
       ),
-      child: Padding(
-        padding: padding ?? const EdgeInsets.all(4),
-        child: icon,
-      ),
+      child: icon,
     );
   }
 }

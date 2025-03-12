@@ -14,7 +14,7 @@ import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/d
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_page.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/is_searching_provider.dart';
+import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class MainPage extends StatelessWidget {
@@ -53,6 +53,8 @@ class MainPage extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               child: Consumer(
                 builder: (context, ref, child) {
+                  final isSearching = ref.watch(searchProvider).isSearching;
+
                   return AnimatedSwitcher(
                     duration: const Duration(milliseconds: 200),
                     switchInCurve: Curves.easeIn,
@@ -66,10 +68,10 @@ class MainPage extends StatelessWidget {
                         ),
                       );
                     },
-                    child: ref.watch(isSearchingProvider)
+                    child: isSearching
                         ? IconButton(
                             key: const ValueKey(1),
-                            onPressed: () => ref.read(isSearchingProvider.notifier).update((state) => !state),
+                            onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
                             tooltip: 'Back',
                             icon: SvgAsset(
                               AssetPath.getIcon('arrow_left.svg'),
