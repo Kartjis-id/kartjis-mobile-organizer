@@ -67,7 +67,7 @@ class MainPage extends StatelessWidget {
                       );
                     },
                     child: ref.watch(isSearchingProvider)
-                        ? IconButton.filledTonal(
+                        ? IconButton(
                             key: const ValueKey(1),
                             onPressed: () => ref.read(isSearchingProvider.notifier).update((state) => !state),
                             tooltip: 'Back',
@@ -75,11 +75,8 @@ class MainPage extends StatelessWidget {
                               AssetPath.getIcon('arrow_left.svg'),
                               color: Palette.primaryText,
                             ),
-                            style: IconButton.styleFrom(
-                              backgroundColor: Palette.divider.withValues(alpha: .7),
-                            ),
                           )
-                        : IconButton.filledTonal(
+                        : IconButton(
                             key: const ValueKey(2),
                             onPressed: () => scaffoldKey.currentState?.openDrawer(),
                             tooltip: 'Menu',

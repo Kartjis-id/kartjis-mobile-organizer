@@ -2,6 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/is_searching_provider.dart';
+import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_text_provider.dart';
+
 /// A collection of helper functions that are reusable for this app
 class FunctionHelper {
   static Map<String, String> formattedDurationMap([int seconds = 0]) {
@@ -44,5 +51,24 @@ class FunctionHelper {
     }
 
     return false;
+  }
+
+  static void handleSearchingOnPop(
+    WidgetRef ref,
+    bool didPop,
+    bool isSearching, {
+    ProviderOrFamily? provider,
+    VoidCallback? postHandleCallback,
+  }) {
+    if (didPop) return;
+
+    if (isSearching) {
+      ref.invalidate(isSearchingProvider);
+      ref.invalidate(searchTextProvider);
+
+      if (provider != null) ref.invalidate(provider);
+    } else {
+      postHandleCallback?.call();
+    }
   }
 }

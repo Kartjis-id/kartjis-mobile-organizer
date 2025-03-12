@@ -89,7 +89,7 @@ class _PasswordFieldState extends State<PasswordField> {
           keyboardType: TextInputType.visiblePassword,
           textInputAction: widget.textInputAction,
           textAlignVertical: TextAlignVertical.center,
-          style: textTheme.labelLarge,
+          style: textTheme.bodyLarge,
           decoration: InputDecoration(
             hintText: widget.hintText,
             contentPadding: !hasPrefixIcon ? const EdgeInsets.fromLTRB(16, 10, 16, 10) : null,

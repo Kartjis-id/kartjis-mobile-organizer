@@ -11,7 +11,7 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/event.dart';
-import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/manual_providers/focused_event_provider.dart';
+import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/manual_providers/focused_event_carousel_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_card.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
@@ -40,7 +40,7 @@ class CarouselCard extends StatelessWidget {
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut,
                   foregroundDecoration: BoxDecoration(
-                    color: event == ref.watch(focusedEventProvider) ? null : Colors.black45,
+                    color: event == ref.watch(focusedEventCarouselProvider) ? null : Colors.black45,
                   ),
                   child: Image.asset(
                     AssetPath.getImage(event.image),
@@ -78,7 +78,7 @@ class CarouselCard extends StatelessWidget {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut,
-                  height: event == ref.watch(focusedEventProvider) ? 180 : 0,
+                  height: event == ref.watch(focusedEventCarouselProvider) ? 180 : 0,
                   decoration: const BoxDecoration(
                     border: Border(
                       top: BorderSide(

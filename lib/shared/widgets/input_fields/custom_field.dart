@@ -100,7 +100,7 @@ class _CustomFieldState extends State<CustomField> {
       textInputAction: widget.textInputAction,
       textCapitalization: widget.textCapitalization,
       textAlignVertical: TextAlignVertical.center,
-      style: textTheme.labelLarge,
+      style: textTheme.bodyLarge,
       decoration: InputDecoration(
         hintText: widget.hintText,
         contentPadding: !hasPrefixIcon ? const EdgeInsets.fromLTRB(16, 10, 16, 10) : null,

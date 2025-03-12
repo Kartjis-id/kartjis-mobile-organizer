@@ -147,7 +147,7 @@ class LoginPage extends ConsumerWidget {
                       primaryColor: Palette.primary,
                       borderColor: Palette.primary,
                       layerColor: Palette.scaffoldBackground,
-                      layerSpace: 3.5,
+                      layerSpace: 4,
                       onTap: () => login(ref),
                     ),
                   ],

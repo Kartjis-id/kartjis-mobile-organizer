@@ -84,7 +84,6 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   ),
                   borderRadius: BorderRadius.circular(widget.radius),
                 ),
-                padding: const EdgeInsets.all(12),
                 child: const SizedBox(),
               ),
               AnimatedContainer(
@@ -109,7 +108,6 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   ),
                   borderRadius: BorderRadius.circular(widget.radius),
                 ),
-                padding: const EdgeInsets.all(12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -120,7 +118,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                     Center(
                       child: Text(
                         widget.text,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: widget.enabled ? widget.textColor ?? Colors.white : Colors.grey,
                               fontWeight: FontWeight.w500,
                             ),
