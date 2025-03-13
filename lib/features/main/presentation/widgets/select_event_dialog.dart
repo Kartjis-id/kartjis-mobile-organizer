@@ -24,6 +24,7 @@ class SelectEventDialog extends ConsumerWidget {
       childPadding: const EdgeInsets.symmetric(vertical: 8),
       child: ListView.separated(
         shrinkWrap: true,
+        padding: EdgeInsets.zero,
         physics: const ClampingScrollPhysics(),
         itemBuilder: (context, index) {
           return _EventListTile(

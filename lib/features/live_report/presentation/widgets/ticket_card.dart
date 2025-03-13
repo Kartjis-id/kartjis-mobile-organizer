@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/enums/verification_status.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
@@ -26,7 +27,7 @@ class TicketCard extends StatelessWidget {
       borderWidth: 1.5,
       borderColor: Palette.primaryText,
       layerSpace: 5,
-      layerColor: Palette.secondary,
+      layerColor: ticket.color,
       onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,34 +78,60 @@ class TicketCard extends StatelessWidget {
             style: textTheme.bodyMedium!.secondaryTextColor,
           ),
           const Gap(8),
-          Container(
-            padding: const EdgeInsets.fromLTRB(6, 3, 8, 3),
-            decoration: BoxDecoration(
-              color: Palette.tertiary,
-              border: Border.all(
-                color: Palette.primaryText,
-              ),
-              borderRadius: BorderRadius.circular(99),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgAsset(
-                  AssetPath.getIcon('tag.svg'),
-                  color: Palette.primaryText,
-                  width: 14,
-                ),
-                const Gap(4),
-                Flexible(
-                  child: Text(
-                    ticket.category,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.labelMedium,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(6, 3, 8, 3),
+                decoration: BoxDecoration(
+                  color: Palette.tertiary,
+                  border: Border.all(
+                    color: Palette.primaryText,
                   ),
+                  borderRadius: BorderRadius.circular(99),
                 ),
-              ],
-            ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgAsset(
+                      AssetPath.getIcon('tag.svg'),
+                      color: Palette.primaryText,
+                      width: 14,
+                    ),
+                    const Gap(4),
+                    Flexible(
+                      child: Text(
+                        ticket.category,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: textTheme.labelMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Gap(12),
+              if (ticket.status == VerificationStatus.verified)
+                Expanded(
+                  child: Text(
+                    'Verified by @admin at 23:59 31/12/2025',
+                    textAlign: TextAlign.right,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.labelSmall!.secondaryTextColor,
+                  ),
+                )
+              else
+                Expanded(
+                  child: Text(
+                    'Unverified',
+                    textAlign: TextAlign.right,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.labelSmall!.secondaryTextColor,
+                  ),
+                )
+            ],
           ),
         ],
       ),

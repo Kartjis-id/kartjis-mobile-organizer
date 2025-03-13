@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/enums/drawer_menu.dart';
@@ -13,7 +12,7 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/ticket.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/selected_verification_status_provider.dart';
-import 'package:kartjis_mobile_organizer/features/live_report/presentation/widgets/ticket_card.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/widgets/ticket_list.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/animated_fab.dart';
@@ -59,6 +58,7 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
       builder: (context, ref, child) {
         final isSearching = ref.watch(searchProvider).isSearching;
         final searchText = ref.watch(searchProvider).searchText;
+        final verificationStatus = ref.watch(selectedVerificationStatusProvider);
 
         return PopScope(
           canPop: false,
@@ -70,134 +70,157 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
           ),
           child: Scaffold(
             backgroundColor: Palette.background,
-            body: NotificationListener<UserScrollNotification>(
-              onNotification: (notification) => FunctionHelper.handleFabVisibilityOnScroll(
-                animationController,
-                notification,
-              ),
-              child: CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  PinnedHeaderSliver(
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: Palette.scaffoldBackground,
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Palette.divider,
-                          ),
+            body: CustomScrollView(
+              slivers: [
+                PinnedHeaderSliver(
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      color: Palette.scaffoldBackground,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Palette.divider,
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          SafeArea(
-                            child: AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 200),
-                              switchInCurve: Curves.easeIn,
-                              switchOutCurve: Curves.easeOut,
-                              child: isSearching
-                                  ? Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        AppBar(
-                                          toolbarHeight: 72,
-                                          backgroundColor: Palette.scaffoldBackground,
-                                          surfaceTintColor: Palette.scaffoldBackground,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 12,
-                                            right: 20,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Opacity(
-                                                opacity: 0,
-                                                child: IconButton(
-                                                  onPressed: () {},
-                                                  icon: const Icon(Icons.arrow_back),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: SearchField(
-                                                  text: searchText,
-                                                  autoFocus: true,
-                                                  hintText: 'Search ticket owner',
-                                                  onChanged: (text) {
-                                                    ref.read(searchProvider.notifier).searchText = text;
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : AppBar(
-                                      toolbarHeight: 72,
-                                      backgroundColor: Palette.scaffoldBackground,
-                                      surfaceTintColor: Palette.scaffoldBackground,
-                                      centerTitle: true,
-                                      title: SvgAsset(
-                                        AssetPath.getVector('live_report.svg'),
+                    ),
+                    child: Column(
+                      children: [
+                        SafeArea(
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 200),
+                            switchInCurve: Curves.easeIn,
+                            switchOutCurve: Curves.easeOut,
+                            child: isSearching
+                                ? Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      AppBar(
+                                        toolbarHeight: 72,
+                                        backgroundColor: Palette.scaffoldBackground,
+                                        surfaceTintColor: Palette.scaffoldBackground,
                                       ),
-                                      actions: [
-                                        IconButton(
-                                          onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
-                                          tooltip: 'Search',
-                                          icon: SvgAsset(
-                                            AssetPath.getIcon('search.svg'),
-                                            color: Palette.primaryText,
-                                          ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 12,
+                                          right: 20,
                                         ),
-                                      ],
+                                        child: Row(
+                                          children: [
+                                            Opacity(
+                                              opacity: 0,
+                                              child: IconButton(
+                                                onPressed: () {},
+                                                icon: const Icon(Icons.arrow_back),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: SearchField(
+                                                text: searchText,
+                                                autoFocus: true,
+                                                hintText: 'Search ticket owner',
+                                                onChanged: (text) {
+                                                  ref.read(searchProvider.notifier).searchText = text;
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : AppBar(
+                                    toolbarHeight: 72,
+                                    backgroundColor: Palette.scaffoldBackground,
+                                    surfaceTintColor: Palette.scaffoldBackground,
+                                    centerTitle: true,
+                                    title: SvgAsset(
+                                      AssetPath.getVector('live_report.svg'),
                                     ),
-                            ),
-                          ),
-                          Consumer(
-                            builder: (context, ref, child) {
-                              return SegmentedButton<VerificationStatus>(
-                                segments: const [
-                                  ButtonSegment(
-                                    value: VerificationStatus.unverified,
-                                    icon: Icon(Icons.arrow_circle_up),
-                                    label: Text('Unverified'),
+                                    actions: [
+                                      IconButton(
+                                        onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
+                                        tooltip: 'Search',
+                                        icon: SvgAsset(
+                                          AssetPath.getIcon('search.svg'),
+                                          color: Palette.primaryText,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  ButtonSegment(
-                                    value: VerificationStatus.verified,
-                                    icon: Icon(Icons.arrow_circle_down),
-                                    label: Text('Verified'),
-                                  ),
-                                ],
-                                expandedInsets: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-                                selected: {ref.watch(selectedVerificationStatusProvider)},
-                                showSelectedIcon: false,
-                                onSelectionChanged: (selection) {
-                                  ref.read(selectedVerificationStatusProvider.notifier).state = selection.first;
-                                },
-                              );
-                            },
                           ),
-                        ],
+                        ),
+                        Consumer(
+                          builder: (context, ref, child) {
+                            return SegmentedButton<VerificationStatus>(
+                              segments: const [
+                                ButtonSegment(
+                                  value: VerificationStatus.unverified,
+                                  icon: Icon(Icons.arrow_circle_up),
+                                  label: Text('Unverified'),
+                                ),
+                                ButtonSegment(
+                                  value: VerificationStatus.verified,
+                                  icon: Icon(Icons.arrow_circle_down),
+                                  label: Text('Verified'),
+                                ),
+                              ],
+                              expandedInsets: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+                              selected: {verificationStatus},
+                              showSelectedIcon: false,
+                              onSelectionChanged: (selection) {
+                                ref.read(selectedVerificationStatusProvider.notifier).state = selection.first;
+
+                                pageController.animateToPage(
+                                  verificationStatus == VerificationStatus.verified ? 0 : 1,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeOut,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverFillRemaining(
+                  child: PageView(
+                    controller: pageController,
+                    children: [
+                      NotificationListener<UserScrollNotification>(
+                        onNotification: (notification) => FunctionHelper.handleFabVisibilityOnScroll(
+                          animationController,
+                          notification,
+                        ),
+                        child: TicketList(
+                          controller: scrollController,
+                          tickets: unverifiedTickets,
+                        ),
                       ),
-                    ),
+                      NotificationListener<UserScrollNotification>(
+                        onNotification: (notification) => FunctionHelper.handleFabVisibilityOnScroll(
+                          animationController,
+                          notification,
+                        ),
+                        child: TicketList(
+                          controller: scrollController,
+                          tickets: verifiedTickets,
+                        ),
+                      ),
+                    ],
+                    onPageChanged: (page) {
+                      final status = page == 0 ? VerificationStatus.unverified : VerificationStatus.verified;
+
+                      ref.read(selectedVerificationStatusProvider.notifier).state = status;
+
+                      pageController.animateToPage(
+                        page,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      );
+                    },
                   ),
-                  SliverPadding(
-                    padding: const EdgeInsets.all(20),
-                    sliver: SliverList.separated(
-                      itemBuilder: (context, index) {
-                        return TicketCard(
-                          ticket: unverifiedTickets[index],
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Gap(12);
-                      },
-                      itemCount: unverifiedTickets.length,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             floatingActionButton: AnimatedFloatingActionButton(
               animationController: animationController,
