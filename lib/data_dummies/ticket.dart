@@ -20,7 +20,7 @@ class Ticket {
   });
 }
 
-final verifiedTickets = [
+final tickets = [
   Ticket(
     category: 'Presale 1',
     buyer: buyers[0],
@@ -69,9 +69,6 @@ final verifiedTickets = [
     status: VerificationStatus.verified,
     color: Palette.green400,
   ),
-];
-
-final unverifiedTickets = [
   Ticket(
     category: 'Presale 1',
     buyer: buyers[3],
