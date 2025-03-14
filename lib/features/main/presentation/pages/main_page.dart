@@ -11,10 +11,10 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
-import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_page.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_main_page.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/widgets/main_drawer.dart';
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class MainPage extends StatelessWidget {
@@ -41,7 +41,7 @@ class MainPage extends StatelessWidget {
                   case DrawerMenu.dashboard:
                     return const DashboardPage();
                   case DrawerMenu.eventLiveReport:
-                    return const LiveReportPage();
+                    return const LiveReportMainPage();
                   default:
                     return const SizedBox.expand();
                 }

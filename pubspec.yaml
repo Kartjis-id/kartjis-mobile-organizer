@@ -29,6 +29,7 @@ dependencies:
   internet_connection_checker_plus: ^2.2.0
   intl: any
   json_annotation: ^4.9.0
+  mobile_scanner: ^6.0.7
   package_info_plus: ^8.1.1
   path: ^1.9.0
   path_provider: ^2.1.3

@@ -5,17 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/helpers/helper_function.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/ticket.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/widgets/ticket_card.dart';
 
 class TicketList extends StatefulWidget {
   final List<Ticket> tickets;
-  final ScrollController controller;
+  final AnimationController animationController;
+  final ScrollController scrollController;
+  final RefreshCallback onRefresh;
 
   const TicketList({
     super.key,
     required this.tickets,
-    required this.controller,
+    required this.animationController,
+    required this.scrollController,
+    required this.onRefresh,
   });
 
   @override
@@ -27,18 +32,28 @@ class _TicketListState extends State<TicketList> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
 
-    return ListView.separated(
-      controller: widget.controller,
-      padding: const EdgeInsets.all(20),
-      itemBuilder: (context, index) {
-        return TicketCard(
-          ticket: widget.tickets[index],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const Gap(12);
-      },
-      itemCount: widget.tickets.length,
+    return RefreshIndicator(
+      onRefresh: widget.onRefresh,
+      displacement: 20,
+      child: NotificationListener<UserScrollNotification>(
+        onNotification: (notification) => FunctionHelper.handleFabVisibilityOnScroll(
+          widget.animationController,
+          notification,
+        ),
+        child: ListView.separated(
+          controller: widget.scrollController,
+          padding: const EdgeInsets.all(20),
+          itemBuilder: (context, index) {
+            return TicketCard(
+              ticket: widget.tickets[index],
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const Gap(12);
+          },
+          itemCount: widget.tickets.length,
+        ),
+      ),
     );
   }
 

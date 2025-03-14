@@ -8,26 +8,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartjis_mobile_organizer/core/enums/drawer_menu.dart';
 import 'package:kartjis_mobile_organizer/core/enums/verification_status.dart';
 import 'package:kartjis_mobile_organizer/core/helpers/helper_function.dart';
+import 'package:kartjis_mobile_organizer/core/routes/route_names.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/ticket.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/selected_verification_status_provider.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/ticket_list_provider.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/widgets/ticket_list.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/animated_fab.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/search_field.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
-class LiveReportPage extends StatefulWidget {
-  const LiveReportPage({super.key});
+class LiveReportMainPage extends StatefulWidget {
+  const LiveReportMainPage({super.key});
 
   @override
-  State<LiveReportPage> createState() => _LiveReportPageState();
+  State<LiveReportMainPage> createState() => _LiveReportMainPageState();
 }
 
-class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProviderStateMixin {
+class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final ScrollController scrollController;
   late final PageController pageController;
@@ -38,6 +40,7 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
       vsync: this,
       duration: kThemeAnimationDuration,
     )..forward();
+
     scrollController = ScrollController();
     pageController = PageController();
 
@@ -57,7 +60,7 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final isSearching = ref.watch(searchProvider).isSearching;
+        final isSearching = ref.watch(searchProvider.select((notifier) => notifier.isSearching));
 
         return PopScope(
           canPop: false,
@@ -193,25 +196,17 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
                       return PageView(
                         controller: pageController,
                         children: [
-                          NotificationListener<UserScrollNotification>(
-                            onNotification: (notification) => FunctionHelper.handleFabVisibilityOnScroll(
-                              animationController,
-                              notification,
-                            ),
-                            child: TicketList(
-                              controller: scrollController,
-                              tickets: ticketList.where((e) => e.status == VerificationStatus.unverified).toList(),
-                            ),
+                          TicketList(
+                            animationController: animationController,
+                            scrollController: scrollController,
+                            tickets: ticketList.where((e) => e.status == VerificationStatus.unverified).toList(),
+                            onRefresh: () async {},
                           ),
-                          NotificationListener<UserScrollNotification>(
-                            onNotification: (notification) => FunctionHelper.handleFabVisibilityOnScroll(
-                              animationController,
-                              notification,
-                            ),
-                            child: TicketList(
-                              controller: scrollController,
-                              tickets: ticketList.where((e) => e.status == VerificationStatus.verified).toList(),
-                            ),
+                          TicketList(
+                            animationController: animationController,
+                            scrollController: scrollController,
+                            tickets: ticketList.where((e) => e.status == VerificationStatus.verified).toList(),
+                            onRefresh: () async {},
                           ),
                         ],
                         onPageChanged: (page) {
@@ -233,7 +228,7 @@ class _LiveReportPageState extends State<LiveReportPage> with SingleTickerProvid
             ),
             floatingActionButton: AnimatedFloatingActionButton(
               animationController: animationController,
-              onPressed: () {},
+              onPressed: () => navigatorKey.currentState?.pushNamed(liveReportScannerRoute),
               tooltip: 'Scanner',
               child: SvgAsset(
                 AssetPath.getIcon('scan.svg'),

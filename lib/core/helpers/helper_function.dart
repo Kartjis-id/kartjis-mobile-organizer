@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/shared/providers/manual_providers/search_provider.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/search_provider.dart';
 
 /// A collection of helper functions that are reusable for this app
 class FunctionHelper {
