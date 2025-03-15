@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,169 +71,177 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
             isSearching,
             postHandleCallback: () => ref.read(selectedMenuProvider.notifier).state = DrawerMenu.dashboard,
           ),
-          child: Scaffold(
-            backgroundColor: Palette.background,
-            body: CustomScrollView(
-              slivers: [
-                PinnedHeaderSliver(
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      color: Palette.scaffoldBackground,
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Palette.divider,
+          child: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarIconBrightness: Brightness.dark,
+              systemNavigationBarColor: Palette.scaffoldBackground,
+              systemNavigationBarDividerColor: Palette.divider,
+            ),
+            child: Scaffold(
+              backgroundColor: Palette.background,
+              body: CustomScrollView(
+                slivers: [
+                  PinnedHeaderSliver(
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        color: Palette.scaffoldBackground,
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Palette.divider,
+                          ),
                         ),
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        SafeArea(
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 200),
-                            switchInCurve: Curves.easeIn,
-                            switchOutCurve: Curves.easeOut,
-                            child: isSearching
-                                ? Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      AppBar(
-                                        toolbarHeight: 72,
-                                        backgroundColor: Palette.scaffoldBackground,
-                                        surfaceTintColor: Palette.scaffoldBackground,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 12,
-                                          right: 20,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Opacity(
-                                              opacity: 0,
-                                              child: IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(Icons.arrow_back),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Consumer(
-                                                builder: (context, ref, child) {
-                                                  return SearchField(
-                                                    text: ref.watch(searchProvider).searchText,
-                                                    autoFocus: true,
-                                                    hintText: 'Search ticket/buyer',
-                                                    onChanged: (text) => searchTicket(ref, text),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : AppBar(
-                                    toolbarHeight: 72,
-                                    backgroundColor: Palette.scaffoldBackground,
-                                    surfaceTintColor: Palette.scaffoldBackground,
-                                    centerTitle: true,
-                                    title: SvgAsset(
-                                      AssetPath.getVector('live_report.svg'),
-                                    ),
-                                    actions: [
-                                      IconButton(
-                                        onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
-                                        tooltip: 'Search',
-                                        icon: SvgAsset(
-                                          AssetPath.getIcon('search.svg'),
-                                          color: Palette.primaryText,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                          ),
-                        ),
-                        Consumer(
-                          builder: (context, ref, child) {
-                            final verificationStatus = ref.watch(selectedVerificationStatusProvider);
-
-                            return SegmentedButton<VerificationStatus>(
-                              segments: const [
-                                ButtonSegment(
-                                  value: VerificationStatus.unverified,
-                                  icon: Icon(Icons.arrow_circle_up),
-                                  label: Text('9000 Tickets'),
-                                ),
-                                ButtonSegment(
-                                  value: VerificationStatus.verified,
-                                  icon: Icon(Icons.arrow_circle_down),
-                                  label: Text('1000 Tickets'),
-                                ),
-                              ],
-                              expandedInsets: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-                              selected: {verificationStatus},
-                              showSelectedIcon: false,
-                              onSelectionChanged: (selection) {
-                                ref.read(selectedVerificationStatusProvider.notifier).state = selection.first;
-
-                                pageController.animateToPage(
-                                  verificationStatus == VerificationStatus.verified ? 0 : 1,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeOut,
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverFillRemaining(
-                  child: Consumer(
-                    builder: (context, ref, child) {
-                      final ticketList = ref.watch(ticketListProvider);
-
-                      return PageView(
-                        controller: pageController,
+                      child: Column(
                         children: [
-                          TicketList(
-                            animationController: animationController,
-                            scrollController: scrollController,
-                            tickets: ticketList.where((e) => e.status == VerificationStatus.unverified).toList(),
-                            onRefresh: () async {},
+                          SafeArea(
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 200),
+                              switchInCurve: Curves.easeIn,
+                              switchOutCurve: Curves.easeOut,
+                              child: isSearching
+                                  ? Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        AppBar(
+                                          toolbarHeight: 72,
+                                          backgroundColor: Palette.scaffoldBackground,
+                                          surfaceTintColor: Palette.scaffoldBackground,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 12,
+                                            right: 20,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Opacity(
+                                                opacity: 0,
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(Icons.arrow_back),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Consumer(
+                                                  builder: (context, ref, child) {
+                                                    return SearchField(
+                                                      text: ref.watch(searchProvider).searchText,
+                                                      autoFocus: true,
+                                                      hintText: 'Search ticket/buyer',
+                                                      onChanged: (text) => searchTicket(ref, text),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : AppBar(
+                                      toolbarHeight: 72,
+                                      backgroundColor: Palette.scaffoldBackground,
+                                      surfaceTintColor: Palette.scaffoldBackground,
+                                      centerTitle: true,
+                                      title: SvgAsset(
+                                        AssetPath.getVector('live_report.svg'),
+                                      ),
+                                      actions: [
+                                        IconButton(
+                                          onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
+                                          tooltip: 'Search',
+                                          icon: SvgAsset(
+                                            AssetPath.getIcon('search.svg'),
+                                            color: Palette.primaryText,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ),
                           ),
-                          TicketList(
-                            animationController: animationController,
-                            scrollController: scrollController,
-                            tickets: ticketList.where((e) => e.status == VerificationStatus.verified).toList(),
-                            onRefresh: () async {},
+                          Consumer(
+                            builder: (context, ref, child) {
+                              final verificationStatus = ref.watch(selectedVerificationStatusProvider);
+
+                              return SegmentedButton<VerificationStatus>(
+                                segments: const [
+                                  ButtonSegment(
+                                    value: VerificationStatus.unverified,
+                                    icon: Icon(Icons.arrow_circle_up),
+                                    label: Text('9000 Tickets'),
+                                  ),
+                                  ButtonSegment(
+                                    value: VerificationStatus.verified,
+                                    icon: Icon(Icons.arrow_circle_down),
+                                    label: Text('1000 Tickets'),
+                                  ),
+                                ],
+                                expandedInsets: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+                                selected: {verificationStatus},
+                                showSelectedIcon: false,
+                                onSelectionChanged: (selection) {
+                                  ref.read(selectedVerificationStatusProvider.notifier).state = selection.first;
+
+                                  pageController.animateToPage(
+                                    verificationStatus == VerificationStatus.verified ? 0 : 1,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeOut,
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ],
-                        onPageChanged: (page) {
-                          final status = page == 0 ? VerificationStatus.unverified : VerificationStatus.verified;
-
-                          ref.read(selectedVerificationStatusProvider.notifier).state = status;
-
-                          pageController.animateToPage(
-                            page,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeOut,
-                          );
-                        },
-                      );
-                    },
+                      ),
+                    ),
                   ),
+                  SliverFillRemaining(
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        final ticketList = ref.watch(ticketListProvider);
+
+                        return PageView(
+                          controller: pageController,
+                          children: [
+                            TicketList(
+                              animationController: animationController,
+                              scrollController: scrollController,
+                              tickets: ticketList.where((e) => e.status == VerificationStatus.unverified).toList(),
+                              onRefresh: () async {},
+                            ),
+                            TicketList(
+                              animationController: animationController,
+                              scrollController: scrollController,
+                              tickets: ticketList.where((e) => e.status == VerificationStatus.verified).toList(),
+                              onRefresh: () async {},
+                            ),
+                          ],
+                          onPageChanged: (page) {
+                            final status = page == 0 ? VerificationStatus.unverified : VerificationStatus.verified;
+
+                            ref.read(selectedVerificationStatusProvider.notifier).state = status;
+
+                            pageController.animateToPage(
+                              page,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              floatingActionButton: AnimatedFloatingActionButton(
+                animationController: animationController,
+                onPressed: () => navigatorKey.currentState?.pushNamed(liveReportScannerRoute),
+                tooltip: 'Scanner',
+                child: SvgAsset(
+                  AssetPath.getIcon('scan.svg'),
+                  color: Palette.primaryText,
                 ),
-              ],
-            ),
-            floatingActionButton: AnimatedFloatingActionButton(
-              animationController: animationController,
-              onPressed: () => navigatorKey.currentState?.pushNamed(liveReportScannerRoute),
-              tooltip: 'Scanner',
-              child: SvgAsset(
-                AssetPath.getIcon('scan.svg'),
-                color: Palette.primaryText,
               ),
             ),
           ),

@@ -1,16 +1,19 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/qr_code_scanner.dart';
 
 class LiveReportScannerPage extends ConsumerWidget {
   const LiveReportScannerPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Placeholder();
-
     // ref.listen(updateAttendanceScannerProvider, (_, state) {
     //   state.whenOrNull(
     //     loading: () => context.showLoadingDialog(),
@@ -41,32 +44,18 @@ class LiveReportScannerPage extends ConsumerWidget {
     //   );
     // });
 
-    // return Scaffold(
-    //   backgroundColor: Palette.primary,
-    //   body: SafeArea(
-    //     child: QrCodeScanner(
-    //       onQrScanned: (value) {
-    //         if (ModalRoute.of(context)?.isCurrent != true) {
-    //           navigatorKey.currentState!.pop();
-    //         }
-
-    //         final attendance = args.attendances.where((e) => e.student!.id == value);
-
-    //         if (attendance.isNotEmpty) {
-    //           if (qrScannerNotifier.autoConfirm) {
-    //             submit(context, ref, attendance.first.student!.id!);
-    //           } else {
-    //             showConfirmModalBottomSheet(context, ref, attendance.first.student!);
-    //           }
-    //         } else {
-    //           showErrorModalBottomSheet(context, ref);
-    //         }
-
-    //         ref.read(qrScannerProvider.notifier).isPaused = true;
-    //       },
-    //     ),
-    //   ),
-    // );
+    return const AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Palette.primary,
+        systemNavigationBarDividerColor: Palette.primary,
+      ),
+      child: Scaffold(
+        backgroundColor: Palette.primary,
+        body: QrCodeScanner(),
+      ),
+    );
   }
 
   // void submit(BuildContext context, WidgetRef ref, String studentId) {
