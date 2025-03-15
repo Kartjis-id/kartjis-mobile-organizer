@@ -28,7 +28,9 @@ class FunctionHelper {
     AnimationController controller,
     UserScrollNotification notification,
   ) {
-    if (notification.depth != 0) return false;
+    if (notification.depth != 0) {
+      return false;
+    }
 
     switch (notification.direction) {
       case ScrollDirection.forward:
@@ -64,7 +66,9 @@ class FunctionHelper {
     if (isSearching) {
       ref.read(searchProvider.notifier).reset();
 
-      if (provider != null) ref.invalidate(provider);
+      if (provider != null) {
+        ref.invalidate(provider);
+      }
     } else {
       postHandleCallback?.call();
     }

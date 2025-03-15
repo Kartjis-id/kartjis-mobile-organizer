@@ -14,36 +14,6 @@ class LiveReportScannerPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ref.listen(updateAttendanceScannerProvider, (_, state) {
-    //   state.whenOrNull(
-    //     loading: () => context.showLoadingDialog(),
-    //     error: (error, stackTrace) {
-    //       if (!qrScannerNotifier.autoConfirm) {
-    //         navigatorKey.currentState!.pop();
-    //       }
-
-    //       navigatorKey.currentState!.pop();
-    //       context.responseError(error, stackTrace);
-    //     },
-    //     data: (data) {
-    //       if (data != null) {
-    //         if (!qrScannerNotifier.autoConfirm) {
-    //           navigatorKey.currentState!.pop();
-    //         }
-
-    //         navigatorKey.currentState!.pop();
-    //         ref.invalidate(meetingAttendancesProvider);
-
-    //         final attendance = args.attendances.where((e) => e.student!.id == data);
-
-    //         if (attendance.isNotEmpty) {
-    //           showAttendanceStatusDialog(context, ref, attendance.first.student!);
-    //         }
-    //       }
-    //     },
-    //   );
-    // });
-
     return const AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,

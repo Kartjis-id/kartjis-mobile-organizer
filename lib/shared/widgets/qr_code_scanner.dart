@@ -1,15 +1,20 @@
-// Dart imports:
-import 'dart:async';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
+import 'package:kartjis_mobile_organizer/core/services/image_service.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class QrCodeScanner extends ConsumerStatefulWidget {
   const QrCodeScanner({super.key});
@@ -20,22 +25,14 @@ class QrCodeScanner extends ConsumerStatefulWidget {
 
 class _QrCodeScannerState extends ConsumerState<QrCodeScanner>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
-  late final ValueNotifier<CameraFacing> facing;
-  late final ValueNotifier<bool> flash;
-
   late final MobileScannerController scannerController;
   late final AnimationController animationController;
   late final Animation<double> animation;
 
   @override
   void initState() {
-    facing = ValueNotifier(CameraFacing.back);
-    flash = ValueNotifier(false);
-
     scannerController = MobileScannerController(
       cameraResolution: const Size(1920, 1080),
-      facing: facing.value,
-      torchEnabled: flash.value,
     );
 
     super.initState();
@@ -68,14 +65,12 @@ class _QrCodeScannerState extends ConsumerState<QrCodeScanner>
     if (!scannerController.value.hasCameraPermission) return;
 
     switch (state) {
-      case AppLifecycleState.detached:
-      case AppLifecycleState.hidden:
-      case AppLifecycleState.paused:
-        return;
       case AppLifecycleState.resumed:
-        unawaited(scannerController.start());
+        scannerController.start();
       case AppLifecycleState.inactive:
-        unawaited(scannerController.stop());
+        scannerController.stop();
+      default:
+        return;
     }
   }
 
@@ -87,7 +82,7 @@ class _QrCodeScannerState extends ConsumerState<QrCodeScanner>
         final scanWindowSize = layoutSize.width * .7;
 
         final scanWindow = Rect.fromCenter(
-          center: layoutSize.center(const Offset(0, -50)),
+          center: layoutSize.center(const Offset(0, -25)),
           width: scanWindowSize,
           height: scanWindowSize,
         );
@@ -118,10 +113,10 @@ class _QrCodeScannerState extends ConsumerState<QrCodeScanner>
                         opacity: animation.value > .2 && animation.value < .8 ? 1 : 0,
                         duration: const Duration(milliseconds: 300),
                         child: SizedBox(
-                          width: scanWindowSize - 4,
+                          width: scanWindowSize - 6,
                           height: 25,
                           child: Transform.translate(
-                            offset: Offset(0, scanWindowSize * (animation.value - .5)),
+                            offset: Offset(0, (scanWindowSize - 2) * (animation.value - .5)),
                             child: Column(
                               children: [
                                 if (animation.status == AnimationStatus.forward)
@@ -171,6 +166,51 @@ class _QrCodeScannerState extends ConsumerState<QrCodeScanner>
                     ],
                   );
                 },
+              ),
+            ),
+            Positioned(
+              top: 20,
+              left: 24,
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Powered by',
+                      style: textTheme.bodyMedium!.scaffoldBackgroundColor,
+                    ),
+                    const Gap(4),
+                    const KartjisIconText(
+                      axis: KartjisIconTextAxis.horizontal,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      textColor: Palette.scaffoldBackground,
+                      textSize: 22,
+                      iconSize: 18,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned.fromRect(
+              rect: scanWindow.translate(0, 180),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Gap(12),
+                  SwitchCameraButton(
+                    controller: scannerController,
+                  ),
+                  const Gap(12),
+                  ToggleFlashlightButton(
+                    controller: scannerController,
+                  ),
+                  const Gap(12),
+                  AnalyzeImageButton(
+                    controller: scannerController,
+                    onDetect: (data) => debugPrint(data),
+                  ),
+                  const Gap(12),
+                ],
               ),
             ),
           ],
@@ -359,5 +399,161 @@ class ScanWindowPainter extends CustomPainter {
     return oldDelegate.scanWindow != scanWindow ||
         oldDelegate.color != color ||
         oldDelegate.borderRadius != borderRadius;
+  }
+}
+
+/// Button widget for switch camera function
+class SwitchCameraButton extends StatelessWidget {
+  /// Construct a new [SwitchCameraButton] instance.
+  const SwitchCameraButton({super.key, required this.controller});
+
+  /// Controller which is used to call switchCamera
+  final MobileScannerController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, state, child) {
+        if (!state.isInitialized || !state.isRunning) {
+          return const SizedBox.shrink();
+        }
+
+        final availableCameras = state.availableCameras;
+
+        if (availableCameras != null && availableCameras < 2) {
+          return const SizedBox.shrink();
+        }
+
+        return ScannerFloatingActionButton(
+          onPressed: _onPressed,
+          tooltip: 'Switch',
+          child: SvgAsset(
+            AssetPath.getIcon('camera_rotate.svg'),
+            color: Palette.background,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onPressed() => controller.switchCamera();
+}
+
+/// Button widget for toggle torch (flash) function
+class ToggleFlashlightButton extends StatelessWidget {
+  /// Construct a new [ToggleFlashlightButton] instance.
+  const ToggleFlashlightButton({super.key, required this.controller});
+
+  /// Controller which is used to call toggleTorch
+  final MobileScannerController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, state, child) {
+        if (!state.isInitialized || !state.isRunning) {
+          return const SizedBox.shrink();
+        }
+
+        switch (state.torchState) {
+          case TorchState.off:
+            return ScannerFloatingActionButton(
+              onPressed: _onPressed,
+              tooltip: 'Flash',
+              child: SvgAsset(
+                AssetPath.getIcon('zap_off.svg'),
+                color: Palette.background,
+              ),
+            );
+          case TorchState.on || TorchState.auto:
+            return ScannerFloatingActionButton(
+              onPressed: _onPressed,
+              tooltip: 'Flash',
+              child: SvgAsset(
+                AssetPath.getIcon('zap.svg'),
+                color: Palette.background,
+              ),
+            );
+          default:
+            return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+
+  void _onPressed() => controller.toggleTorch();
+}
+
+/// Button widget for analyze image function
+class AnalyzeImageButton extends StatelessWidget {
+  /// Construct a new [AnalyzeImageButton] instance.
+  const AnalyzeImageButton({
+    super.key,
+    required this.controller,
+    required this.onDetect,
+  });
+
+  /// Controller which is used to call analyzeImage
+  final MobileScannerController controller;
+
+  /// Callback when barcode successfully detected from image
+  final void Function(String? data) onDetect;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScannerFloatingActionButton(
+      onPressed: _onPressed,
+      tooltip: 'Gallery',
+      child: SvgAsset(
+        AssetPath.getIcon('image.svg'),
+        color: Palette.background,
+      ),
+    );
+  }
+
+  Future<void> _onPressed() async {
+    final imagePath = await ImageService.pickImage(ImageSource.gallery);
+
+    if (imagePath == null) return;
+
+    final result = await controller.analyzeImage(imagePath);
+
+    if (result == null) return;
+
+    onDetect(result.barcodes.map((e) => e.displayValue).toList().first);
+  }
+}
+
+class ScannerFloatingActionButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String tooltip;
+  final Widget child;
+
+  const ScannerFloatingActionButton({
+    super.key,
+    required this.onPressed,
+    required this.tooltip,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      elevation: 0,
+      highlightElevation: 0,
+      foregroundColor: Palette.background,
+      backgroundColor: Palette.purple700,
+      shape: const CircleBorder(
+        side: BorderSide(
+          color: Palette.background,
+          width: 2,
+        ),
+      ),
+      onPressed: onPressed,
+      tooltip: tooltip,
+      child: child,
+    );
   }
 }

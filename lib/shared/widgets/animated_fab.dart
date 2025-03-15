@@ -24,8 +24,9 @@ class AnimatedFloatingActionButton extends StatelessWidget {
       scale: animationController,
       alignment: Alignment.bottomCenter,
       child: FloatingActionButton(
-        elevation: 0,
-        highlightElevation: 0,
+        heroTag: 'animated_fab',
+        elevation: 4,
+        highlightElevation: 8,
         foregroundColor: Palette.primaryText,
         backgroundColor: Palette.purple300,
         shape: const CircleBorder(
