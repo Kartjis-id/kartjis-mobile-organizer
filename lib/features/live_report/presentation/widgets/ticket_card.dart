@@ -126,8 +126,6 @@ class TicketCard extends StatelessWidget {
                   child: Text(
                     'Unverified',
                     textAlign: TextAlign.right,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                     style: textTheme.labelSmall!.secondaryTextColor,
                   ),
                 )

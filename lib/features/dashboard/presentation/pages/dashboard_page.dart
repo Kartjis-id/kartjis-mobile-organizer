@@ -2,17 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
-import 'package:kartjis_mobile_organizer/data_dummies/event.dart';
-import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/manual_providers/focused_event_carousel_provider.dart';
-import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/carousel_card.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/count_down_card.dart';
+import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/event_card.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/widgets/overview_chart.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/sections/section_divider.dart';
@@ -86,33 +82,9 @@ class DashboardPage extends StatelessWidget {
               horizontalPadding: 20,
             ),
             const Gap(16),
-            Consumer(
-              builder: (context, ref, child) {
-                return CarouselSlider.builder(
-                  itemCount: events.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2),
-                      child: CarouselCard(
-                        event: events[index],
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                    height: 350,
-                    viewportFraction: 0.75,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 10),
-                    autoPlayAnimationDuration: const Duration(seconds: 1),
-                    autoPlayCurve: Curves.easeInOut,
-                    enlargeCenterPage: true,
-                    enlargeFactor: 0.2,
-                    onPageChanged: (index, reason) {
-                      ref.read(focusedEventCarouselProvider.notifier).state = events[index];
-                    },
-                  ),
-                );
-              },
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: EventCard(),
             ),
           ],
         ),

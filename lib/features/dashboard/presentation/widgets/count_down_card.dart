@@ -11,8 +11,8 @@ import 'package:kartjis_mobile_organizer/core/helpers/helper_function.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
+import 'package:kartjis_mobile_organizer/data_dummies/event.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/providers/generated_providers/count_down_provider.dart';
-import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_event_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_card.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/circle_background_icon.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
@@ -41,8 +41,8 @@ class CountDownCard extends StatelessWidget {
             left: -40,
             bottom: -50,
             child: Container(
-              width: 180,
-              height: 180,
+              width: 170,
+              height: 170,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.black.withValues(alpha: .15),
@@ -53,8 +53,8 @@ class CountDownCard extends StatelessWidget {
             right: -40,
             top: -50,
             child: Container(
-              width: 150,
-              height: 150,
+              width: 155,
+              height: 155,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.black.withValues(alpha: .15),
@@ -79,14 +79,11 @@ class CountDownCard extends StatelessWidget {
                     ),
                     const Gap(10),
                     Flexible(
-                      child: Consumer(
-                        builder: (context, ref, child) {
-                          return Text(
-                            ref.watch(selectedEventProvider).name,
-                            textAlign: TextAlign.center,
-                            style: textTheme.labelLarge!.primaryBackgroundColor,
-                          );
-                        },
+                      child: Text(
+                        event.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: textTheme.labelLarge!.primaryBackgroundColor,
                       ),
                     ),
                   ],
