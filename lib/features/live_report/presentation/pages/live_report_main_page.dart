@@ -19,7 +19,7 @@ import 'package:kartjis_mobile_organizer/features/live_report/presentation/provi
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/ticket_list_provider.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/widgets/ticket_list.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/animated_fab.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/animated_floating_action_button.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/input_fields/search_field.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 

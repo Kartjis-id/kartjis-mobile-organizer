@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
+import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/scanner_paused_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/qr_code_scanner.dart';
 
 class LiveReportScannerPage extends ConsumerWidget {
@@ -14,8 +16,8 @@ class LiveReportScannerPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.light,
         systemNavigationBarColor: Palette.primary,
@@ -23,179 +25,39 @@ class LiveReportScannerPage extends ConsumerWidget {
       ),
       child: Scaffold(
         backgroundColor: Palette.primary,
-        body: QrCodeScanner(),
+        body: QrCodeScanner(
+          onDetect: (data) => showConfirmModalBottomSheet(context, ref, data),
+        ),
       ),
     );
   }
 
-  // void submit(BuildContext context, WidgetRef ref, String studentId) {
-  //   if (DateTime.now().secondsSinceEpoch < args.meeting.date! + 86400) {
-  //     final attendance = AttendancePost(
-  //       status: 'ATTEND',
-  //       studentId: studentId,
-  //     );
-
-  //     ref.read(updateAttendanceScannerProvider.notifier).updateAttendanceScanner(
-  //           args.meeting.id!,
-  //           attendance,
-  //         );
-  //   } else {
-  //     context.showSnackBar(
-  //       title: 'Pertemuan Telah Selesai',
-  //       message: 'Kamu sudah tidak bisa mengabsen peserta pada pertemuan ini.',
-  //       type: SnackBarType.error,
-  //     );
-
-  //     if (!ref.watch(qrScannerProvider).autoConfirm) {
-  //       navigatorKey.currentState!.pop();
-  //     }
-  //   }
-  // }
-
-  // Future<void> showConfirmModalBottomSheet(
-  //   BuildContext context,
-  //   WidgetRef ref,
-  // ) async {
-  //   return showModalBottomSheet(
-  //     context: context,
-  //     enableDrag: false,
-  //     isScrollControlled: true,
-  //     builder: (context) => BottomSheet(
-  //       onClosing: () {},
-  //       enableDrag: false,
-  //       builder: (context) => Container(
-  //         width: double.infinity,
-  //         padding: const EdgeInsets.all(24),
-  //         child: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Text(
-  //               '${args.meeting.lesson}',
-  //               style: textTheme.bodyMedium!.copyWith(
-  //                 color: Palette.purple3,
-  //               ),
-  //             ),
-  //             const SizedBox(height: 2),
-  //             Text(
-  //               'Pertemuan ${args.meeting.number}',
-  //               style: textTheme.titleLarge!.copyWith(
-  //                 color: Palette.purple2,
-  //                 fontWeight: FontWeight.w600,
-  //               ),
-  //             ),
-  //             ListTile(
-  //               contentPadding: EdgeInsets.zero,
-  //               minLeadingWidth: 48,
-  //               horizontalTitleGap: 14,
-  //               leading: CircleNetworkImage(
-  //                 imageUrl: student.profilePicturePath,
-  //                 size: 48,
-  //               ),
-  //               title: Text(
-  //                 '${student.fullname}',
-  //                 style: textTheme.titleMedium!.copyWith(
-  //                   color: Palette.disabledText,
-  //                 ),
-  //               ),
-  //               subtitle: Text(
-  //                 '${student.username}',
-  //                 style: textTheme.bodySmall!.copyWith(
-  //                   color: Palette.disabledText,
-  //                 ),
-  //               ),
-  //             ),
-  //             FilledButton(
-  //               onPressed: () => submit(context, ref, student.id!),
-  //               child: const Text('Konfirmasi'),
-  //             ).fullWidth(),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   ).whenComplete(() => ref.read(qrScannerProvider.notifier).reset());
-  // }
-
-  // Future<void> showAttendanceStatusDialog(
-  //   BuildContext context,
-  //   WidgetRef ref,
-  //   Profile student,
-  // ) async {
-  //   Timer? timer = Timer(
-  //     const Duration(seconds: 3),
-  //     () => navigatorKey.currentState!.pop(),
-  //   );
-
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => AttendanceStatusDialog(
-  //       student: student,
-  //       meeting: args.meeting,
-  //       attendanceType: AttendanceType.meeting,
-  //       isAttend: true,
-  //     ),
-  //   ).then((_) {
-  //     timer?.cancel();
-  //     timer = null;
-  //   }).whenComplete(() => ref.read(qrScannerProvider.notifier).reset());
-  // }
-
-  // Future<void> showErrorModalBottomSheet(
-  //   BuildContext context,
-  //   WidgetRef ref,
-  // ) async {
-  //   return showModalBottomSheet(
-  //     context: context,
-  //     enableDrag: false,
-  //     isScrollControlled: true,
-  //     builder: (context) => BottomSheet(
-  //       onClosing: () {},
-  //       enableDrag: false,
-  //       builder: (context) => Container(
-  //         width: double.infinity,
-  //         padding: const EdgeInsets.all(24),
-  //         child: Stack(
-  //           clipBehavior: Clip.none,
-  //           alignment: AlignmentDirectional.topCenter,
-  //           children: [
-  //             Positioned(
-  //               top: -150,
-  //               child: SizedBox(
-  //                 width: 250,
-  //                 height: 250,
-  //                 child: RiveAnimation.asset(
-  //                   AssetPath.getRive('error_icon.riv'),
-  //                   fit: BoxFit.cover,
-  //                 ),
-  //               ),
-  //             ),
-  //             Padding(
-  //               padding: const EdgeInsets.only(top: 44),
-  //               child: Column(
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: [
-  //                   Text(
-  //                     'Peserta Tidak Ditemukan!',
-  //                     textAlign: TextAlign.center,
-  //                     style: textTheme.titleLarge!.copyWith(
-  //                       color: Palette.purple2,
-  //                     ),
-  //                   ),
-  //                   const SizedBox(height: 2),
-  //                   Text(
-  //                     'Peserta tidak ditemukan. Silahkan coba lagi.',
-  //                     textAlign: TextAlign.center,
-  //                     style: textTheme.bodySmall!.copyWith(
-  //                       color: Palette.error,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   ).whenComplete(() => ref.read(qrScannerProvider.notifier).reset());
-  // }
+  Future<void> showConfirmModalBottomSheet(
+    BuildContext context,
+    WidgetRef ref,
+    String? data,
+  ) async {
+    return showModalBottomSheet(
+      context: context,
+      enableDrag: false,
+      isScrollControlled: true,
+      builder: (context) => BottomSheet(
+        onClosing: () {},
+        enableDrag: false,
+        builder: (context) => Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$data',
+                style: textTheme.titleMedium,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ).whenComplete(() => ref.read(scannerPausedProvider.notifier).state = false);
+  }
 }
