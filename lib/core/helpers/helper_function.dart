@@ -59,18 +59,18 @@ class FunctionHelper {
     bool didPop,
     bool isSearching, {
     ProviderOrFamily? provider,
-    VoidCallback? postHandleCallback,
+    VoidCallback? postHandledCallback,
   }) {
     if (didPop) return;
 
     if (isSearching) {
-      ref.read(searchProvider.notifier).reset();
+      ref.read(searchProvider.notifier).isSearching = false;
 
       if (provider != null) {
         ref.invalidate(provider);
       }
     } else {
-      postHandleCallback?.call();
+      postHandledCallback?.call();
     }
   }
 }

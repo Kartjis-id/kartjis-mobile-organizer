@@ -24,10 +24,4 @@ class SearchNotifier extends ChangeNotifier {
     _searchText = value;
     notifyListeners();
   }
-
-  void reset() {
-    _isSearching = false;
-    _searchText = '';
-    notifyListeners();
-  }
 }

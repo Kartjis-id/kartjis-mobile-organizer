@@ -1,12 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/scanner_paused_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/qr_code_scanner.dart';
@@ -16,18 +15,10 @@ class LiveReportScannerPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Palette.primary,
-        systemNavigationBarDividerColor: Palette.primary,
-      ),
-      child: Scaffold(
-        backgroundColor: Palette.primary,
-        body: QrCodeScanner(
-          onDetect: (data) => showConfirmModalBottomSheet(context, ref, data),
-        ),
+    return Scaffold(
+      backgroundColor: Palette.primary,
+      body: QrCodeScanner(
+        onDetect: (data) => showConfirmModalBottomSheet(context, ref, data),
       ),
     );
   }
