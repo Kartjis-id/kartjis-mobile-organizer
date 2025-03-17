@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,21 +14,20 @@ import 'package:kartjis_mobile_organizer/core/services/image_service.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
-import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/scanner_paused_provider.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/scanner_provider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/kartjis_icon_text.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
-class QrCodeScanner extends ConsumerStatefulWidget {
+class BarcodeScanner extends StatefulWidget {
   final void Function(String? data) onDetect;
 
-  const QrCodeScanner({super.key, required this.onDetect});
+  const BarcodeScanner({super.key, required this.onDetect});
 
   @override
-  ConsumerState<QrCodeScanner> createState() => _QrCodeScannerState();
+  State<BarcodeScanner> createState() => _QrCodeScannerState();
 }
 
-class _QrCodeScannerState extends ConsumerState<QrCodeScanner>
-    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   late final MobileScannerController scannerController;
   late final AnimationController animationController;
   late final Animation<double> animation;
@@ -80,160 +80,204 @@ class _QrCodeScannerState extends ConsumerState<QrCodeScanner>
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(scannerPausedProvider, (_, paused) {
-      if (paused) {
-        scannerController.pause();
-      } else {
-        scannerController.start();
-      }
-    });
+    return Consumer(
+      builder: (context, ref, child) {
+        ref.listen(scannerProvider, (_, notifier) {
+          if (notifier.paused) {
+            scannerController.pause();
+          } else {
+            scannerController.start();
+          }
+        });
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final layoutSize = constraints.biggest;
-        final scanWindowSize = layoutSize.width * .7;
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final layoutSize = constraints.biggest;
+            final scanWindowSize = layoutSize.width * .7;
 
-        final scanWindow = Rect.fromCenter(
-          center: layoutSize.center(const Offset(0, -25)),
-          width: scanWindowSize,
-          height: scanWindowSize,
-        );
+            final scanWindow = Rect.fromCenter(
+              center: layoutSize.center(const Offset(0, -25)),
+              width: scanWindowSize,
+              height: scanWindowSize,
+            );
 
-        return Stack(
-          children: [
-            MobileScanner(
-              controller: scannerController,
-              scanWindow: scanWindow,
-              onDetect: (result) => detectAndPauseScanner(result),
-            ),
-            ScanWindowOverlay(
-              controller: scannerController,
-              scanWindow: scanWindow,
-              color: Palette.primary.withValues(alpha: .6),
-              borderRadius: BorderRadius.circular(20),
-              borderColor: Palette.purple300,
-              borderWidth: 4,
-            ),
-            Positioned.fromRect(
-              rect: scanWindow,
-              child: AnimatedBuilder(
-                animation: animation,
-                builder: (context, child) {
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      AnimatedOpacity(
-                        opacity: animation.value > .2 && animation.value < .8 ? 1 : 0,
-                        duration: const Duration(milliseconds: 300),
-                        child: SizedBox(
-                          width: scanWindowSize - 6,
-                          height: 25,
-                          child: Transform.translate(
-                            offset: Offset(0, (scanWindowSize - 2) * (animation.value - .5)),
-                            child: Column(
-                              children: [
-                                if (animation.status == AnimationStatus.forward)
-                                  Container(
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Palette.green400.withValues(alpha: 0),
-                                          Palette.green400.withValues(alpha: .1),
-                                          Palette.green400.withValues(alpha: .3),
-                                          Palette.green400.withValues(alpha: .5),
-                                        ],
+            return Stack(
+              children: [
+                MobileScanner(
+                  controller: scannerController,
+                  scanWindow: scanWindow,
+                  onDetect: (result) => detectAndPauseScanner(ref, result),
+                ),
+                ScanWindowOverlay(
+                  controller: scannerController,
+                  scanWindow: scanWindow,
+                  color: Palette.primary.withValues(alpha: .6),
+                  borderRadius: BorderRadius.circular(20),
+                  borderColor: Palette.purple300,
+                  borderWidth: 4,
+                ),
+                Positioned.fromRect(
+                  rect: scanWindow,
+                  child: AnimatedBuilder(
+                    animation: animation,
+                    builder: (context, child) {
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          AnimatedOpacity(
+                            opacity: animation.value > .2 && animation.value < .8 ? 1 : 0,
+                            duration: const Duration(milliseconds: 300),
+                            child: SizedBox(
+                              width: scanWindowSize - 6,
+                              height: 25,
+                              child: Transform.translate(
+                                offset: Offset(0, (scanWindowSize - 2) * (animation.value - .5)),
+                                child: Column(
+                                  children: [
+                                    if (animation.status == AnimationStatus.forward)
+                                      Container(
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Palette.green400.withValues(alpha: 0),
+                                              Palette.green400.withValues(alpha: .1),
+                                              Palette.green400.withValues(alpha: .3),
+                                              Palette.green400.withValues(alpha: .5),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    Container(
+                                      height: 5,
+                                      decoration: BoxDecoration(
+                                        color: Palette.green400,
+                                        borderRadius: BorderRadius.circular(99),
                                       ),
                                     ),
-                                  ),
-                                Container(
-                                  height: 5,
-                                  decoration: BoxDecoration(
-                                    color: Palette.green400,
-                                    borderRadius: BorderRadius.circular(99),
-                                  ),
+                                    if (animation.status == AnimationStatus.reverse)
+                                      Container(
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.bottomCenter,
+                                            end: Alignment.topCenter,
+                                            colors: [
+                                              Palette.green400.withValues(alpha: 0),
+                                              Palette.green400.withValues(alpha: .1),
+                                              Palette.green400.withValues(alpha: .3),
+                                              Palette.green400.withValues(alpha: .5),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                  ],
                                 ),
-                                if (animation.status == AnimationStatus.reverse)
-                                  Container(
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter,
-                                        colors: [
-                                          Palette.green400.withValues(alpha: 0),
-                                          Palette.green400.withValues(alpha: .1),
-                                          Palette.green400.withValues(alpha: .3),
-                                          Palette.green400.withValues(alpha: .5),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                Positioned.fromRect(
+                  rect: scanWindow.translate(0, (scanWindowSize / 1.25)),
+                  child: Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      SwitchCameraButton(
+                        controller: scannerController,
+                      ),
+                      ToggleFlashlightButton(
+                        controller: scannerController,
+                      ),
+                      AnalyzeImageButton(
+                        controller: scannerController,
+                        onDetect: (result) => detectAndPauseScanner(ref, result),
                       ),
                     ],
-                  );
-                },
-              ),
-            ),
-            Positioned(
-              top: 20,
-              left: 24,
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Powered by',
-                      style: textTheme.bodyMedium!.scaffoldBackgroundColor,
-                    ),
-                    const Gap(4),
-                    const KartjisIconText(
-                      axis: KartjisIconTextAxis.horizontal,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      textColor: Palette.scaffoldBackground,
-                      textSize: 22,
-                      iconSize: 18,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Positioned.fromRect(
-              rect: scanWindow.translate(0, (scanWindowSize / 1.4)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SwitchCameraButton(
-                    controller: scannerController,
+                Positioned(
+                  top: 20,
+                  width: constraints.maxWidth,
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Powered by',
+                                style: textTheme.bodyMedium!.scaffoldBackgroundColor,
+                              ),
+                              const Gap(4),
+                              const KartjisIconText(
+                                axis: KartjisIconTextAxis.horizontal,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                textColor: Palette.scaffoldBackground,
+                                textSize: 22,
+                                iconSize: 18,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Detection Sound',
+                                style: textTheme.bodyMedium!.scaffoldBackgroundColor,
+                              ),
+                              const Gap(2),
+                              Switch(
+                                value: ref.watch(scannerProvider).enableSound,
+                                activeTrackColor: Palette.tertiary,
+                                inactiveTrackColor: Palette.secondary,
+                                thumbColor: WidgetStateProperty.resolveWith((states) => Palette.scaffoldBackground),
+                                trackOutlineColor: WidgetStateProperty.resolveWith((states) => Colors.transparent),
+                                trackOutlineWidth: WidgetStateProperty.resolveWith((states) => 0),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                onChanged: (value) => ref.read(scannerProvider.notifier).enableSound = value,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  const Gap(12),
-                  ToggleFlashlightButton(
-                    controller: scannerController,
-                  ),
-                  const Gap(12),
-                  AnalyzeImageButton(
-                    controller: scannerController,
-                    onDetect: (result) => detectAndPauseScanner(result),
-                  ),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         );
       },
     );
   }
 
-  void detectAndPauseScanner(BarcodeCapture result) {
+  void detectAndPauseScanner(WidgetRef ref, BarcodeCapture result) async {
+    final withSound = ref.watch(scannerProvider).enableSound;
+
+    if (withSound) {
+      await FlutterRingtonePlayer().play(
+        fromAsset: AssetPath.getSound('scanner_sound.wav'),
+        volume: 0.3,
+      );
+    }
+
     widget.onDetect(result.barcodes.map((e) => e.displayValue).toList().first);
 
-    ref.read(scannerPausedProvider.notifier).state = true;
+    ref.read(scannerProvider.notifier).paused = true;
   }
 }
 

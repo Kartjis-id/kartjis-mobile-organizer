@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
-import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/scanner_paused_provider.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/qr_code_scanner.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/scanner_provider.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/barcode_scanner.dart';
 
 class LiveReportScannerPage extends ConsumerWidget {
   const LiveReportScannerPage({super.key});
@@ -17,7 +17,7 @@ class LiveReportScannerPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Palette.primary,
-      body: QrCodeScanner(
+      body: BarcodeScanner(
         onDetect: (data) => showConfirmModalBottomSheet(context, ref, data),
       ),
     );
@@ -49,6 +49,6 @@ class LiveReportScannerPage extends ConsumerWidget {
           ),
         ),
       ),
-    ).whenComplete(() => ref.read(scannerPausedProvider.notifier).state = false);
+    ).whenComplete(() => ref.read(scannerProvider.notifier).paused = false);
   }
 }
