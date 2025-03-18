@@ -34,7 +34,7 @@ final segmentedButtonTheme = SegmentedButtonThemeData(
     }),
     backgroundColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return Palette.purple300;
+        return Palette.purpleLight;
       }
 
       return Palette.divider.withValues(alpha: .7);

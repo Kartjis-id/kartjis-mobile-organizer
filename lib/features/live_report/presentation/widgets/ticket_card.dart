@@ -27,7 +27,7 @@ class TicketCard extends StatelessWidget {
       borderWidth: 1.5,
       borderColor: Palette.primaryText,
       layerSpace: 5,
-      layerColor: ticket.color,
+      layerColor: ticket.status == VerificationStatus.verified ? Palette.greenLight : Palette.secondary,
       onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class TicketCard extends StatelessWidget {
                   horizontal: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: Palette.purple300,
+                  color: Palette.purpleLight,
                   border: Border.all(
                     color: Palette.primaryText,
                   ),

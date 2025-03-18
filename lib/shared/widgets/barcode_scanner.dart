@@ -113,7 +113,7 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                   scanWindow: scanWindow,
                   color: Palette.primary.withValues(alpha: .6),
                   borderRadius: BorderRadius.circular(20),
-                  borderColor: Palette.purple300,
+                  borderColor: Palette.purpleLight,
                   borderWidth: 4,
                 ),
                 Positioned.fromRect(
@@ -142,10 +142,10 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                                             begin: Alignment.topCenter,
                                             end: Alignment.bottomCenter,
                                             colors: [
-                                              Palette.green400.withValues(alpha: 0),
-                                              Palette.green400.withValues(alpha: .1),
-                                              Palette.green400.withValues(alpha: .3),
-                                              Palette.green400.withValues(alpha: .5),
+                                              Palette.greenLight.withValues(alpha: 0),
+                                              Palette.greenLight.withValues(alpha: .1),
+                                              Palette.greenLight.withValues(alpha: .3),
+                                              Palette.greenLight.withValues(alpha: .5),
                                             ],
                                           ),
                                         ),
@@ -153,7 +153,7 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                                     Container(
                                       height: 5,
                                       decoration: BoxDecoration(
-                                        color: Palette.green400,
+                                        color: Palette.greenLight,
                                         borderRadius: BorderRadius.circular(99),
                                       ),
                                     ),
@@ -165,10 +165,10 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                                             begin: Alignment.bottomCenter,
                                             end: Alignment.topCenter,
                                             colors: [
-                                              Palette.green400.withValues(alpha: 0),
-                                              Palette.green400.withValues(alpha: .1),
-                                              Palette.green400.withValues(alpha: .3),
-                                              Palette.green400.withValues(alpha: .5),
+                                              Palette.greenLight.withValues(alpha: 0),
+                                              Palette.greenLight.withValues(alpha: .1),
+                                              Palette.greenLight.withValues(alpha: .3),
+                                              Palette.greenLight.withValues(alpha: .5),
                                             ],
                                           ),
                                         ),
@@ -210,7 +210,7 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                   width: constraints.maxWidth,
                   child: SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,17 +233,16 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                             ],
                           ),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Detection Sound',
+                                'Scanner Sound',
                                 style: textTheme.bodyMedium!.scaffoldBackgroundColor,
                               ),
                               const Gap(2),
                               Switch(
                                 value: ref.watch(scannerProvider).enableSound,
-                                activeTrackColor: Palette.tertiary,
-                                inactiveTrackColor: Palette.secondary,
+                                activeTrackColor: Palette.purpleLight,
+                                inactiveTrackColor: Palette.secondaryText,
                                 thumbColor: WidgetStateProperty.resolveWith((states) => Palette.scaffoldBackground),
                                 trackOutlineColor: WidgetStateProperty.resolveWith((states) => Colors.transparent),
                                 trackOutlineWidth: WidgetStateProperty.resolveWith((states) => 0),
@@ -593,7 +592,7 @@ class ScannerConfigButton extends StatelessWidget {
       elevation: 0,
       highlightElevation: 0,
       foregroundColor: Palette.background,
-      backgroundColor: Palette.purple700,
+      backgroundColor: Palette.purpleDark,
       shape: const CircleBorder(
         side: BorderSide(
           color: Palette.background,

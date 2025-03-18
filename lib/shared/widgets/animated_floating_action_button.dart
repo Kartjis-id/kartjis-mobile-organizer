@@ -28,7 +28,7 @@ class AnimatedFloatingActionButton extends StatelessWidget {
         elevation: 4,
         highlightElevation: 8,
         foregroundColor: Palette.primaryText,
-        backgroundColor: Palette.purple300,
+        backgroundColor: Palette.purpleLight,
         shape: const CircleBorder(
           side: BorderSide(
             color: Palette.primaryText,

@@ -30,7 +30,7 @@ class CountDownCard extends StatelessWidget {
     return BrutalismCard(
       radius: 12,
       padding: EdgeInsets.zero,
-      primaryColor: Palette.purple700,
+      primaryColor: Palette.purpleDark,
       borderWidth: 2,
       borderColor: Palette.primaryText,
       layerSpace: 6,
@@ -73,7 +73,7 @@ class CountDownCard extends StatelessWidget {
                     CircleBackgroundIcon(
                       icon: SvgAsset(
                         AssetPath.getIcon('hourglass.svg'),
-                        color: Palette.purple700,
+                        color: Palette.purpleDark,
                         width: 16,
                       ),
                     ),

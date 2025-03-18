@@ -13,7 +13,7 @@ class LoadingIndicator extends StatelessWidget {
 
   const LoadingIndicator({
     super.key,
-    this.size = 50.0,
+    this.size = 30.0,
     this.withScaffold = false,
   });
 
@@ -28,23 +28,18 @@ class LoadingIndicator extends StatelessWidget {
 
   Center buildLoadingIndicator() {
     return Center(
-      child: SpinKitFoldingCube(
-        size: size,
-        duration: const Duration(milliseconds: 1500),
-        itemBuilder: (context, index) {
-          final colors = [
-            Palette.secondary.withValues(alpha: .8),
-            Palette.tertiary.withValues(alpha: .8),
-            Palette.purple300.withValues(alpha: .8),
-            Palette.primary.withValues(alpha: .8),
-          ];
-
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              color: colors[index % colors.length],
-            ),
-          );
-        },
+      child: Container(
+        width: (size * 2) + 16,
+        height: (size * 2) + 12,
+        decoration: BoxDecoration(
+          color: Palette.scaffoldBackground,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: SpinKitThreeBounce(
+          size: size,
+          color: Palette.purpleDark,
+          duration: const Duration(seconds: 2),
+        ),
       ),
     );
   }

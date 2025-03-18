@@ -26,7 +26,7 @@ class EventCard extends StatelessWidget {
       borderWidth: 2,
       borderColor: Palette.primaryText,
       layerSpace: 8,
-      layerColor: Palette.purple300,
+      layerColor: Palette.purpleLight,
       child: Column(
         children: [
           Container(

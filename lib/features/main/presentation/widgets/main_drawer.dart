@@ -25,7 +25,7 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Palette.purple700,
+      backgroundColor: Palette.purpleDark,
       shape: const RoundedRectangleBorder(),
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 20),
@@ -74,7 +74,7 @@ class MainDrawer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 title: Text(
-                 event.name,
+                  event.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyMedium!.bold.primaryColor,
