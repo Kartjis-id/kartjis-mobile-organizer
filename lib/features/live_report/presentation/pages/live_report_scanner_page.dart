@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
-import 'package:rive/rive.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/enums/scanned_status.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
-import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
-import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
-import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
+import 'package:kartjis_mobile_organizer/data_dummies/ticket.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/scanner_provider.dart';
+import 'package:kartjis_mobile_organizer/features/live_report/presentation/widgets/ticket_info.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/barcode_scanner.dart';
-import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class LiveReportScannerPage extends ConsumerWidget {
   const LiveReportScannerPage({super.key});
@@ -23,65 +20,34 @@ class LiveReportScannerPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Palette.primary,
       body: BarcodeScanner(
-        onDetect: (data) => showConfirmModalBottomSheet(context, ref, data),
+        onDetect: (data) => showTicketInfoModalBottomSheet(context, ref, data ?? ''),
       ),
     );
   }
 
-  Future<void> showConfirmModalBottomSheet(
+  Future<void> showTicketInfoModalBottomSheet(
     BuildContext context,
     WidgetRef ref,
-    String? data,
+    String data,
   ) async {
+    final ticket = switch (data) {
+      'bf91c434-dcf3-3a4c-b49a-12e0944ef1e2' => tickets.last,
+      '5b2c0654-de5e-3153-ac1f-751cac718e4e' => tickets.first,
+      _ => null,
+    };
+
+    final scannedStatus = switch (data) {
+      'bf91c434-dcf3-3a4c-b49a-12e0944ef1e2' => ScannedStatus.availableUnverified,
+      '5b2c0654-de5e-3153-ac1f-751cac718e4e' => ScannedStatus.availableVerified,
+      _ => ScannedStatus.unavailable,
+    };
+
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Positioned(
-            top: 16,
-            child: SizedBox(
-              width: 170,
-              height: 170,
-              child: RiveAnimation.asset(
-                AssetPath.getAnimation('alert_icon.riv'),
-              ),
-            ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Gap(176),
-              Text(
-                'Verification Success!',
-                textAlign: TextAlign.center,
-                style: textTheme.titleLarge,
-              ),
-              const Gap(16),
-              const Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Positioned(
-            top: 8,
-            right: 4,
-            child: IconButton(
-              onPressed: () => navigatorKey.currentState?.pop(),
-              tooltip: 'Back',
-              icon: SvgAsset(
-                AssetPath.getIcon('close.svg'),
-                color: Palette.secondaryText,
-                width: 20,
-              ),
-            ),
-          ),
-        ],
+      builder: (context) => TicketInfo(
+        ticket: ticket,
+        scannedStatus: scannedStatus,
       ),
     ).whenComplete(() => ref.read(scannerProvider.notifier).paused = false);
   }

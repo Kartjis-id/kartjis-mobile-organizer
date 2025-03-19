@@ -161,12 +161,12 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
                                 ButtonSegment(
                                   value: VerificationStatus.unverified,
                                   icon: Icon(Icons.arrow_circle_up),
-                                  label: Text('9000 Tickets'),
+                                  label: Text('3618'),
                                 ),
                                 ButtonSegment(
                                   value: VerificationStatus.verified,
                                   icon: Icon(Icons.arrow_circle_down),
-                                  label: Text('1000 Tickets'),
+                                  label: Text('372'),
                                 ),
                               ],
                               expandedInsets: const EdgeInsets.fromLTRB(20, 0, 20, 16),
@@ -199,13 +199,13 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
                           TicketList(
                             animationController: animationController,
                             scrollController: scrollController,
-                            tickets: ticketList.where((e) => e.status == VerificationStatus.unverified).toList(),
+                            tickets: ticketList.where((e) => !e.verified).toList(),
                             onRefresh: () async {},
                           ),
                           TicketList(
                             animationController: animationController,
                             scrollController: scrollController,
-                            tickets: ticketList.where((e) => e.status == VerificationStatus.verified).toList(),
+                            tickets: ticketList.where((e) => e.verified).toList(),
                             onRefresh: () async {},
                           ),
                         ],

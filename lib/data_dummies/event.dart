@@ -17,10 +17,10 @@ class Event {
 }
 
 const event = Event(
-  name: 'Madani Art Show 8',
+  name: 'Atlantis Festival',
   image: 'event_banner.png',
   type: 'Music',
   date: '31 Desember 2024',
   time: '20.00 WITA',
-  location: 'Parking Lot Phipo Mall, Makassar',
+  location: 'Parking Lot Phinisi Point, Makassar',
 );

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/enums/verification_status.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
@@ -27,7 +26,7 @@ class TicketCard extends StatelessWidget {
       borderWidth: 1.5,
       borderColor: Palette.primaryText,
       layerSpace: 5,
-      layerColor: ticket.status == VerificationStatus.verified ? Palette.greenLight : Palette.secondary,
+      layerColor: ticket.verified ? Palette.greenLight : Palette.secondary,
       onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +55,7 @@ class TicketCard extends StatelessWidget {
               const Gap(6),
               Flexible(
                 child: Text(
-                  '5b2c0654-de5e-3153-ac1f-751cac718e4e',
+                  ticket.id,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.labelMedium,
@@ -110,8 +109,8 @@ class TicketCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(12),
-              if (ticket.status == VerificationStatus.verified)
+              const Gap(8),
+              if (ticket.verified)
                 Expanded(
                   child: Text(
                     'Verified by @admin at 23:59 31/12/2025',

@@ -9,6 +9,7 @@ class BrutalismButton extends StatefulWidget {
   final Color layerColor;
   final double layerSpace;
   final Color? borderColor;
+  final double? borderWidth;
   final Widget? leading;
   final double radius;
   final VoidCallback? onTap;
@@ -22,6 +23,7 @@ class BrutalismButton extends StatefulWidget {
     required this.layerColor,
     required this.layerSpace,
     this.borderColor,
+    this.borderWidth,
     this.leading,
     this.radius = 8.0,
     this.onTap,
@@ -81,6 +83,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   color: widget.layerColor,
                   border: Border.all(
                     color: widget.borderColor ?? Colors.black,
+                    width: widget.borderWidth ?? 1,
                   ),
                   borderRadius: BorderRadius.circular(widget.radius),
                 ),
@@ -105,6 +108,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                   color: widget.enabled ? widget.primaryColor : Colors.white,
                   border: Border.all(
                     color: widget.enabled ? widget.borderColor ?? Colors.black : Colors.grey,
+                    width: widget.borderWidth ?? 1,
                   ),
                   borderRadius: BorderRadius.circular(widget.radius),
                 ),

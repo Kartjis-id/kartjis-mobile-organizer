@@ -14,6 +14,7 @@ final appTheme = ThemeData.from(
   colorScheme: colorScheme,
   textTheme: textTheme,
 ).copyWith(
+  dividerColor: Palette.divider,
   scaffoldBackgroundColor: Palette.scaffoldBackground,
   dialogTheme: dialogTheme,
   bottomSheetTheme: bottomSheetTheme,

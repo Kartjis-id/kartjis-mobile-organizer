@@ -71,9 +71,7 @@ class EventCard extends StatelessWidget {
                     event.type,
                     style: textTheme.labelMedium!.bold.tertiaryColor,
                   ),
-                  const Divider(
-                    color: Palette.divider,
-                  ),
+                  const Divider(),
                   Text(
                     'Tanggal & Waktu',
                     style: textTheme.labelMedium!.bold,

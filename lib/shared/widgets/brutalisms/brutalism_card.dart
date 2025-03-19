@@ -6,8 +6,8 @@ class BrutalismCard extends StatefulWidget {
   final Color primaryColor;
   final Color layerColor;
   final double layerSpace;
-  final double? borderWidth;
   final Color? borderColor;
+  final double? borderWidth;
   final EdgeInsets padding;
   final double radius;
   final VoidCallback? onTap;
@@ -19,8 +19,8 @@ class BrutalismCard extends StatefulWidget {
     required this.primaryColor,
     required this.layerColor,
     required this.layerSpace,
-    this.borderWidth,
     this.borderColor,
+    this.borderWidth,
     this.padding = const EdgeInsets.all(12.0),
     this.radius = 8.0,
     this.onTap,
@@ -78,8 +78,8 @@ class _BrutalismCardState extends State<BrutalismCard> {
                   decoration: BoxDecoration(
                     color: widget.layerColor,
                     border: Border.all(
-                      width: widget.borderWidth ?? 1,
                       color: widget.borderColor ?? Colors.black,
+                      width: widget.borderWidth ?? 1,
                     ),
                     borderRadius: BorderRadius.circular(widget.radius),
                   ),
@@ -104,8 +104,8 @@ class _BrutalismCardState extends State<BrutalismCard> {
                 decoration: BoxDecoration(
                   color: widget.enabled ? widget.primaryColor : Colors.white,
                   border: Border.all(
-                    width: widget.borderWidth ?? 1,
                     color: widget.enabled ? widget.borderColor ?? Colors.black : Colors.grey,
+                    width: widget.borderWidth ?? 1,
                   ),
                   borderRadius: BorderRadius.circular(widget.radius),
                 ),

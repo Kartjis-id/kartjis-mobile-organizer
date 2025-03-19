@@ -5,6 +5,10 @@
         android:label="Kartjis Organizer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Disable impeller when deploying app. -->
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
