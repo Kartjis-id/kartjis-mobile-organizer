@@ -11,6 +11,7 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/asset_path.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/features/dashboard/presentation/pages/dashboard_page.dart';
+import 'package:kartjis_mobile_organizer/features/description/presentation/pages/description_main_page.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/pages/live_report_main_page.dart';
 import 'package:kartjis_mobile_organizer/features/live_report/presentation/providers/manual_providers/search_provider.dart';
 import 'package:kartjis_mobile_organizer/features/main/presentation/providers/manual_providers/selected_menu_provider.dart';
@@ -42,6 +43,8 @@ class MainPage extends StatelessWidget {
                     return const DashboardPage();
                   case DrawerMenu.eventLiveReport:
                     return const LiveReportMainPage();
+                  case DrawerMenu.eventDescription:
+                    return const DescriptionMainPage();
                   default:
                     return const SizedBox.expand();
                 }
@@ -50,7 +53,10 @@ class MainPage extends StatelessWidget {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.symmetric(
+                vertical: 12,
+                horizontal: 8,
+              ),
               child: Consumer(
                 builder: (context, ref, child) {
                   final isSearching = ref.watch(searchProvider).isSearching;
@@ -78,17 +84,21 @@ class MainPage extends StatelessWidget {
                               color: Palette.primaryText,
                             ),
                           )
-                        : IconButton(
-                            key: const ValueKey(2),
-                            onPressed: () => scaffoldKey.currentState?.openDrawer(),
-                            tooltip: 'Menu',
-                            icon: SvgAsset(
-                              AssetPath.getIcon('list.svg'),
-                              color: Palette.primaryText,
-                            ),
-                            style: IconButton.styleFrom(
-                              backgroundColor: Palette.divider.withValues(alpha: .7),
-                            ),
+                        : Consumer(
+                            builder: (context, ref, child) {
+                              final selectedMenu = ref.watch(selectedMenuProvider);
+
+                              return IconButton(
+                                key: const ValueKey(2),
+                                onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                                tooltip: 'Menu',
+                                icon: SvgAsset(
+                                  AssetPath.getIcon('list.svg'),
+                                  color: getMenuIconButtonColor(selectedMenu),
+                                ),
+                                style: getMenuIconButtonStyle(selectedMenu),
+                              );
+                            },
                           ),
                   );
                 },
@@ -98,5 +108,21 @@ class MainPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color getMenuIconButtonColor(DrawerMenu selectedMenu) {
+    return switch (selectedMenu) {
+      DrawerMenu.eventDescription => Palette.scaffoldBackground,
+      _ => Palette.primaryText,
+    };
+  }
+
+  ButtonStyle? getMenuIconButtonStyle(DrawerMenu selectedMenu) {
+    return switch (selectedMenu) {
+      DrawerMenu.dashboard => IconButton.styleFrom(
+          backgroundColor: Palette.divider.withValues(alpha: .7),
+        ),
+      _ => null,
+    };
   }
 }

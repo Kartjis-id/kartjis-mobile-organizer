@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/extensions/context_extension.dart';
 import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
@@ -80,10 +81,16 @@ class OverviewChart extends StatelessWidget {
               ],
             ),
           ),
-          const Gap(4),
-          SvgAsset(
-            vectorPath,
-            fit: BoxFit.cover,
+          const Gap(8),
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: context.screenWidth,
+              maxWidth: context.screenWidth,
+            ),
+            child: SvgAsset(
+              vectorPath,
+              fit: context.screenWidth < 480 ? BoxFit.cover : BoxFit.fill,
+            ),
           ),
         ],
       ),

@@ -28,19 +28,12 @@ class BarcodeScanner extends StatefulWidget {
 }
 
 class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObserver, SingleTickerProviderStateMixin {
-  late final MobileScannerController scannerController;
   late final AnimationController animationController;
   late final Animation<double> animation;
+  late final MobileScannerController scannerController;
 
   @override
   void initState() {
-    scannerController = MobileScannerController(
-      cameraResolution: const Size(1920, 1080),
-      detectionTimeoutMs: 1000,
-    );
-
-    super.initState();
-
     WidgetsBinding.instance.addObserver(this);
 
     animationController = AnimationController(
@@ -48,18 +41,25 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
       duration: const Duration(seconds: 4),
     )..repeat(reverse: true);
 
+    super.initState();
+
     animation = Tween<double>(
       begin: 0,
       end: 1,
     ).animate(animationController);
+
+    scannerController = MobileScannerController(
+      cameraResolution: const Size(1920, 1080),
+      detectionTimeoutMs: 1000,
+    );
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
 
-    scannerController.dispose();
     animationController.dispose();
+    scannerController.dispose();
 
     super.dispose();
   }

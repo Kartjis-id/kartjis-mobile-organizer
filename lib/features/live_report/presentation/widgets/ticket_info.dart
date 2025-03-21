@@ -126,9 +126,12 @@ class TicketInfo extends StatelessWidget {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(6),
-                              child: Image.asset(
-                                AssetPath.getImage(event.image),
-                                fit: BoxFit.cover,
+                              child: AspectRatio(
+                                aspectRatio: 4 / 3,
+                                child: Image.asset(
+                                  AssetPath.getImage(event.image),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -144,7 +147,7 @@ class TicketInfo extends StatelessWidget {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: textTheme.titleMedium!.copyWith(
-                                  height: 1.2,
+                                  height: 1.25,
                                 ),
                               ),
                               const Gap(6),

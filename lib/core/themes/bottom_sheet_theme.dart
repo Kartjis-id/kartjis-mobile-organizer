@@ -10,7 +10,7 @@ const bottomSheetTheme = BottomSheetThemeData(
   modalBackgroundColor: Palette.scaffoldBackground,
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.vertical(
-      top: Radius.circular(24),
+      top: Radius.circular(20),
     ),
   ),
   dragHandleSize: Size(40, 5),

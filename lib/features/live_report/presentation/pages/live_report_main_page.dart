@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:kartjis_mobile_organizer/core/enums/drawer_menu.dart';
@@ -41,10 +42,10 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
       duration: kThemeAnimationDuration,
     )..forward();
 
+    super.initState();
+
     scrollController = ScrollController();
     pageController = PageController();
-
-    super.initState();
   }
 
   @override
@@ -148,6 +149,7 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
                                           color: Palette.primaryText,
                                         ),
                                       ),
+                                      const Gap(4),
                                     ],
                                   ),
                           ),

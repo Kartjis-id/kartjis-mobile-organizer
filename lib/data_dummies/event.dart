@@ -18,7 +18,7 @@ class Event {
 
 const event = Event(
   name: 'Atlantis Festival',
-  image: 'event_banner.png',
+  image: 'event_banner.jpg',
   type: 'Music',
   date: '31 Desember 2024',
   time: '20.00 WITA',

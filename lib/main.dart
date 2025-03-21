@@ -16,6 +16,7 @@ void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
+      systemStatusBarContrastEnforced: true,
       systemNavigationBarDividerColor: Palette.divider,
     ),
   );
