@@ -225,13 +225,13 @@ class TicketInfo extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: BrutalismButton(
-                text: 'Close',
-                textColor: Palette.primaryText,
-                primaryColor: closeButtonColor,
-                borderColor: Palette.primaryText,
-                borderWidth: 1.5,
+                color: closeButtonColor,
                 layerColor: Palette.primaryText,
                 layerSpace: 4,
+                borderColor: Palette.primaryText,
+                borderWidth: 1.5,
+                textColor: Palette.primaryText,
+                text: 'Close',
                 onTap: () => navigatorKey.currentState?.pop(),
               ),
             ),
@@ -260,7 +260,7 @@ class TicketInfo extends StatelessWidget {
 
   Color get closeButtonColor {
     return switch (scannedStatus) {
-      ScannedStatus.availableUnverified => Palette.greenLight,
+      ScannedStatus.availableUnverified => Palette.green,
       ScannedStatus.availableVerified => Palette.tertiary,
       ScannedStatus.unavailable => Palette.secondary,
     };

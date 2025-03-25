@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 
 class BrutalismCard extends StatefulWidget {
   final bool enabled;
-  final Color primaryColor;
+  final double radius;
+  final EdgeInsets padding;
+  final Color color;
   final Color layerColor;
   final double layerSpace;
   final Color? borderColor;
   final double? borderWidth;
-  final EdgeInsets padding;
-  final double radius;
   final VoidCallback? onTap;
   final Widget child;
 
   const BrutalismCard({
     super.key,
     this.enabled = true,
-    required this.primaryColor,
+    this.radius = 8.0,
+    this.padding = const EdgeInsets.all(12.0),
+    required this.color,
     required this.layerColor,
     required this.layerSpace,
     this.borderColor,
     this.borderWidth,
-    this.padding = const EdgeInsets.all(12.0),
-    this.radius = 8.0,
     this.onTap,
     required this.child,
   });
@@ -102,7 +102,7 @@ class _BrutalismCardState extends State<BrutalismCard> {
                         bottom: widget.layerSpace,
                       ),
                 decoration: BoxDecoration(
-                  color: widget.enabled ? widget.primaryColor : Colors.white,
+                  color: widget.enabled ? widget.color : Colors.white,
                   border: Border.all(
                     color: widget.enabled ? widget.borderColor ?? Colors.black : Colors.grey,
                     width: widget.borderWidth ?? 1,

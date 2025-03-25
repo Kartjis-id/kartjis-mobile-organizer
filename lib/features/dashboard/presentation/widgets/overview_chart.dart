@@ -34,11 +34,11 @@ class OverviewChart extends StatelessWidget {
     return BrutalismCard(
       radius: 8,
       padding: EdgeInsets.zero,
-      primaryColor: Palette.scaffoldBackground,
-      borderWidth: 1.5,
-      borderColor: Palette.primaryText,
-      layerSpace: 4,
+      color: Palette.scaffoldBackground,
       layerColor: Palette.scaffoldBackground,
+      layerSpace: 4,
+      borderColor: Palette.primaryText,
+      borderWidth: 1.5,
       child: Column(
         children: [
           Padding(
@@ -55,7 +55,7 @@ class OverviewChart extends StatelessWidget {
                         width: 16,
                       ),
                       padding: const EdgeInsets.all(6),
-                      backgroundColor: Palette.divider.withValues(alpha: .7),
+                      backgroundColor: Palette.grey,
                     ),
                     const Gap(10),
                     Flexible(

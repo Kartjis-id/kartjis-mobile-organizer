@@ -30,11 +30,11 @@ class CountDownCard extends StatelessWidget {
     return BrutalismCard(
       radius: 12,
       padding: EdgeInsets.zero,
-      primaryColor: Palette.purpleDark,
-      borderWidth: 2,
-      borderColor: Palette.primaryText,
-      layerSpace: 6,
+      color: Palette.purpleDark,
       layerColor: Palette.tertiary,
+      layerSpace: 6,
+      borderColor: Palette.primaryText,
+      borderWidth: 2,
       child: Stack(
         children: [
           Positioned(
@@ -45,7 +45,7 @@ class CountDownCard extends StatelessWidget {
               height: 170,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.black.withValues(alpha: .15),
+                color: Colors.black.withValues(alpha: .18),
               ),
             ),
           ),
@@ -57,7 +57,7 @@ class CountDownCard extends StatelessWidget {
               height: 155,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.black.withValues(alpha: .15),
+                color: Colors.black.withValues(alpha: .18),
               ),
             ),
           ),

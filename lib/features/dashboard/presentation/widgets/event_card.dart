@@ -22,11 +22,11 @@ class EventCard extends StatelessWidget {
     return BrutalismCard(
       radius: 12,
       padding: EdgeInsets.zero,
-      primaryColor: Palette.scaffoldBackground,
-      borderWidth: 2,
-      borderColor: Palette.primaryText,
-      layerSpace: 8,
+      color: Palette.scaffoldBackground,
       layerColor: Palette.purpleLight,
+      layerSpace: 8,
+      borderColor: Palette.primaryText,
+      borderWidth: 2,
       child: Column(
         children: [
           Container(

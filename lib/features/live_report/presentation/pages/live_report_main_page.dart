@@ -74,6 +74,7 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
           child: Scaffold(
             backgroundColor: Palette.background,
             body: CustomScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               slivers: [
                 PinnedHeaderSliver(
                   child: DecoratedBox(
@@ -96,23 +97,17 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
                                 ? Stack(
                                     alignment: Alignment.center,
                                     children: [
-                                      AppBar(
-                                        toolbarHeight: 72,
-                                        backgroundColor: Palette.scaffoldBackground,
-                                        surfaceTintColor: Palette.scaffoldBackground,
-                                      ),
+                                      AppBar(),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 12,
-                                          right: 20,
-                                        ),
+                                        padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
                                         child: Row(
                                           children: [
-                                            Opacity(
-                                              opacity: 0,
-                                              child: IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(Icons.arrow_back),
+                                            IconButton(
+                                              onPressed: () => toggleSearch(ref, isSearching),
+                                              tooltip: 'Back',
+                                              icon: SvgAsset(
+                                                AssetPath.getIcon('arrow_left.svg'),
+                                                color: Palette.primaryText,
                                               ),
                                             ),
                                             Expanded(
@@ -133,23 +128,19 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
                                     ],
                                   )
                                 : AppBar(
-                                    toolbarHeight: 72,
-                                    backgroundColor: Palette.scaffoldBackground,
-                                    surfaceTintColor: Palette.scaffoldBackground,
-                                    centerTitle: true,
                                     title: SvgAsset(
                                       AssetPath.getVector('live_report.svg'),
                                     ),
                                     actions: [
                                       IconButton(
-                                        onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
+                                        onPressed: () => toggleSearch(ref, isSearching),
                                         tooltip: 'Search',
                                         icon: SvgAsset(
                                           AssetPath.getIcon('search.svg'),
                                           color: Palette.primaryText,
                                         ),
                                       ),
-                                      const Gap(4),
+                                      const Gap(8),
                                     ],
                                   ),
                           ),
@@ -241,6 +232,10 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
         );
       },
     );
+  }
+
+  void toggleSearch(WidgetRef ref, bool isSearching) {
+    ref.read(searchProvider.notifier).isSearching = !isSearching;
   }
 
   void searchTicket(WidgetRef ref, String text) {

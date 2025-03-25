@@ -37,7 +37,7 @@ class LoadingIndicator extends StatelessWidget {
         ),
         child: SpinKitThreeBounce(
           size: size,
-          color: Palette.purpleDark,
+          color: Palette.primary,
           duration: const Duration(seconds: 2),
         ),
       ),

@@ -51,12 +51,12 @@ class CustomDialog extends StatelessWidget {
                 children: [
                   Expanded(
                     child: BrutalismButton(
-                      text: 'Back',
-                      textColor: Palette.primary,
-                      primaryColor: Palette.scaffoldBackground,
-                      borderColor: Palette.primary,
+                      color: Palette.scaffoldBackground,
                       layerColor: Palette.primary,
                       layerSpace: 3.5,
+                      borderColor: Palette.primary,
+                      textColor: Palette.primary,
+                      text: 'Back',
                       onTap: () => navigatorKey.currentState?.pop(),
                     ),
                   ),
@@ -64,11 +64,11 @@ class CustomDialog extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: BrutalismButton(
-                        text: primaryButtonText ?? 'Select',
-                        primaryColor: Palette.primary,
-                        borderColor: Palette.primary,
+                        color: Palette.primary,
                         layerColor: Palette.scaffoldBackground,
                         layerSpace: 3.5,
+                        borderColor: Palette.primary,
+                        text: primaryButtonText ?? 'Select',
                         onTap: onPressedPrimaryButton,
                       ),
                     ),

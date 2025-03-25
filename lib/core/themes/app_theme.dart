@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:kartjis_mobile_organizer/core/themes/app_bar_theme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/bottom_sheet_theme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/button_theme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
@@ -16,6 +17,7 @@ final appTheme = ThemeData.from(
 ).copyWith(
   dividerColor: Palette.divider,
   scaffoldBackgroundColor: Palette.scaffoldBackground,
+  appBarTheme: appBarTheme,
   dialogTheme: dialogTheme,
   bottomSheetTheme: bottomSheetTheme,
   inputDecorationTheme: inputDecorationTheme,

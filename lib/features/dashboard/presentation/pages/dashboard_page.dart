@@ -21,7 +21,10 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.only(
+          top: 16,
+          bottom: 20,
+        ),
         child: Column(
           children: [
             const SafeArea(

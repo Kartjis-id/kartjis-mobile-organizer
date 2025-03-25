@@ -53,53 +53,28 @@ class MainPage extends StatelessWidget {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 8,
-              ),
+              padding: const EdgeInsets.all(8),
               child: Consumer(
                 builder: (context, ref, child) {
                   final isSearching = ref.watch(searchProvider).isSearching;
+                  final selectedMenu = ref.watch(selectedMenuProvider);
 
-                  return AnimatedSwitcher(
+                  return AnimatedOpacity(
+                    opacity: isSearching ? 0 : 1,
                     duration: const Duration(milliseconds: 200),
-                    switchInCurve: Curves.easeIn,
-                    switchOutCurve: Curves.easeOut,
-                    transitionBuilder: (child, animation) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: ScaleTransition(
-                          scale: animation,
-                          child: child,
+                    curve: Curves.easeOut,
+                    child: Visibility(
+                      visible: !isSearching,
+                      child: IconButton(
+                        onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                        tooltip: 'Menu',
+                        icon: SvgAsset(
+                          AssetPath.getIcon('list.svg'),
+                          color: Palette.primaryText,
                         ),
-                      );
-                    },
-                    child: isSearching
-                        ? IconButton(
-                            key: const ValueKey(1),
-                            onPressed: () => ref.read(searchProvider.notifier).isSearching = !isSearching,
-                            tooltip: 'Back',
-                            icon: SvgAsset(
-                              AssetPath.getIcon('arrow_left.svg'),
-                              color: Palette.primaryText,
-                            ),
-                          )
-                        : Consumer(
-                            builder: (context, ref, child) {
-                              final selectedMenu = ref.watch(selectedMenuProvider);
-
-                              return IconButton(
-                                key: const ValueKey(2),
-                                onPressed: () => scaffoldKey.currentState?.openDrawer(),
-                                tooltip: 'Menu',
-                                icon: SvgAsset(
-                                  AssetPath.getIcon('list.svg'),
-                                  color: getMenuIconButtonColor(selectedMenu),
-                                ),
-                                style: getMenuIconButtonStyle(selectedMenu),
-                              );
-                            },
-                          ),
+                        style: getMenuIconButtonStyle(selectedMenu),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -110,17 +85,10 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  Color getMenuIconButtonColor(DrawerMenu selectedMenu) {
-    return switch (selectedMenu) {
-      DrawerMenu.eventDescription => Palette.scaffoldBackground,
-      _ => Palette.primaryText,
-    };
-  }
-
   ButtonStyle? getMenuIconButtonStyle(DrawerMenu selectedMenu) {
     return switch (selectedMenu) {
       DrawerMenu.dashboard => IconButton.styleFrom(
-          backgroundColor: Palette.divider.withValues(alpha: .7),
+          backgroundColor: Palette.grey,
         ),
       _ => null,
     };

@@ -37,7 +37,7 @@ final segmentedButtonTheme = SegmentedButtonThemeData(
         return Palette.purpleLight;
       }
 
-      return Palette.divider.withValues(alpha: .7);
+      return Palette.grey;
     }),
     iconSize: WidgetStateProperty.all(24),
     textStyle: WidgetStateProperty.all(textTheme.bodyLarge!.medium),

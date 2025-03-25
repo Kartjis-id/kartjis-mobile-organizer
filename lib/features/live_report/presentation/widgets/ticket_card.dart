@@ -22,11 +22,11 @@ class TicketCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BrutalismCard(
       radius: 8,
-      primaryColor: Palette.scaffoldBackground,
-      borderWidth: 1.5,
-      borderColor: Palette.primaryText,
+      color: Palette.scaffoldBackground,
+      layerColor: ticket.verified ? Palette.green : Palette.secondary,
       layerSpace: 5,
-      layerColor: ticket.verified ? Palette.greenLight : Palette.secondary,
+      borderColor: Palette.primaryText,
+      borderWidth: 1.5,
       onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

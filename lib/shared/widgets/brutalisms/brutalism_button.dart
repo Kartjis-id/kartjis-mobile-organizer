@@ -3,29 +3,29 @@ import 'package:flutter/material.dart';
 
 class BrutalismButton extends StatefulWidget {
   final bool enabled;
-  final String text;
-  final Color? textColor;
-  final Color primaryColor;
+  final double radius;
+  final Color color;
   final Color layerColor;
   final double layerSpace;
   final Color? borderColor;
   final double? borderWidth;
+  final Color? textColor;
+  final String text;
   final Widget? leading;
-  final double radius;
   final VoidCallback? onTap;
 
   const BrutalismButton({
     super.key,
     this.enabled = true,
-    required this.text,
-    this.textColor,
-    required this.primaryColor,
+    this.radius = 8.0,
+    required this.color,
     required this.layerColor,
     required this.layerSpace,
     this.borderColor,
     this.borderWidth,
+    this.textColor,
+    required this.text,
     this.leading,
-    this.radius = 8.0,
     this.onTap,
   });
 
@@ -105,7 +105,7 @@ class _BrutalismButtonState extends State<BrutalismButton> {
                         bottom: widget.layerSpace,
                       ),
                 decoration: BoxDecoration(
-                  color: widget.enabled ? widget.primaryColor : Colors.white,
+                  color: widget.enabled ? widget.color : Colors.white,
                   border: Border.all(
                     color: widget.enabled ? widget.borderColor ?? Colors.black : Colors.grey,
                     width: widget.borderWidth ?? 1,

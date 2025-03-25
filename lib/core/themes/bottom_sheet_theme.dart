@@ -6,8 +6,8 @@ import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 const bottomSheetTheme = BottomSheetThemeData(
   backgroundColor: Palette.scaffoldBackground,
-  surfaceTintColor: Palette.scaffoldBackground,
   modalBackgroundColor: Palette.scaffoldBackground,
+  surfaceTintColor: Palette.scaffoldBackground,
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.vertical(
       top: Radius.circular(20),

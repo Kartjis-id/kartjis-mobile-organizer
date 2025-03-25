@@ -111,7 +111,7 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                 ScanWindowOverlay(
                   controller: scannerController,
                   scanWindow: scanWindow,
-                  color: Palette.primary.withValues(alpha: .6),
+                  color: Palette.primary.withValues(alpha: .7),
                   borderRadius: BorderRadius.circular(20),
                   borderColor: Palette.purpleLight,
                   borderWidth: 4,
@@ -142,10 +142,10 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                                             begin: Alignment.topCenter,
                                             end: Alignment.bottomCenter,
                                             colors: [
-                                              Palette.greenLight.withValues(alpha: 0),
-                                              Palette.greenLight.withValues(alpha: .1),
-                                              Palette.greenLight.withValues(alpha: .3),
-                                              Palette.greenLight.withValues(alpha: .5),
+                                              Palette.green.withValues(alpha: 0),
+                                              Palette.green.withValues(alpha: .1),
+                                              Palette.green.withValues(alpha: .3),
+                                              Palette.green.withValues(alpha: .5),
                                             ],
                                           ),
                                         ),
@@ -153,7 +153,7 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                                     Container(
                                       height: 5,
                                       decoration: BoxDecoration(
-                                        color: Palette.greenLight,
+                                        color: Palette.green,
                                         borderRadius: BorderRadius.circular(99),
                                       ),
                                     ),
@@ -165,10 +165,10 @@ class _QrCodeScannerState extends State<BarcodeScanner> with WidgetsBindingObser
                                             begin: Alignment.bottomCenter,
                                             end: Alignment.topCenter,
                                             colors: [
-                                              Palette.greenLight.withValues(alpha: 0),
-                                              Palette.greenLight.withValues(alpha: .1),
-                                              Palette.greenLight.withValues(alpha: .3),
-                                              Palette.greenLight.withValues(alpha: .5),
+                                              Palette.green.withValues(alpha: 0),
+                                              Palette.green.withValues(alpha: .1),
+                                              Palette.green.withValues(alpha: .3),
+                                              Palette.green.withValues(alpha: .5),
                                             ],
                                           ),
                                         ),

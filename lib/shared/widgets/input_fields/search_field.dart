@@ -73,7 +73,7 @@ class _SearchFieldState extends State<SearchField> {
             hintStyle: textTheme.bodyLarge!.secondaryTextColor,
             isDense: true,
             filled: true,
-            fillColor: Palette.divider.withValues(alpha: .7),
+            fillColor: Palette.grey,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide.none,
