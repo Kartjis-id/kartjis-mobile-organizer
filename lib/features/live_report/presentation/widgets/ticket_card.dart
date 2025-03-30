@@ -42,6 +42,7 @@ class TicketCard extends StatelessWidget {
                   color: Palette.purpleLight,
                   border: Border.all(
                     color: Palette.primaryText,
+                    strokeAlign: BorderSide.strokeAlignOutside,
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
@@ -52,7 +53,7 @@ class TicketCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Gap(6),
+              const Gap(8),
               Flexible(
                 child: Text(
                   ticket.id,
@@ -86,6 +87,7 @@ class TicketCard extends StatelessWidget {
                   color: Palette.tertiary,
                   border: Border.all(
                     color: Palette.primaryText,
+                    strokeAlign: BorderSide.strokeAlignOutside,
                   ),
                   borderRadius: BorderRadius.circular(99),
                 ),

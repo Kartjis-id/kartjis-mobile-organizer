@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 
 const appBarTheme = AppBarTheme(
-  toolbarHeight: 68,
+  toolbarHeight: 66,
   centerTitle: true,
   backgroundColor: Palette.scaffoldBackground,
   surfaceTintColor: Palette.scaffoldBackground,

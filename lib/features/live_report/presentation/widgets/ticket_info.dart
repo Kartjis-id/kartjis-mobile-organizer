@@ -16,6 +16,7 @@ import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/event.dart';
 import 'package:kartjis_mobile_organizer/data_dummies/ticket.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/brutalisms/brutalism_button.dart';
+import 'package:kartjis_mobile_organizer/shared/widgets/dashed_divider.dart';
 import 'package:kartjis_mobile_organizer/shared/widgets/svg_asset.dart';
 
 class TicketInfo extends StatelessWidget {
@@ -121,13 +122,14 @@ class TicketInfo extends StatelessWidget {
                               border: Border.all(
                                 color: Palette.primaryText,
                                 width: 1.5,
+                                strokeAlign: BorderSide.strokeAlignOutside,
                               ),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(4),
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(4),
                               child: AspectRatio(
-                                aspectRatio: 4 / 3,
+                                aspectRatio: 16 / 9,
                                 child: Image.asset(
                                   AssetPath.getImage(event.image),
                                   fit: BoxFit.cover,
@@ -144,13 +146,11 @@ class TicketInfo extends StatelessWidget {
                             children: [
                               Text(
                                 event.name,
-                                maxLines: 2,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: textTheme.titleMedium!.copyWith(
-                                  height: 1.25,
-                                ),
+                                style: textTheme.titleSmall,
                               ),
-                              const Gap(6),
+                              const Gap(4),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(6, 4, 8, 4),
                                 decoration: BoxDecoration(
@@ -183,8 +183,11 @@ class TicketInfo extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Divider(
-                    height: 32,
+                  const DashedDivider(
+                    dashWidth: 5,
+                    dashSpace: 3,
+                    verticalSpacing: 20,
+                    color: Colors.grey,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -195,9 +198,7 @@ class TicketInfo extends StatelessWidget {
                       capitalizedTitle: true,
                     ),
                   ),
-                  const Divider(
-                    height: 32,
-                  ),
+                  const Gap(16),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: _TicketInfoSection(
@@ -206,9 +207,7 @@ class TicketInfo extends StatelessWidget {
                       subtitle: 'Ticket 2 of 3 purchased',
                     ),
                   ),
-                  const Divider(
-                    height: 32,
-                  ),
+                  const Gap(16),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: _TicketInfoSection(
@@ -217,9 +216,7 @@ class TicketInfo extends StatelessWidget {
                       subtitle: '23:59 31/12/2025',
                     ),
                   ),
-                  const Divider(
-                    height: 32,
-                  ),
+                  const Gap(16),
                 ],
               ),
             Padding(
@@ -244,25 +241,25 @@ class TicketInfo extends StatelessWidget {
 
   String get animationAsset {
     return switch (scannedStatus) {
-      ScannedStatus.availableUnverified => AssetPath.getAnimation('checkmark_icon.riv'),
-      ScannedStatus.availableVerified => AssetPath.getAnimation('alert_icon.riv'),
-      ScannedStatus.unavailable => AssetPath.getAnimation('error_icon.riv'),
+      ScannedStatus.success => AssetPath.getAnimation('checkmark_icon.riv'),
+      ScannedStatus.warning => AssetPath.getAnimation('alert_icon.riv'),
+      ScannedStatus.error => AssetPath.getAnimation('error_icon.riv'),
     };
   }
 
   String get verificationStatusTitle {
     return switch (scannedStatus) {
-      ScannedStatus.availableUnverified => 'Verification Success!',
-      ScannedStatus.availableVerified => 'Ticket Has Been Verified!',
-      ScannedStatus.unavailable => 'Ticket Not Found!',
+      ScannedStatus.success => 'Verification Success',
+      ScannedStatus.warning => 'Ticket Already Verified',
+      ScannedStatus.error => 'Ticket Not Found',
     };
   }
 
   Color get closeButtonColor {
     return switch (scannedStatus) {
-      ScannedStatus.availableUnverified => Palette.green,
-      ScannedStatus.availableVerified => Palette.tertiary,
-      ScannedStatus.unavailable => Palette.secondary,
+      ScannedStatus.success => Palette.green,
+      ScannedStatus.warning => Palette.tertiary,
+      ScannedStatus.error => Palette.secondary,
     };
   }
 }

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:kartjis_mobile_organizer/core/extensions/text_style_extension.dart';
 import 'package:kartjis_mobile_organizer/core/themes/color_scheme.dart';
 import 'package:kartjis_mobile_organizer/core/themes/text_theme.dart';
 import 'package:kartjis_mobile_organizer/core/utilities/keys.dart';
@@ -38,7 +37,9 @@ class CustomDialog extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Text(
                 title,
-                style: textTheme.titleLarge!.primaryColor,
+                style: textTheme.titleLarge!.copyWith(
+                  height: 1.25,
+                ),
               ),
             ),
             Padding(

@@ -130,6 +130,7 @@ class _LiveReportMainPageState extends State<LiveReportMainPage> with SingleTick
                                 : AppBar(
                                     title: SvgAsset(
                                       AssetPath.getVector('live_report.svg'),
+                                      fit: BoxFit.fitHeight,
                                     ),
                                     actions: [
                                       IconButton(

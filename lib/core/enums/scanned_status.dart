@@ -1,5 +1,5 @@
 enum ScannedStatus {
-  availableUnverified,
-  availableVerified,
-  unavailable,
+  success,
+  warning,
+  error,
 }
